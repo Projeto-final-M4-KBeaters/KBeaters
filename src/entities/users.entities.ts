@@ -46,7 +46,8 @@ class Users{
     @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.feat, {nullable:true})
     performerToFeatAlbums: PerformersToAlbums[]
 
-    @OneToOne(() => Likes, {nullable:true}) @JoinColumn()
+    @OneToOne(() => Likes, {nullable:true}) 
+    @JoinColumn()
     likeMusic: Likes 
 
     @BeforeUpdate()

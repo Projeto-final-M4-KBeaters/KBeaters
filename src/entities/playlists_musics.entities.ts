@@ -1,4 +1,4 @@
-import { Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Musics } from "./musics.entities";
 import { Playlists } from "./playlists.entities";
 
@@ -8,6 +8,7 @@ class PlaylistsToMusics{
     id:string
 
     @ManyToMany(() => Musics, musics => musics.playlistsToMusics)
+    @JoinTable()
     musics: Musics[]
 
     @ManyToOne(() => Playlists, playlists => playlists.playlistToMusics)
