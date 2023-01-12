@@ -17,11 +17,11 @@ class Playlists{
     @CreateDateColumn()
     createdAt: Date
 
-    @ManyToOne(() => Users, users => users.id)
+    @ManyToOne(() => Users, users => users.playlists)
     user: Users
 
     @OneToMany(()=> PlaylistsToMusics, playlistsToMusics => playlistsToMusics.playlists)
-    playlist: PlaylistsToMusics
+    playlistToMusics: PlaylistsToMusics
 }
 
 export {Playlists}

@@ -1,7 +1,8 @@
-import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, ManyToOne, ManyToMany} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, ManyToOne, ManyToMany, OneToMany} from "typeorm";
 import { Albums } from "./albuns.entities";
 import { Genres } from "./genres.entities";
 import { Likes } from "./likes.entities";
+import { PerformersToMusics } from "./performers_musics.entities";
 import { PlaylistsToMusics } from "./playlists_musics.entities";
 
 @Entity('musics')
@@ -27,8 +28,11 @@ class Musics{
     @ManyToOne(() => Likes, likes => likes.musics)
     likes: Likes
 
-    @ManyToMany(() => PlaylistsToMusics, playlistsToMusics => playlistsToMusics.playlists)
-    playlists:PlaylistsToMusics
+    @ManyToMany(() => PlaylistsToMusics, playlistsToMusics => playlistsToMusics.musics)
+    playlistsToMusics:PlaylistsToMusics
+
+    @OneToMany(() => PerformersToMusics, performersToMusics => performersToMusics.musics)
+    performerToMusics: PerformersToMusics
 }
 
 export {Musics}
