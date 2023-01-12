@@ -14,10 +14,10 @@ const loginService = async ( userData: IUserLogin ): Promise<string> => {
     })
     
     if(!user){
-        throw new AppError("User or password invalid", 403)
+        throw new AppError("Email or password invalid", 403)
     }
     if(!user.isActive){
-        throw new AppError("usuario inativo", 400)
+        throw new AppError("User disabled", 404)
     }
     const passwordMatch = await compare(userData.password, user.password)
 
