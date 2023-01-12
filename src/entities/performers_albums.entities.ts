@@ -9,13 +9,13 @@ class PerformersToAlbums{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @ManyToOne(() => Albums, albums => albums.id)
+    @ManyToOne(() => Albums, albums => albums.performerToAlbums)
     albums: Albums
 
-    @ManyToOne(() => Users, owner => owner.id)
+    @ManyToOne(() => Users, owner => owner.performerToAlbums)
     owner: Users
 
-    @ManyToOne(() => Users, feat => feat.id)
+    @ManyToOne(() => Users, feat => feat.performerToFeatAlbums)
     feat: Users[]
 
 }

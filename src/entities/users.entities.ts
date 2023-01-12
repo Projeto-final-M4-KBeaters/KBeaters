@@ -41,10 +41,10 @@ class Users{
     featMusics: PerformersToMusics[]
 
     @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.owner, {nullable:true})
-    albums: PerformersToAlbums[]
+    performerToAlbums: PerformersToAlbums[]
 
     @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.feat, {nullable:true})
-    featAlbums: PerformersToAlbums[]
+    performerToFeatAlbums: PerformersToAlbums[]
 
     @OneToOne(() => Likes, {nullable:true}) @JoinColumn()
     likeMusic: Likes 

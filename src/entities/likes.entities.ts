@@ -13,10 +13,10 @@ class Likes{
     @UpdateDateColumn()
     updatedAt: Date
 
-    @OneToMany(() => Musics, musics => musics.id)
+    @OneToMany(() => Musics, musics => musics.likes)
     musics: Musics
 
-    @OneToOne(() => Users, user => user.id)
+    @OneToOne(() => Users, user => user.likeMusic)
     user: Users
 }
 

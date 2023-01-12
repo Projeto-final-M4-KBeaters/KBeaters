@@ -7,10 +7,10 @@ class PlaylistsToMusics{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @ManyToMany(() => Musics, musics => musics.id)
+    @ManyToMany(() => Musics, musics => musics.playlistsToMusics)
     musics: Musics[]
 
-    @ManyToOne(() => Playlists, playlists => playlists.id)
+    @ManyToOne(() => Playlists, playlists => playlists.playlistToMusics)
     playlists: Playlists
 
 }
