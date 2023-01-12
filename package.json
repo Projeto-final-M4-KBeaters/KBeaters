@@ -2,7 +2,7 @@
   "name": "lucas",
   "version": "1.0.0",
   "description": "Projeto Final M4 KBeaters",
-  "main": "server.ts",
+  "main": "index.ts",
   "repository": "git@github.com:Projeto-final-M4-KBeaters/KBeaters.git",
   "author": "lucas <lucascostaschmidt@gmail.com>",
   "license": "MIT",
