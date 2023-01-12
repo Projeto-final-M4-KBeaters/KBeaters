@@ -10,6 +10,9 @@ class Users{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
+    @Column({length: 50})
+    name:string
+
     @Column({length: 150, unique:true})
     email:string
 

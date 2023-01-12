@@ -1,5 +1,5 @@
-import {app} from "./app";
-import {AppDataSource} from "./data-source";
+import app from "./app";
+import AppDataSource from "./data-source";
 
 (async () => {
 
@@ -11,4 +11,4 @@ import {AppDataSource} from "./data-source";
     app.listen(3000, () => {
         console.log("Server running on localhost:3000")
     })    
-})
+})()
