@@ -21,4 +21,11 @@ interface IUserResponse{
     updatedAt: Date
 }
 
-export {IUserLogin, IUserRequest, IUserResponse}
+interface IUserPatchRequest{
+    name?: string
+    email?: string
+    password?: string
+    isPerformer?: boolean
+}
+
+export {IUserLogin, IUserRequest, IUserResponse, IUserPatchRequest}

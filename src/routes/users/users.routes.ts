@@ -1,12 +1,15 @@
-import { Router } from "express"
-import { registerUserController } from "../../controllers"
-import { ensureDataIsValidMiddleware } from "../../middlewares"
+import { Router } from "express";
+import { listAllPerformersController, listUserController, deleteUserController, listAllUsersController, registerUserController, patchUserController } from "../../controllers";
+import { ensureAuthAdminMiddleware, ensureAuthAdminOrSelfMiddleware, ensureAuthMiddleware, ensureBodyExistsMiddleware, ensureDataIsValidMiddleware, ensureEmailNotExistsMiddleware, ensureUserPatchSerializerMiddleware } from "../../middlewares";
+import ensureIdIsValidMiddleware from "../../middlewares/ensureIdIsValid.middleware";
+import { userPatchRequestSerializer, userSerializer } from "../../serializers/users";
 
-import { userSerializer } from "../../serializers/users"
+const userRoutes = Router();
 
-
-const userRoutes = Router()
-
-userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserController)
-
+userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserController);
+userRoutes.get("/:id", ensureIdIsValidMiddleware, listUserController);
+userRoutes.get('', listAllUsersController);
+userRoutes.get('/performer', listAllPerformersController);
+userRoutes.delete('/:id', ensureAuthMiddleware, ensureAuthAdminMiddleware, ensureIdIsValidMiddleware, deleteUserController);
+userRoutes.patch('/:id', ensureUserPatchSerializerMiddleware(userPatchRequestSerializer), ensureAuthMiddleware, ensureAuthAdminOrSelfMiddleware, ensureBodyExistsMiddleware, ensureIdIsValidMiddleware, ensureEmailNotExistsMiddleware, patchUserController)
 export default userRoutes
