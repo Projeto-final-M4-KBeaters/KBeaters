@@ -52,8 +52,7 @@ class Users{
     @OneToOne(() => Likes, {nullable:true}) 
     @JoinColumn()
     likeMusic: Likes 
-
-    @BeforeUpdate()
+    
     @BeforeInsert()
     hashPassword(){
         this.password = hashSync(this.password, 10)
