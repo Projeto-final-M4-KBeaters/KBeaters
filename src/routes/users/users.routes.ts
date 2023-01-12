@@ -10,4 +10,5 @@ userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserCont
 userRoutes.get('', listAllUsersController);
 userRoutes.get('/performer', listAllPerformersController);
 
-export default userRoutes;
+
+export default userRoutes
