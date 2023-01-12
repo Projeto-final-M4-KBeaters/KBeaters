@@ -13,7 +13,7 @@ const registerUserService = async (usersData: IUserRequest) => {
   })
 
   if (userExist) {
-    throw new AppError("Already exists", 409);
+    throw new AppError("Already exists", 409)
   }
 
   const createdUser = userRepository.create(usersData)
