@@ -13,6 +13,9 @@ const registerUserService = async (usersData: IUserRequest) => {
   })
 
   if (userExist) {
+    if(!userExist.isActive){
+      throw new AppError("User disabled", 409)
+    }
     throw new AppError("Already exists", 409)
   }
 
