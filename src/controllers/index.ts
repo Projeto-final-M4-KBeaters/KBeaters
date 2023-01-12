@@ -12,4 +12,4 @@ export {
     deleteUserController, 
     listUserController,
     patchUserController
-}
+};

@@ -4,7 +4,7 @@ import { listUsersResponseSerializer } from "../../serializers/users";
 
 const listAllPerformersService = async () => {
 
-  const userRepository = AppDataSource.getRepository(Users);
+  const userRepository = AppDataSource.getRepository(Users)
 
   const listAllPerformers = await userRepository.find({
     where: {
