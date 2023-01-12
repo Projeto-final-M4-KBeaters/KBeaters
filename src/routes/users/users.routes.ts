@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { listAllPerformersController, registerUserController } from "../../controllers";
+import { listAllPerformersController, listAllUsersController, registerUserController } from "../../controllers";
 import { ensureDataIsValidMiddleware } from "../../middlewares";
 
 import { userSerializer } from "../../serializers/users";
@@ -7,6 +7,8 @@ import { userSerializer } from "../../serializers/users";
 const userRoutes = Router();
 
 userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserController)
-userRoutes.get("/performer", listAllPerformersController);
+userRoutes.get('', listAllUsersController);
+userRoutes.get('/performer', listAllPerformersController);
 
-export default userRoutes 
+
+export default userRoutes
