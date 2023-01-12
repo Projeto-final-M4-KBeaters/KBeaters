@@ -4,7 +4,7 @@ import { Users } from "./users.entities";
 
 @Entity("likes")
 class Likes{
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @CreateDateColumn()
@@ -20,4 +20,4 @@ class Likes{
     user: Users
 }
 
-export {Likes}
+export {Likes};

@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express"
-import AppDataSource from "../data-source"
-import { Users } from "../entities/users.entities"
-import { AppError } from "../errors"
+import { Request, Response, NextFunction } from "express";
+import AppDataSource from "../data-source";
+import { Users } from "../entities/users.entities";
+import { AppError } from "../errors";
 
 
 const ensureAuthAdminMiddleware = async (req: Request, res: Response, next: NextFunction) => {
@@ -11,4 +11,4 @@ const ensureAuthAdminMiddleware = async (req: Request, res: Response, next: Next
     
     throw new AppError("Not permission", 403)
 }
-export default ensureAuthAdminMiddleware
+export default ensureAuthAdminMiddleware;

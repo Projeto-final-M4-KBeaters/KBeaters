@@ -1,9 +1,5 @@
-import {
-    Request,
-    Response,
-    NextFunction
-} from 'express';
-import { ValidationError } from "yup"
+import { Request, Response, NextFunction } from "express";
+import { ValidationError } from "yup";
 
 class AppError extends Error {
     statusCode: number
@@ -26,4 +22,4 @@ const handleError = (err: Error, req: Request, res: Response, next: NextFunction
     return res.status(500).send({ message: err.message })
 }
 
-export {AppError, handleError}
+export {AppError, handleError};

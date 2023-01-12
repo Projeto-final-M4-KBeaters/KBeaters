@@ -1,11 +1,11 @@
-import { Router } from 'express'
-import { createloginController } from '../../controllers/login/login.controller'
+import { Router } from "express";
+import { createloginController } from "../../controllers/login/login.controller";
 
 
 const loginRoutes = Router()
 
 
-loginRoutes.post('', createloginController)
+loginRoutes.post("", createloginController)
 
 
-export default loginRoutes
+export default loginRoutes;

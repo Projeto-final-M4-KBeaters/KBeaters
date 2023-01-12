@@ -7,7 +7,7 @@ const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
   name: yup.string().required(),
   password: yup.string().required(),
   isPerformer: yup.boolean().notRequired(),
-});
+})
 
 const userRegisterResponseSerializer: SchemaOf<IUserResponse> = yup
   .object()
@@ -20,22 +20,17 @@ const userRegisterResponseSerializer: SchemaOf<IUserResponse> = yup
     isActive: yup.boolean().required(),
     createdAt: yup.date().required(),
     updatedAt: yup.date().required(),
-  });
+  })
 
 const listUsersResponseSerializer: SchemaOf<IUserResponse[]> = yup.array(
   userRegisterResponseSerializer
-);
+)
 
 const userPatchRequestSerializer: SchemaOf<IUserPatchRequest> = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().notRequired(),
     password: yup.string().notRequired(),
     isPerformer: yup.boolean().notRequired()
-});
+})
 
-export {
-  userSerializer,
-  userRegisterResponseSerializer,
-  listUsersResponseSerializer,
-  userPatchRequestSerializer
-};
+export { userSerializer, userRegisterResponseSerializer, listUsersResponseSerializer, userPatchRequestSerializer };

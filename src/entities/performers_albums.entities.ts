@@ -4,9 +4,9 @@ import { Genres } from "./genres.entities";
 import { Musics } from "./musics.entities";
 import { Users } from "./users.entities";
 
-@Entity('performersToAlbums')
+@Entity("performersToAlbums")
 class PerformersToAlbums{
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @ManyToOne(() => Albums, albums => albums.performerToAlbums)
@@ -20,4 +20,4 @@ class PerformersToAlbums{
 
 }
 
-export {PerformersToAlbums}
+export {PerformersToAlbums};
