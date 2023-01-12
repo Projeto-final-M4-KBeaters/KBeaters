@@ -1,6 +1,5 @@
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
-import { AppError } from "../../errors";
 
 
 const deleteUserService =  async (userId: string) => {
@@ -11,12 +10,8 @@ const deleteUserService =  async (userId: string) => {
         id: userId
     })
 
-    if(!user){
-        throw new AppError("Invalid id", 404)
-    }
-
-    user.isActive = false
-    userRepository.save(user)
+    user!.isActive = false
+    userRepository.save(user!)
 
 }
 

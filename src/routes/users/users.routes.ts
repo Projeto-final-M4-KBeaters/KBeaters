@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { listAllPerformersController, listUserController, deleteUserController, listAllUsersController, registerUserController } from "../../controllers";
-import { ensureDataIsValidMiddleware } from "../../middlewares";
+import { ensureAuthAdminMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware } from "../../middlewares";
+import ensureIdIsValidMiddleware from "../../middlewares/ensureIdIsValid.middleware";
 import { userSerializer } from "../../serializers/users";
 
 const userRoutes = Router();
@@ -9,5 +10,5 @@ userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserCont
 userRoutes.get("/:id", ensureIdIsValidMiddleware, listUserController)
 userRoutes.get('', listAllUsersController);
 userRoutes.get('/performer', listAllPerformersController);
-userRoutes.delete('/:id', deleteUserController)
+userRoutes.delete('/:id', ensureAuthMiddleware, ensureAuthAdminMiddleware, ensureIdIsValidMiddleware, deleteUserController)
 export default userRoutes
