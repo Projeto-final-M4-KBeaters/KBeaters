@@ -1,4 +1,6 @@
 import deleteUserController from "./users/deleteUser.controller";
 import registerUserController from "./users/registerUser.controller";
+import listAllPerformersController from "./users/listAllPerformers.controller"
+import listAllUsersController from "./users/listAllUsers.controller";
 
-export { registerUserController, deleteUserController }
+export { registerUserController, listAllPerformersController, listAllUsersController, deleteUserController }
