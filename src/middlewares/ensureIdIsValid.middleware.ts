@@ -13,7 +13,7 @@ const ensureIdIsValidMiddleware = async (req: Request, res: Response, next: Next
     if(!foundUser) {
         throw new AppError("User not exists", 404)
     }
-
+    req.providedUser = foundUser;
     return next()
 }
 
