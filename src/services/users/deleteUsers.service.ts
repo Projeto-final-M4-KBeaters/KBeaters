@@ -11,8 +11,10 @@ const deleteUserService =  async (userId: string) => {
     })
 
     user!.isActive = false
-    userRepository.save(user!)
+    await userRepository.save(user!)
+
+    return user
 
 }
 
-export default deleteUserService
+export default deleteUserService;

@@ -5,9 +5,9 @@ import { PerformersToAlbums } from "./performers_albums.entities";
 import { PerformersToMusics } from "./performers_musics.entities";
 import { Playlists } from "./playlists.entities";
 
-@Entity('users')
+@Entity("users")
 class Users{
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @Column({length: 50})
@@ -60,4 +60,4 @@ class Users{
     }
 }
 
-export {Users}
+export {Users};
