@@ -1,12 +1,12 @@
-import { Router } from "express"
-import { registerUserController } from "../../controllers"
-import { ensureDataIsValidMiddleware } from "../../middlewares"
+import { Router } from "express";
+import listAllPerformersController from "../../controllers/users/listAllPerformers.controller";
+import createUserController from "../../controllers/users/registerUser.controller";
+import { ensureDataIsValidMiddleware } from "../../middlewares/ensureDataIsValid.middleware";
+import { userSerializer } from "../../serializers/users";
 
-import { userSerializer } from "../../serializers/users"
-
-
-const userRoutes = Router()
+const userRoutes = Router();
 
 userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserController)
+userRoutes.get("/performer", listAllPerformersController);
 
-export default userRoutes
+export { userRoutes };
