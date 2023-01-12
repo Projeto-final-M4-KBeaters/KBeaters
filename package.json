@@ -2,11 +2,17 @@
   "name": "lucas",
   "version": "1.0.0",
   "description": "Projeto Final M4 KBeaters",
-  "main": "app.ts",
+  "main": "index.ts",
   "repository": "git@github.com:Projeto-final-M4-KBeaters/KBeaters.git",
   "author": "lucas <lucascostaschmidt@gmail.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "build": "tsc",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest --verbose --runInBand"
+  },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^9.0.0",

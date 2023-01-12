@@ -10,7 +10,10 @@ class Users{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @Column({length: 150})
+    @Column({length: 50})
+    name:string
+
+    @Column({length: 150, unique:true})
     email:string
 
     @Column({length:150})
@@ -41,12 +44,13 @@ class Users{
     featMusics: PerformersToMusics[]
 
     @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.owner, {nullable:true})
-    albums: PerformersToAlbums[]
+    performerToAlbums: PerformersToAlbums[]
 
     @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.feat, {nullable:true})
-    featAlbums: PerformersToAlbums[]
+    performerToFeatAlbums: PerformersToAlbums[]
 
-    @OneToOne(() => Likes, {nullable:true}) @JoinColumn()
+    @OneToOne(() => Likes, {nullable:true}) 
+    @JoinColumn()
     likeMusic: Likes 
 
     @BeforeUpdate()

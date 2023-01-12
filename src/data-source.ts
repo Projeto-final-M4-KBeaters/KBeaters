@@ -24,4 +24,4 @@ const AppDataSource = new DataSource(
     }
 )
 
-export {AppDataSource}
+export default AppDataSource
