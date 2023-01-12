@@ -10,7 +10,7 @@ class Users{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @Column({length: 150})
+    @Column({length: 150, unique:true})
     email:string
 
     @Column({length:150})
