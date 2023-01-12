@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { Users } from "../../entities/users.entities"
 import { AppError } from "../../errors"
 
-export const loginService = async ( { email, password }: IUserLogin ): Promise<string> => {
+const loginService = async ( { email, password }: IUserLogin ): Promise<string> => {
 
     const userRepository = AppDataSource.getRepository(Users)
 
@@ -37,3 +37,5 @@ export const loginService = async ( { email, password }: IUserLogin ): Promise<s
     return token
 
 }
+
+export default loginService

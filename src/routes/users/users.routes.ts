@@ -9,4 +9,4 @@ const userRoutes = Router();
 userRoutes.post('',ensureDataIsValidMiddleware(userSerializer), registerUserController)
 userRoutes.get("/performer", listAllPerformersController);
 
-export { userRoutes };
+export default userRoutes 
