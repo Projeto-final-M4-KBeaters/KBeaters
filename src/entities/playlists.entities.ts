@@ -1,6 +1,7 @@
 import { hashSync } from "bcryptjs"
-import { Entity,PrimaryGeneratedColumn,Column, OneToOne, CreateDateColumn, ManyToOne, OneToMany} from "typeorm";
-import { PlaylistsToMusics } from "./playlists_musics.entities";
+import { Entity,PrimaryGeneratedColumn,Column, OneToOne, CreateDateColumn, ManyToOne, OneToMany, ManyToMany} from "typeorm";
+import { Musics } from "./musics.entities";
+//import { PlaylistsToMusics } from "./playlists_musics.entities";
 import { Users } from "./users.entities";
 
 @Entity('playlists')
@@ -20,8 +21,8 @@ class Playlists{
     @ManyToOne(() => Users, users => users.playlists)
     user: Users
 
-    @OneToMany(()=> PlaylistsToMusics, playlistsToMusics => playlistsToMusics.playlists)
-    playlistToMusics: PlaylistsToMusics
+    @ManyToMany(()=> Musics, musics => musics.playlists)
+    musics: Musics
 }
 
 export {Playlists}
