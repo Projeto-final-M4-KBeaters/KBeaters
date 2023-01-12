@@ -29,4 +29,4 @@ const registerUserService = async (usersData: IUserRequest) => {
     return returnedData
 }
 
-export { registerUserService }
+export default registerUserService 

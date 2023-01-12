@@ -20,4 +20,4 @@ const ensureDataIsValidMiddleware = (schema: AnySchema) => async(req: Request, r
 
 }
 
-export {ensureDataIsValidMiddleware}
+export default ensureDataIsValidMiddleware
