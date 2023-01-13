@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
+import { IUserResponse } from "../../interfaces/users";
 
 
-const deleteUserService =  async (userId: string) => {
+const deleteUserService =  async (userId: string): Promise <IUserResponse> => {
 
     const userRepository =  AppDataSource.getRepository(Users)
 
@@ -13,7 +14,7 @@ const deleteUserService =  async (userId: string) => {
     user!.isActive = false
     await userRepository.save(user!)
 
-    return user
+    return user!
 
 }
 

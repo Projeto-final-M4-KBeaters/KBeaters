@@ -2,8 +2,9 @@ import AppDataSource from "../../data-source";
 import { Genres } from "../../entities/genres.entities";
 import { validate } from "uuid"
 import { AppError } from "../../errors";
+import { IGenreResponse } from "../../interfaces/genres";
 
-const listUniqueGenreService = async (paramsData: string) => {
+const listUniqueGenreService = async (paramsData: string): Promise<IGenreResponse> => {
     const genreRepo = AppDataSource.getRepository(Genres)
     
     if(validate(paramsData)){

@@ -3,10 +3,10 @@ import { ILike } from "typeorm";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
 import { AppError } from "../../errors";
-import { IUserLogin } from "../../interfaces/users";
+import { IUserLogin, IUserResponse } from "../../interfaces/users";
 import { userRegisterResponseSerializer } from "../../serializers/users";
 
-const reactiveUserService = async (userData: IUserLogin) => {
+const reactiveUserService = async (userData: IUserLogin): Promise<IUserResponse>=> {
 
   const userRepository = AppDataSource.getRepository(Users)
   const findUser = await userRepository.findOne({
@@ -28,6 +28,7 @@ const reactiveUserService = async (userData: IUserLogin) => {
     }
 
   const passwordMatch = await compare(userData.password, findUser.password)
+
   if(!passwordMatch){
       throw new AppError("Email or password invalid", 403)
   }
