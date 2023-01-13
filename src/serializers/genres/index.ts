@@ -6,4 +6,8 @@ const genrePostSerializer: SchemaOf<IGenreRequest> = yup.object().shape({
     name: yup.string().required(),
 })
 
-export { genrePostSerializer }
+const listGenresResponseSerializer: SchemaOf<IGenreRequest[]> = yup.array(
+    genrePostSerializer
+)
+
+export { genrePostSerializer, listGenresResponseSerializer }
