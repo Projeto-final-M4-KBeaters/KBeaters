@@ -23,7 +23,7 @@ class Users{
     isPerformer: boolean
 
     @Column({default: false})
-    isAdmin:boolean
+    isAdmin: boolean
 
     @Column({default: true})
     isActive: boolean

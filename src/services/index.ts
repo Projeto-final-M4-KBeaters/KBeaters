@@ -8,7 +8,7 @@ import listUserService from "./users/listUser.service";
 import genrePostService from "./genres/genresPost.service";
 import reactiveUserService from "./users/reactivateUsers.service";
 import listUniqueGenreService from "./genres/listUniqueGenre.service";
-
+import registerAdminService from "./admin/registerAdmin.service";
 
 export{
     registerUserService, 
@@ -20,5 +20,6 @@ export{
     listUserService,
     genrePostService,
     reactiveUserService,
-    listUniqueGenreService
+    listUniqueGenreService,
+    registerAdminService
 };
