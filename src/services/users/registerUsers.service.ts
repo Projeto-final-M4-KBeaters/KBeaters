@@ -17,7 +17,7 @@ const registerUserService = async (usersData: IUserRequest) => {
 
   const createdUser = userRepository.create(usersData);
   await userRepository.save(createdUser);
-  console.log(createdUser);
+
   const returnedData = await userRegisterResponseSerializer.validate(
     createdUser,
     {
