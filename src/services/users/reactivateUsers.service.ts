@@ -1,4 +1,5 @@
 import { compare } from "bcryptjs";
+import { ILike } from "typeorm";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
 import { AppError } from "../../errors";
@@ -13,7 +14,7 @@ const reactiveUserService = async (userData: IUserLogin): Promise<IUserResponse>
     
     where: {
 
-        email: userData.email,
+        email: ILike(`${userData.email}`),
     } 
     
   })
@@ -27,7 +28,7 @@ const reactiveUserService = async (userData: IUserLogin): Promise<IUserResponse>
     }
 
   const passwordMatch = await compare(userData.password, findUser.password)
-  
+
   if(!passwordMatch){
       throw new AppError("Email or password invalid", 403)
   }

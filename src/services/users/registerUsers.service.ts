@@ -1,3 +1,4 @@
+import { ILike } from "typeorm";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
 import { AppError } from "../../errors";
@@ -8,8 +9,8 @@ const registerUserService = async (usersData: IUserRequest): Promise <IUserRespo
 
   const userRepository = AppDataSource.getRepository(Users)
 
-  const userExist = await userRepository.findOneBy({
-    email: usersData.email,
+  const userExist = await userRepository.findOne({
+    where: { email: ILike(`${usersData.email}`) },
   })
 
   if (userExist) {

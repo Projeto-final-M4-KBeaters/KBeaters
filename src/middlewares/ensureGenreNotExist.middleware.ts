@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
+import { ILike } from "typeorm";
 import AppDataSource from "../data-source";
 import { Genres } from "../entities/genres.entities";
 import { AppError } from "../errors";
 
 const ensureGenreNotExistMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    const { name } = req.body.name;
+    const { name } = req.body;
     const genreRepo = AppDataSource.getRepository(Genres);
     const genre = await genreRepo.findOne({
-        where: {name: name},
+        where: {name: ILike(`${name}`)},
     });
 
     if(genre) {
