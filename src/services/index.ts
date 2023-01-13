@@ -5,7 +5,9 @@ import listAllPerformersService from "./users/listAllPerformers.service";
 import loginService from "./login/login.service";
 import patchUserService from "./users/patchUsers.service";
 import listUserService from "./users/listUser.service";
-
+import genrePostService from "./genres/genresPost.service";
+import reactiveUserService from "./users/reactivateUsers.service";
+import listUniqueGenreService from "./genres/listUniqueGenre.service";
 
 
 export{
@@ -15,5 +17,8 @@ export{
     loginService, 
     deleteUserService, 
     patchUserService,
-    listUserService
+    listUserService,
+    genrePostService,
+    reactiveUserService,
+    listUniqueGenreService
 };
