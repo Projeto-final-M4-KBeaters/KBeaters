@@ -1,4 +1,5 @@
-import { IUserLogin, IUserRequest } from "../../../interfaces/users"
+import { IUserRequest, IUserPatchRequest, IUserLogin } from "../../../interfaces/users"
+
 
 const mockedUserRegister : IUserRequest={
     name: "JP",
@@ -20,6 +21,13 @@ const mockedPerformerRegister : IUserRequest={
     isPerformer: true
 }
 
+const mockedInactiveRegister : IUserPatchRequest={
+    name: "lucas",
+    email: "schmitao@mail.com",
+    password: "123456",
+    isPerformer: false
+}
+
 const mockedUserLogin : IUserLogin = {
     email: "jp@mail.com",
     password: "123456"
@@ -35,4 +43,4 @@ const mockedPerformerLogin : IUserLogin = {
     password: "123456"
 }
 
-export {mockedAdminLogin, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister}
+export {mockedAdminLogin,mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister}
