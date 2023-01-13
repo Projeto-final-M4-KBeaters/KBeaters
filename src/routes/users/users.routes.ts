@@ -5,7 +5,7 @@ import { userPatchRequestSerializer, userSerializer } from "../../serializers/us
 
 const userRoutes = Router();
 
-userRoutes.post("",ensureDataIsValidMiddleware(userSerializer), registerUserController)
+userRoutes.post("", ensureUserIsActiveMiddleware, ensureDataIsValidMiddleware(userSerializer), registerUserController)
 userRoutes.get("/:id", ensureIdIsValidMiddleware, listUserController)
 userRoutes.get("", listAllUsersController)
 userRoutes.get("/performer", listAllPerformersController);
