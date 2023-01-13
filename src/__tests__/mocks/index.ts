@@ -1,43 +1,9 @@
-import { IGenreRequest } from "../../interfaces/genres"
-import { IUserLogin, IUserRequest } from "../../interfaces/users"
+import { mockedAdminLogin, mockedAdminRegister, mockedPerformerLogin, mockedPerformerRegister, mockedUserLogin, mockedUserRegister } from "./integration";
 
-const mockedUserRegister : IUserRequest={
-    name: "JP",
-    email: "jp@mail.com",
-    password: "123456",
-    isPerformer: false,
-}
-
-const mockedAdminRegister : IUserRequest={
-    name: "lucas",
-    email: "schmitao@mail.com",
-    password: "123456",
-}
-
-const mockedPerformerRegister : IUserRequest={
-    name: "lucas",
-    email: "schmitao@mail.com",
-    password: "123456",
-    isPerformer: true
-}
-
-const mockedUserLogin : IUserLogin = {
-    email: "jp@mail.com",
-    password: "123456"
-}
-
-const mockedAdminLogin : IUserLogin = {
-    email: "igordelas@mail.com",
-    password: "123456"
-}
-
-const mockedPerformerLogin : IUserLogin = {
-    email: "schmitao@mail.com",
-    password: "123456"
-}
-
-const mockedGenrePost : IGenreRequest = {
-    name: "forrozim"
-}
-
-export {mockedAdminLogin, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedGenrePost}
+export { 
+    mockedAdminLogin, 
+    mockedPerformerLogin, 
+    mockedUserLogin, 
+    mockedUserRegister, 
+    mockedAdminRegister, 
+    mockedPerformerRegister }
