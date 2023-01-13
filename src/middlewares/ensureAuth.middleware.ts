@@ -19,6 +19,7 @@ const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFuncti
 
     jwt.verify(token, process.env.SECRET_KEY as string, async (error, decoded: any) => {
         if(error){
+            console.log("Deu M")
             throw new AppError("Invalid token", 401)
         }
         const userRepo = AppDataSource.getRepository(Users)

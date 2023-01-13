@@ -4,7 +4,10 @@ import listAllPerformersController from "./users/listAllPerformers.controller";
 import listUserController from "./users/listUser.controller";
 import listAllUsersController from "./users/listAllUsers.controller";
 import patchUserController from "./users/patchUsers.controller";
+import { reactivateUsersController } from "./users/reactivateUsers.controller";
+import createloginController from "./login/login.controller";
 import listUniqueGenreController from "./genres/listUniqueGenre.controller";
+
 
 export { 
     registerUserController, 
@@ -13,5 +16,7 @@ export {
     deleteUserController, 
     listUserController,
     patchUserController,
+    reactivateUsersController,
+    createloginController
     listUniqueGenreController
 };
