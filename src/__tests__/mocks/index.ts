@@ -1,3 +1,4 @@
+import { IGenreRequest } from "../../interfaces/genres"
 import { IUserLogin, IUserRequest } from "../../interfaces/users"
 
 const mockedUserRegister : IUserRequest={
@@ -35,4 +36,8 @@ const mockedPerformerLogin : IUserLogin = {
     password: "123456"
 }
 
-export {mockedAdminLogin, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister}
+const mockedGenrePost : IGenreRequest = {
+    name: "forrozim"
+}
+
+export {mockedAdminLogin, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedGenrePost}
