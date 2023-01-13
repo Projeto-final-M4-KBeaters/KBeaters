@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
+import { IUserResponse } from "../../interfaces/users";
 import { listUsersResponseSerializer } from "../../serializers/users";
 
-const listAllUsersService = async () => {
+const listAllUsersService = async (): Promise <IUserResponse[]> => {
   
   const userRepository = AppDataSource.getRepository(Users)
 
@@ -15,7 +16,7 @@ const listAllUsersService = async () => {
     }
   )
 
-  return returnedData
+  return returnedData!
 
 }
 

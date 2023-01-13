@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { listAllPerformersController, listUserController, deleteUserController, listAllUsersController, registerUserController, patchUserController, reactivateUsersController } from "../../controllers";
-import { ensureAuthAdminMiddleware, ensureAuthAdminOrSelfMiddleware, ensureAuthMiddleware, ensureBodyExistsMiddleware, ensureDataIsValidMiddleware, ensureEmailNotExistsMiddleware, ensureIdIsValidMiddleware, ensureUserIsActiveMiddleware } from "../../middlewares";
+import { ensureAuthAdminOrSelfMiddleware, ensureAuthMiddleware, ensureBodyExistsMiddleware, ensureDataIsValidMiddleware, ensureEmailNotExistsMiddleware, ensureIdIsValidMiddleware, ensureUserIsActiveMiddleware } from "../../middlewares";
 import { loginSerializer, userPatchRequestSerializer, userSerializer } from "../../serializers/users";
 
 const userRoutes = Router();

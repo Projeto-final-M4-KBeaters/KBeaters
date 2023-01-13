@@ -1,10 +1,10 @@
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
 import { AppError } from "../../errors";
-import { IUserRequest } from "../../interfaces/users";
+import { IUserRequest, IUserResponse } from "../../interfaces/users";
 import { userRegisterResponseSerializer } from "../../serializers/users";
 
-const registerUserService = async (usersData: IUserRequest) => {
+const registerUserService = async (usersData: IUserRequest): Promise <IUserResponse>=> {
 
   const userRepository = AppDataSource.getRepository(Users)
 

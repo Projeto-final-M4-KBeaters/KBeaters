@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source"
 import { Genres } from "../../entities/genres.entities"
+import { IGenreResponse } from "../../interfaces/genres"
 import { listGenresResponseSerializer } from "../../serializers/genres"
 
-const listAllGenresService = async () => {
+const listAllGenresService = async (): Promise <IGenreResponse[]> => {
     
     const genresRepository =  AppDataSource.getRepository(Genres)
 
@@ -15,7 +16,7 @@ const listAllGenresService = async () => {
         }
     )
 
-    return returnedData
+    return returnedData!
 }
 
 export default listAllGenresService;
