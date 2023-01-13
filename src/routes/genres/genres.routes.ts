@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { listUniqueGenreController } from "../../controllers";
 import genrePostController from "../../controllers/genres/genresPost.controller";
 import { ensureAuthAdminMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureGenreNotExistMiddleware } from "../../middlewares";
 import { genrePostSerializer } from "../../serializers/genres";
@@ -13,5 +14,6 @@ genresRoutes.post(
     ensureGenreNotExistMiddleware,
     genrePostController
 )
+genresRoutes.get("/:data",ensureAuthMiddleware, ensureAuthAdminMiddleware, listUniqueGenreController)
 
 export default genresRoutes;
