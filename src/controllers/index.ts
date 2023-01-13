@@ -17,6 +17,6 @@ export {
     listUserController,
     patchUserController,
     reactivateUsersController,
-    createloginController
+    createloginController,
     listUniqueGenreController
 };
