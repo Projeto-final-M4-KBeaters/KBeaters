@@ -1,9 +1,9 @@
-import { Request, Response } from 'express'
-import { IUserLogin } from '../../interfaces/users'
-import { loginService } from '../../services'
+import { Request, Response } from "express";
+import { IUserLogin } from "../../interfaces/users";
+import { loginService } from "../../services";
 
 
-export const createloginController = async(req: Request, res: Response) => {
+const createloginController = async(req: Request, res: Response) => {
     
     const sessionData: IUserLogin = req.body
     const token = await loginService(sessionData)
@@ -11,5 +11,5 @@ export const createloginController = async(req: Request, res: Response) => {
 
 }
 
-
+export default createloginController
 

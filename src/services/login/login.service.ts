@@ -1,28 +1,29 @@
-import { compare } from "bcryptjs"
-import AppDataSource from "../../data-source"
-import { IUserLogin } from "../../interfaces/users"
-import jwt from 'jsonwebtoken'
-import { Users } from "../../entities/users.entities"
-import { AppError } from "../../errors"
+import { compare } from "bcryptjs";
+import AppDataSource from "../../data-source";
+import { IUserLogin } from "../../interfaces/users";
+import jwt from 'jsonwebtoken';
+import { Users } from "../../entities/users.entities";
+import { AppError } from "../../errors";
+import { ILike } from "typeorm";
 
-const loginService = async ( { email, password }: IUserLogin ): Promise<string> => {
+const loginService = async ( userData: IUserLogin ): Promise<string> => {
 
     const userRepository = AppDataSource.getRepository(Users)
 
     const user = await userRepository.findOneBy({
-        email: email
+        email: ILike(`${userData.email}`)
     })
     
     if(!user){
-        throw new AppError('User or password invalid', 403)
+        throw new AppError("Email or password invalid", 403)
     }
     if(!user.isActive){
-        throw new AppError('usuario inativo', 400)
+        throw new AppError("User disabled", 404)
     }
-    const passwordMatch = await compare(password, user.password)
+    const passwordMatch = await compare(userData.password, user.password)
 
     if(!passwordMatch){
-        throw new AppError('User or password invalid', 403)
+        throw new AppError("User or password invalid", 403)
     }
 
     const token = jwt.sign(
@@ -30,7 +31,7 @@ const loginService = async ( { email, password }: IUserLogin ): Promise<string> 
         process.env.SECRET_KEY as string,
         {
             subject: String(user.id), 
-            expiresIn: '24h'
+            expiresIn: "24h"
         }
     )
 
@@ -38,4 +39,4 @@ const loginService = async ( { email, password }: IUserLogin ): Promise<string> 
 
 }
 
-export default loginService
+export default loginService;

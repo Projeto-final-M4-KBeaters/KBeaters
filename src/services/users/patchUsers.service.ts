@@ -1,22 +1,30 @@
 import { hashSync } from "bcryptjs";
-import { Request } from "express";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
-import { IUserResponse } from "../../interfaces/users";
+import { IUserPatchRequest, IUserResponse } from "../../interfaces/users";
 import { userRegisterResponseSerializer } from "../../serializers/users";
 
-const patchUserService = async (req: Request): Promise<IUserResponse> => {
-    const userPatch = req.validatedPatchBody;
-    const userRepo = AppDataSource.getRepository(Users);
+const patchUserService = async (userDataUpdated: IUserPatchRequest, userData: IUserResponse): Promise<IUserResponse> => {
+    
+    const userPatch = userDataUpdated
+    if(userPatch.password){
+        userPatch.password = hashSync(userPatch.password, 10)
+    }
+    const userRepo = AppDataSource.getRepository(Users)
+
     const newUser = userRepo.create({
-        ...req.providedUser,
+        ...userData,
         ...userPatch
     })
-    const user = await userRepo.save(newUser);
-    const response = await userRegisterResponseSerializer.validate(user, {
+
+    const user = await userRepo.save(newUser)
+
+    const returnedData = await userRegisterResponseSerializer.validate(user, {
         stripUnknown: true
     })
-    return response;
+
+    return returnedData
+    
 }
 
 export default patchUserService;

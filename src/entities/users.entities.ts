@@ -5,9 +5,9 @@ import { PerformersToAlbums } from "./performers_albums.entities";
 import { PerformersToMusics } from "./performers_musics.entities";
 import { Playlists } from "./playlists.entities";
 
-@Entity('users')
+@Entity("users")
 class Users{
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @Column({length: 50})
@@ -23,7 +23,7 @@ class Users{
     isPerformer: boolean
 
     @Column({default: false})
-    isAdmin:boolean
+    isAdmin: boolean
 
     @Column({default: true})
     isActive: boolean
@@ -52,12 +52,11 @@ class Users{
     @OneToOne(() => Likes, {nullable:true}) 
     @JoinColumn()
     likeMusic: Likes 
-
-    @BeforeUpdate()
+    
     @BeforeInsert()
     hashPassword(){
         this.password = hashSync(this.password, 10)
     }
 }
 
-export {Users}
+export {Users};

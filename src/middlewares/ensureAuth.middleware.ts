@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from "express"
-import jwt from "jsonwebtoken"
-import "dotenv/config"
-import { AppError } from "../errors"
-import AppDataSource from "../data-source"
-import { Users } from "../entities/users.entities"
-import { userRegisterResponseSerializer } from "../serializers/users"
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+import { AppError } from "../errors";
+import AppDataSource from "../data-source";
+import { Users } from "../entities/users.entities";
+import { userRegisterResponseSerializer } from "../serializers/users";
 
 
 const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFunction) => {
@@ -19,17 +19,19 @@ const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFuncti
 
     jwt.verify(token, process.env.SECRET_KEY as string, async (error, decoded: any) => {
         if(error){
-            throw new AppError("Invalid token", 401)
+
+            return res.status(401).json({ message: "Invalid token" })
+
         }
-        const userRepo = AppDataSource.getRepository(Users);
-        const user = await userRepo.findOne({ where: { id: decoded.sub as string}});
+        const userRepo = AppDataSource.getRepository(Users)
+        const user = await userRepo.findOne({ where: { id: decoded.sub as string}})
         const userFiltered = await userRegisterResponseSerializer.validate(user, {
             stripUnknown: true
         })
-        req.user = userFiltered;
+        req.user = userFiltered
 
         return next()
     })
 
 }
-export default ensureAuthMiddleware
+export default ensureAuthMiddleware;

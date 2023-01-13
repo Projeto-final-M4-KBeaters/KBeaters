@@ -2,9 +2,9 @@ import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany} from
 import { Musics } from "./musics.entities";
 import { PerformersToAlbums } from "./performers_albums.entities";
 
-@Entity('albums')
+@Entity("albums")
 class Albums{
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @Column({length: 100})
@@ -23,4 +23,4 @@ class Albums{
     performerToAlbums: PerformersToAlbums[]
 }
 
-export {Albums}
+export {Albums};

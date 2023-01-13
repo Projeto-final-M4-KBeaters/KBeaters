@@ -8,8 +8,8 @@ const ensureUserPatchSerializerMiddleware = (serializer: AnySchema) => async (re
         const validatedPatchBody = await serializer.validate(req.body, {
             stripUnknown: true,
             abortEarly: false,
-        });
-        req.validatedPatchBody = validatedPatchBody;
+        })
+        req.validatedPatchBody = validatedPatchBody
         return next()
     }catch(error: any){
         return res.status(400).json({

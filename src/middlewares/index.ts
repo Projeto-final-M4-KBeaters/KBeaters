@@ -4,7 +4,10 @@ import ensureDataIsValidMiddleware from "./ensureDataIsValid.middleware";
 import ensureAuthAdminOrSelfMiddleware from "./ensureAuthIsAdmOrSelf.middleware";
 import ensureUserPatchSerializerMiddleware from "./ensureUserPatchSerializer.middleware";
 import ensureEmailNotExistsMiddleware from "./ensureEmailNotExists.middleware";
-import ensureBodyExistsMiddleware from "./ensureBodyExists.middle";
+import ensureBodyExistsMiddleware from "./ensureBodyExists.middleware";
+import ensureIdIsValidMiddleware from "./ensureIdIsValid.middleware";
+import ensureUserIsActiveMiddleware from "./ensureUserIsActive.middleware";
+import ensureGenreNotExistMiddleware from "./ensureGenreNotExist.middleware";
 
 export {
     ensureDataIsValidMiddleware,
@@ -13,5 +16,8 @@ export {
     ensureAuthAdminOrSelfMiddleware,
     ensureUserPatchSerializerMiddleware,
     ensureEmailNotExistsMiddleware,
-    ensureBodyExistsMiddleware
-}
+    ensureBodyExistsMiddleware,
+    ensureIdIsValidMiddleware,
+    ensureUserIsActiveMiddleware,
+    ensureGenreNotExistMiddleware,
+};
