@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express"
-import { AnySchema } from "yup"
+import { NextFunction, Request, Response } from "express";
+import { AnySchema } from "yup";
 
 const ensureDataIsValidMiddleware = (schema: AnySchema) => async(req: Request, res: Response, next: NextFunction) => {
 
@@ -20,4 +20,4 @@ const ensureDataIsValidMiddleware = (schema: AnySchema) => async(req: Request, r
 
 }
 
-export default ensureDataIsValidMiddleware
+export default ensureDataIsValidMiddleware;

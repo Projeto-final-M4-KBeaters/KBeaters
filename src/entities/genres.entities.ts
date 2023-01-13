@@ -1,9 +1,9 @@
 import { Entity,PrimaryGeneratedColumn,Column, OneToOne, OneToMany} from "typeorm";
 import { Musics } from "./musics.entities";
 
-@Entity('genres')
+@Entity("genres")
 class Genres{
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @Column({length: 100})
@@ -13,4 +13,4 @@ class Genres{
     musics: Musics
 }
 
-export {Genres}
+export {Genres};
