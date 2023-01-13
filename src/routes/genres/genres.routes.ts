@@ -14,6 +14,6 @@ genresRoutes.post(
     ensureGenreNotExistMiddleware,
     genrePostController
 )
-genresRoutes.get("/:data",ensureAuthMiddleware, ensureAuthAdminMiddleware, listUniqueGenreController)
+genresRoutes.get("/:data", ensureAuthMiddleware, ensureAuthAdminMiddleware, listUniqueGenreController)
 
 export default genresRoutes;

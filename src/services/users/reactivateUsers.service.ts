@@ -1,4 +1,5 @@
 import { compare } from "bcryptjs";
+import { ILike } from "typeorm";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
 import { AppError } from "../../errors";
@@ -13,11 +14,10 @@ const reactiveUserService = async (userData: IUserLogin) => {
     
     where: {
 
-        email: userData.email,
+        email: ILike(`${userData.email}`),
     } 
     
   })
-  console.log(findUser)
   
     if (!findUser) {
         throw new AppError("User not exists", 404)
@@ -28,7 +28,6 @@ const reactiveUserService = async (userData: IUserLogin) => {
     }
 
   const passwordMatch = await compare(userData.password, findUser.password)
-    console.log(findUser.password, userData.password)
   if(!passwordMatch){
       throw new AppError("Email or password invalid", 403)
   }

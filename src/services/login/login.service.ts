@@ -4,13 +4,14 @@ import { IUserLogin } from "../../interfaces/users";
 import jwt from 'jsonwebtoken';
 import { Users } from "../../entities/users.entities";
 import { AppError } from "../../errors";
+import { ILike } from "typeorm";
 
 const loginService = async ( userData: IUserLogin ): Promise<string> => {
 
     const userRepository = AppDataSource.getRepository(Users)
 
     const user = await userRepository.findOneBy({
-        email: userData.email
+        email: ILike(`${userData.email}`)
     })
     
     if(!user){
