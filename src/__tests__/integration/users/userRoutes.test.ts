@@ -167,15 +167,14 @@ describe("/users", () => {
 
   })
 
-  test("DELETE /users/:id -  should not be able to delete a user", async () => {
+  test("DELETE /users/:id -  Must be able to delete a user", async () => {
     const userTobedeleted = await request(app).post(baseUrl).send(mockedInactiveRegister)
 
     const userLoginResponse = await request(app).post("/login").send(mockedInactiveRegister);
     
-    const response = await request(app).delete(`${baseUrl}/${userTobedeleted.body.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}s`)
+    const response = await request(app).delete(`${baseUrl}/${userTobedeleted.body.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
   
 
-    expect(response.body).toHaveProperty("message")
     expect(response.status).toBe(204)
 
   })
