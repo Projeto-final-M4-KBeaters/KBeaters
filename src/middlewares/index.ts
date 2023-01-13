@@ -7,6 +7,7 @@ import ensureEmailNotExistsMiddleware from "./ensureEmailNotExists.middleware";
 import ensureBodyExistsMiddleware from "./ensureBodyExists.middleware";
 import ensureIdIsValidMiddleware from "./ensureIdIsValid.middleware";
 import ensureUserIsActiveMiddleware from "./ensureUserIsActive.middleware";
+import ensureGenreNotExistMiddleware from "./ensureGenreNotExist.middleware";
 
 export {
     ensureDataIsValidMiddleware,
@@ -17,5 +18,6 @@ export {
     ensureEmailNotExistsMiddleware,
     ensureBodyExistsMiddleware,
     ensureIdIsValidMiddleware,
-    ensureUserIsActiveMiddleware
+    ensureUserIsActiveMiddleware,
+    ensureGenreNotExistMiddleware,
 };

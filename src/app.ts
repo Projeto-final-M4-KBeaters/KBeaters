@@ -1,8 +1,9 @@
+import "express-async-errors";
+
 import "reflect-metadata";
 import express from "express";
-import "express-async-errors";
 import { handleError } from "./errors";
-import { userRoutes, loginRoutes } from "./routes";
+import { userRoutes, loginRoutes, genresRoutes } from "./routes";
 
 
 
@@ -12,6 +13,7 @@ app.use(express.json())
 
 app.use("/users", userRoutes)
 app.use("/login", loginRoutes)
+app.use("/genres", genresRoutes)
 
 app.use(handleError)
 
