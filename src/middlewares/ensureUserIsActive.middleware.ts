@@ -10,7 +10,7 @@ const ensureUserIsActiveMiddleware = async (req: Request, res: Response, next: N
     const user = await userRepo.findOneBy({id: req.params.id})
 
     if(!user!.isActive){
-        throw new AppError("User is not active", 400)
+        throw new AppError("User is not active", 409)
     }
 
     return next()
