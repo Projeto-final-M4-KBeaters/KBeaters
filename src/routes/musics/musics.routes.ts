@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { listAllMusicsByGenrerController } from "../../controllers";
-import { ensureExistsGenreMiddleware } from "../../middlewares";
+import { ensureExistsGenreMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
 
 const musicsRoutes = Router();
 
-musicsRoutes.get("/genres/:id", ensureExistsGenreMiddleware, listAllMusicsByGenrerController)
+musicsRoutes.get("/genres/:id", ensureUUIDIsValidMiddleware, ensureExistsGenreMiddleware, listAllMusicsByGenrerController)
 
 export default musicsRoutes;
