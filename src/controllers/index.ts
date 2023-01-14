@@ -7,6 +7,7 @@ import patchUserController from "./users/patchUsers.controller";
 import { reactivateUsersController } from "./users/reactivateUsers.controller";
 import createloginController from "./login/login.controller";
 import listUniqueGenreController from "./genres/listUniqueGenre.controller";
+import listAllMusicsByGenrerController from "./musics/listAllMusicsByGenrer.controller";
 
 
 export { 
@@ -18,5 +19,6 @@ export {
     patchUserController,
     reactivateUsersController,
     createloginController,
-    listUniqueGenreController
+    listUniqueGenreController,
+    listAllMusicsByGenrerController
 };
