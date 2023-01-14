@@ -9,6 +9,8 @@ import ensureIdIsValidMiddleware from "./ensureIdIsValid.middleware";
 import ensureUserIsActiveMiddleware from "./ensureUserIsActive.middleware";
 import ensureGenreNotExistMiddleware from "./ensureGenreNotExist.middleware";
 import ensureExistsGenreMiddleware from "./ensureExistsGenres.middleware";
+import ensureUUIDIsValidMiddleware from "./ensureUUIDIsValid.middleware";
+
 
 export {
     ensureDataIsValidMiddleware,
@@ -21,5 +23,6 @@ export {
     ensureIdIsValidMiddleware,
     ensureUserIsActiveMiddleware,
     ensureGenreNotExistMiddleware,
-    ensureExistsGenreMiddleware
+    ensureExistsGenreMiddleware,
+    ensureUUIDIsValidMiddleware
 };
