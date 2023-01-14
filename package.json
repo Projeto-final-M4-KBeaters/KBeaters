@@ -15,12 +15,12 @@
     "test": "cross-env NODE_ENV=test SECRET_KEY=totalmenteSecreta! jest"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.15",
     "@types/jest": "^29.2.5",
+    "@types/jsonwebtoken": "^9.0.0",
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^9.0.0",
-    "@types/express": "^4.17.15",
-    "@types/bcryptjs": "^2.4.2",
-    "@types/jsonwebtoken": "^9.0.0",
     "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
