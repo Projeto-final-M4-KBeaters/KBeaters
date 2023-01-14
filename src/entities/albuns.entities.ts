@@ -1,6 +1,6 @@
-import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable} from "typeorm";
 import { Musics } from "./musics.entities";
-import { PerformersToAlbums } from "./performers_albums.entities";
+import { Users } from "./users.entities";
 
 @Entity("albums")
 class Albums{
@@ -13,14 +13,17 @@ class Albums{
     @Column({length: 150})
     duration:string
 
-    @CreateDateColumn()
-    createdAt: Date
-
-    @OneToMany(() => Musics, musics => musics.albums)
+    @ManyToMany(() => Musics, musics => musics.albums)
+    @JoinTable({
+        name: "albumsToMusics"
+    })
     musics: Musics[]
 
-    @OneToMany(() => PerformersToAlbums, performersToAlbums => performersToAlbums.albums)
-    performerToAlbums: PerformersToAlbums[]
+    @ManyToOne(() => Users, performer => performer.albums)
+    performer: Users
+
+    @CreateDateColumn()
+    createdAt: Date
 }
 
 export {Albums};

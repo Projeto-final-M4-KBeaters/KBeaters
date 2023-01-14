@@ -1,4 +1,4 @@
-import { Entity,PrimaryGeneratedColumn,Column, OneToOne, OneToMany} from "typeorm";
+import { Entity,PrimaryGeneratedColumn, Column, OneToOne, OneToMany} from "typeorm";
 import { Musics } from "./musics.entities";
 
 @Entity("genres")
@@ -9,7 +9,7 @@ class Genres{
     @Column({length: 100})
     name: string
 
-    @OneToMany(() => Musics, musics => musics.genres)
+    @OneToMany(() => Musics, musics => musics.genre)
     musics: Musics
 }
 
