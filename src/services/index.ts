@@ -11,6 +11,7 @@ import listUniqueGenreService from "./genres/listUniqueGenre.service";
 import registerAdminService from "./admin/registerAdmin.service";
 import listAllMusicsByGenrerService from "./musics/listAllMusicsByGenrer.service";
 import musicsPostService from "./musics/musicsPost.service";
+import listAllMusicsByPerformerService from "./musics/listAllMusicsByPerformer.service";
 
 export{
     registerUserService, 
@@ -25,5 +26,6 @@ export{
     listUniqueGenreService,
     registerAdminService,
     listAllMusicsByGenrerService,
-    musicsPostService
+    musicsPostService,
+    listAllMusicsByPerformerService
 };

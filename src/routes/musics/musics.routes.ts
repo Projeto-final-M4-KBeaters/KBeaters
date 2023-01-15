@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { listAllMusicsByGenrerController, musicsPostController } from "../../controllers";
+import { listAllMusicsByGenrerController, listAllMusicsByPerformerController, musicsPostController } from "../../controllers";
 import { ensureAuthIsPerformerMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureExistsGenreMiddleware, ensureMusicNameNotExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
 import { musicsRequestSerializer } from "../../serializers/musics";
 
@@ -14,6 +14,7 @@ musicsRoutes.post(
     ensureMusicNameNotExistsMiddleware,
     musicsPostController
 )
+musicsRoutes.get("/performer/:id", ensureUUIDIsValidMiddleware,  listAllMusicsByPerformerController)
 
 
 export default musicsRoutes;

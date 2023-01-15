@@ -9,6 +9,7 @@ import createloginController from "./login/login.controller";
 import listUniqueGenreController from "./genres/listUniqueGenre.controller";
 import listAllMusicsByGenrerController from "./musics/listAllMusicsByGenrer.controller";
 import musicsPostController from "./musics/musicsPost.controller";
+import listAllMusicsByPerformerController from "./musics/listAllMusicsByPerformer.controller";
 
 export { 
     registerUserController, 
@@ -21,5 +22,6 @@ export {
     createloginController,
     listUniqueGenreController,
     listAllMusicsByGenrerController,
-    musicsPostController
-};
+    musicsPostController,
+    listAllMusicsByPerformerController
+    };
