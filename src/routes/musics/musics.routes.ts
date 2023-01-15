@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { listAllMusicsByGenrerController, musicsPostController, listUniqueMusicController } from "../../controllers";
+import { listAllMusicsByGenrerController, musicsPostController, listUniqueMusicController, listAllMusicsController } from "../../controllers";
 import { ensureAuthIsPerformerMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureExistsGenreMiddleware, ensureMusicNameNotExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
 import { musicsRequestSerializer } from "../../serializers/musics";
 
 const musicsRoutes = Router();
 
 musicsRoutes.get("/genres/:id", ensureUUIDIsValidMiddleware, ensureExistsGenreMiddleware, listAllMusicsByGenrerController)
+musicsRoutes.get("", listAllMusicsController)
 musicsRoutes.get(":id", ensureUUIDIsValidMiddleware, listUniqueMusicController)
 musicsRoutes.post(
     "",
@@ -15,6 +16,5 @@ musicsRoutes.post(
     ensureMusicNameNotExistsMiddleware,
     musicsPostController
 )
-
 
 export default musicsRoutes;
