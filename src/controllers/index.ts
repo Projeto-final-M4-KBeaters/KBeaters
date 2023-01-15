@@ -8,7 +8,7 @@ import { reactivateUsersController } from "./users/reactivateUsers.controller";
 import createloginController from "./login/login.controller";
 import listUniqueGenreController from "./genres/listUniqueGenre.controller";
 import listAllMusicsByGenrerController from "./musics/listAllMusicsByGenrer.controller";
-
+import musicsPostController from "./musics/musicsPost.controller";
 
 export { 
     registerUserController, 
@@ -20,5 +20,6 @@ export {
     reactivateUsersController,
     createloginController,
     listUniqueGenreController,
-    listAllMusicsByGenrerController
+    listAllMusicsByGenrerController,
+    musicsPostController
 };

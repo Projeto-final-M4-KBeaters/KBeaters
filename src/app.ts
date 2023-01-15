@@ -11,7 +11,7 @@ const app = express()
 
 app.use(express.json())
 
-app.use("/admim", adminRoutes)
+app.use("/admin", adminRoutes)
 app.use("/users", userRoutes)
 app.use("/login", loginRoutes)
 app.use("/genres", genresRoutes)

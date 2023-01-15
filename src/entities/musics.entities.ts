@@ -14,7 +14,7 @@ class Musics{
     @Column({length: 100})
     name: string
 
-    @Column({length: 150})
+    @Column({ type: "time" })
     duration:string
 
     @ManyToMany(() => Albums, albums => albums.musics)
@@ -27,9 +27,6 @@ class Musics{
     likes: Likes
 
     @ManyToMany(() => Playlists, playlists => playlists.musics)
-    @JoinTable({
-        name: "musicsToPlaylists"
-    })
     playlists: Playlists
 
     @ManyToOne(() => Users, performer => performer.musics)
