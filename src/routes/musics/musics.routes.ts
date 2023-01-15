@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { listAllMusicsByGenrerController, musicsPostController } from "../../controllers";
-import { ensureAuthIsPerformerMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureExistsGenreMiddleware, ensureMusicNameNotExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
+import { deleteMusicController, listAllMusicsByGenrerController, musicsPostController } from "../../controllers";
+import { ensureAuthIsAdmOrOwnerMiddleware, ensureAuthIsPerformerMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureExistsGenreMiddleware, ensureMusicNameNotExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
 import { musicsRequestSerializer } from "../../serializers/musics";
 
 const musicsRoutes = Router();
@@ -14,6 +14,7 @@ musicsRoutes.post(
     ensureMusicNameNotExistsMiddleware,
     musicsPostController
 )
+musicsRoutes.delete("/:id",ensureAuthMiddleware, ensureAuthIsAdmOrOwnerMiddleware, deleteMusicController)
 
 
 export default musicsRoutes;
