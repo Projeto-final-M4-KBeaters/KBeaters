@@ -10,6 +10,7 @@ import reactiveUserService from "./users/reactivateUsers.service";
 import listUniqueGenreService from "./genres/listUniqueGenre.service";
 import registerAdminService from "./admin/registerAdmin.service";
 import listAllMusicsByGenrerService from "./musics/listAllMusicsByGenrer.service";
+import musicsPostService from "./musics/musicsPost.service";
 
 export{
     registerUserService, 
@@ -23,5 +24,6 @@ export{
     reactiveUserService,
     listUniqueGenreService,
     registerAdminService,
-    listAllMusicsByGenrerService
+    listAllMusicsByGenrerService,
+    musicsPostService
 };
