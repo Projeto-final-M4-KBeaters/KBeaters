@@ -11,6 +11,7 @@ import listAllMusicsByGenrerController from "./musics/listAllMusicsByGenrer.cont
 import listAllMusicsController from "./musics/listAllMusics.controller";
 import listUniqueMusicController from "./musics/listUniqueMusic.controller";
 import musicsPostController from "./musics/musicsPost.controller";
+import deleteMusicController from "./musics/deleteMusic.controller";
 import listAllMusicsByPerformerController from "./musics/listAllMusicsByPerformer.controller";
 
 export { 
@@ -25,8 +26,10 @@ export {
     listUniqueGenreController,
     listAllMusicsByGenrerController,
     musicsPostController,
+    deleteMusicController,
     listAllMusicsByPerformerController,
     listAllMusicsController,
     listUniqueMusicController,
     musicsPostController
 };
+
