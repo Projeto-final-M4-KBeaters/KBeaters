@@ -10,7 +10,8 @@ import ensureUserIsActiveMiddleware from "./ensureUserIsActive.middleware";
 import ensureGenreNotExistMiddleware from "./ensureGenreNotExist.middleware";
 import ensureExistsGenreMiddleware from "./ensureExistsGenres.middleware";
 import ensureUUIDIsValidMiddleware from "./ensureUUIDIsValid.middleware";
-
+import ensureMusicNameNotExistsMiddleware from "./ensureMusicNameNotExists.middleware";
+import ensureAuthIsPerformerMiddleware from "./ensureAuthIsPerformer.middleware";
 
 export {
     ensureDataIsValidMiddleware,
@@ -24,5 +25,7 @@ export {
     ensureUserIsActiveMiddleware,
     ensureGenreNotExistMiddleware,
     ensureExistsGenreMiddleware,
-    ensureUUIDIsValidMiddleware
+    ensureUUIDIsValidMiddleware,
+    ensureMusicNameNotExistsMiddleware,
+    ensureAuthIsPerformerMiddleware
 };
