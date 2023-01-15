@@ -6,7 +6,7 @@ const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
   email: yup.string().email().required(),
   name: yup.string().required(),
   password: yup.string().required(),
-  isPerformer: yup.boolean().notRequired(),
+  isPerformer: yup.boolean().required(),
 })
 
 const userRegisterResponseSerializer: SchemaOf<IUserResponse> = yup
