@@ -27,7 +27,12 @@ interface IGenre{
     id: string
     name: string
 }
+
+interface IListMusicsByPerformer {
+    id: string
+}
 export {
     IMusicRequest,
-    IMusicResponse
+    IMusicResponse,
+    IListMusicsByPerformer
 }

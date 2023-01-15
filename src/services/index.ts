@@ -10,8 +10,11 @@ import reactiveUserService from "./users/reactivateUsers.service";
 import listUniqueGenreService from "./genres/listUniqueGenre.service";
 import registerAdminService from "./admin/registerAdmin.service";
 import listAllMusicsByGenrerService from "./musics/listAllMusicsByGenrer.service";
+import listAllMusicsService from "./musics/listAllMusics.service";
+import listUniqueMusicService from "./musics/listUniqueMusic.service";
 import musicsPostService from "./musics/musicsPost.service";
 import deleteMusicService from "./musics/deleteMusic.service";
+import listAllMusicsByPerformerService from "./musics/listAllMusicsByPerformer.service";
 
 export{
     registerUserService, 
@@ -27,5 +30,9 @@ export{
     registerAdminService,
     listAllMusicsByGenrerService,
     musicsPostService,
-    deleteMusicService
+    deleteMusicService,
+    listAllMusicsByPerformerService,
+    listAllMusicsService,
+    listUniqueMusicService,
+    musicsPostService
 };
