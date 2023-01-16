@@ -59,5 +59,4 @@ export {
     IPerformer,
     IMusicPatchRequest,
     IMusicPatchResponse
-
 }
