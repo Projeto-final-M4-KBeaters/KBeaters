@@ -3,7 +3,7 @@ import AppDataSource from "../data-source";
 import { Users } from "../entities/users.entities";
 import { AppError } from "../errors";
 
-const ensureIdIsValidMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+const ensureUserIdIsValidMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const userRepo = AppDataSource.getRepository(Users)
 
     const findUser = await userRepo.findOneBy({id: req.params.id})
@@ -11,8 +11,9 @@ const ensureIdIsValidMiddleware = async (req: Request, res: Response, next: Next
     if(!findUser) {
         throw new AppError("User not exists", 404)
     }
+    
     req.providedUser = findUser
     return next()
 }
 
-export default ensureIdIsValidMiddleware;
+export default ensureUserIdIsValidMiddleware;

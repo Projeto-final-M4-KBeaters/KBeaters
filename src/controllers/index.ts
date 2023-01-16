@@ -4,7 +4,7 @@ import listAllPerformersController from "./users/listAllPerformers.controller";
 import listUserController from "./users/listUser.controller";
 import listAllUsersController from "./users/listAllUsers.controller";
 import patchUserController from "./users/patchUsers.controller";
-import { reactivateUsersController } from "./users/reactivateUsers.controller";
+import  reactivateUsersController  from "./users/reactivateUsers.controller";
 import createloginController from "./login/login.controller";
 import listUniqueGenreController from "./genres/listUniqueGenre.controller";
 import listAllMusicsByGenrerController from "./musics/listAllMusicsByGenrer.controller";
@@ -13,6 +13,7 @@ import listUniqueMusicController from "./musics/listUniqueMusic.controller";
 import musicsPostController from "./musics/musicsPost.controller";
 import deleteMusicController from "./musics/deleteMusic.controller";
 import listAllMusicsByPerformerController from "./musics/listAllMusicsByPerformer.controller";
+import patchMusicsController from "./musics/patchMusic.controller";
 
 export { 
     registerUserController, 
@@ -25,11 +26,11 @@ export {
     createloginController,
     listUniqueGenreController,
     listAllMusicsByGenrerController,
-    musicsPostController,
     deleteMusicController,
     listAllMusicsByPerformerController,
     listAllMusicsController,
     listUniqueMusicController,
-    musicsPostController
+    musicsPostController,
+    patchMusicsController
 };
 

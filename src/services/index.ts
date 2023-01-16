@@ -15,6 +15,7 @@ import listUniqueMusicService from "./musics/listUniqueMusic.service";
 import musicsPostService from "./musics/musicsPost.service";
 import deleteMusicService from "./musics/deleteMusic.service";
 import listAllMusicsByPerformerService from "./musics/listAllMusicsByPerformer.service";
+import patchMusicService from "./musics/patchMusic.service";
 
 export{
     registerUserService, 
@@ -34,5 +35,5 @@ export{
     listAllMusicsByPerformerService,
     listAllMusicsService,
     listUniqueMusicService,
-    musicsPostService
+    patchMusicService
 };
