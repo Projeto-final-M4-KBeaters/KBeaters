@@ -34,5 +34,4 @@ export{
     listAllMusicsByPerformerService,
     listAllMusicsService,
     listUniqueMusicService,
-    musicsPostService
 };

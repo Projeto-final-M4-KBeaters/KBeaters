@@ -30,6 +30,5 @@ export {
     listAllMusicsByPerformerController,
     listAllMusicsController,
     listUniqueMusicController,
-    musicsPostController
 };
 

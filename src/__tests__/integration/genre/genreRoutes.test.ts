@@ -3,7 +3,7 @@ import { DataSource, Repository } from "typeorm"
 import AppDataSource from "../../../data-source"
 import request from "supertest"
 import app from "../../../app"
-import { mockedAdminRegister, mockedGenrePost, mockedUserLogin, mockedUserRegister } from "../../mocks"
+import { mockedAdminLogin, mockedAdminRegister, mockedGenrePost, mockedUserLogin, mockedUserRegister } from "../../mocks"
 import { Users } from "../../../entities/users.entities"
 import { Genres } from "../../../entities/genres.entities"
 
@@ -33,12 +33,12 @@ describe("/genre", () => {
     })
 
     test("POST /genres - should be able to create genre being admin", async () => {
-        const createUserAdmim = await request(app).post("/admim").send(mockedAdminRegister)
-
-        const userLoginResponse = await request(app).post("/login").send(mockedAdminRegister);
-
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        console.log(createUserAdmim.body)
+        const userLoginResponse = await request(app).post("/login").send(mockedAdminLogin);
+        console.log(createUserAdmim.body)
         const response = await request(app).post("/genres").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedGenrePost)
-
+        console.log(response.body)
         expect(response.body.name).toEqual("forrozim")
         expect(response.body).toHaveProperty("id")
         expect(response.status).toBe(201)
