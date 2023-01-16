@@ -17,7 +17,7 @@ import deleteMusicService from "./musics/deleteMusic.service";
 import listAllMusicsByPerformerService from "./musics/listAllMusicsByPerformer.service";
 import registerAlbumService from "./albums/registerAlbums.service";
 import patchMusicService from "./musics/patchMusic.service";
-
+import listAlbumService from "./albums/listAlbum.service";
 
 export{
     registerUserService, 
@@ -38,5 +38,6 @@ export{
     listAllMusicsService,
     listUniqueMusicService,
     registerAlbumService,
-    patchMusicService
+    patchMusicService,
+    listAlbumService
 };

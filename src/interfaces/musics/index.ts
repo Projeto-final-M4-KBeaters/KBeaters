@@ -50,6 +50,11 @@ interface IMusicPatchResponse{
     genre: IGenre
 }
 
+interface IMusicByAlbumResponse {
+    id: string
+    name: string
+    duration: string
+}
 
 
 export {
@@ -58,6 +63,6 @@ export {
     IListMusicsByPerformer,
     IPerformer,
     IMusicPatchRequest,
-    IMusicPatchResponse
-
+    IMusicPatchResponse,
+    IMusicByAlbumResponse
 }
