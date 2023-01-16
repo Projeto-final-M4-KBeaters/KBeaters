@@ -11,8 +11,8 @@ interface IMusicRequest {
 interface IMusicResponse {
     name: string
     duration: string
-    createdAt: string
-    updatedAt: string
+    createdAt: Date
+    updatedAt: Date
     performer: IPerformer
     genre: IGenre
     feats: IPerformer[]
@@ -31,9 +31,33 @@ interface IGenre{
 interface IListMusicsByPerformer {
     id: string
 }
+
+interface IMusicPatchRequest{
+    id?:string
+    name?: string
+    duration?: string
+    genreId?: string
+    performerId?: string
+    featsId?: string[]
+}
+
+interface IMusicPatchResponse{
+    name: string
+    duration: string
+    createdAt: Date
+    updatedAt: Date
+    performer: IPerformer
+    genre: IGenre
+}
+
+
+
 export {
     IMusicRequest,
     IMusicResponse,
     IListMusicsByPerformer,
-    IPerformer
+    IPerformer,
+    IMusicPatchRequest,
+    IMusicPatchResponse
+
 }
