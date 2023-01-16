@@ -11,7 +11,6 @@ const registerAlbumService = async (albumData: IAlbumRequest, performer: IUserRe
 
     const newAlbum = {
         ...albumData,
-        duration: "0",
         performer
     }
     const createAlbum = albumRepository.create(newAlbum)

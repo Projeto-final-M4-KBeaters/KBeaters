@@ -1,3 +1,4 @@
+import { Musics } from "../../entities/musics.entities"
 import { IPerformer } from "../musics"
 import { IMusicResponse } from "../musics"
 
@@ -18,7 +19,7 @@ interface IlistAlbumResponse{
     name:string,
     duration:string,
     performer: IPerformer
-    musics: IMusicResponse[]
+    musics: Musics[]
     createdAt:Date
 }
 

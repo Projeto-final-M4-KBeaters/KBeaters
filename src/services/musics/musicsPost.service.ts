@@ -58,7 +58,7 @@ const musicsPostService = async (req: Request): Promise<[number, object]> => {
         }
     )
 
-    return [401, response]
+    return [201, response]
 }
 
 export default musicsPostService;
