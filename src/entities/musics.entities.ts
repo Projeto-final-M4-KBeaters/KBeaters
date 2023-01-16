@@ -1,4 +1,4 @@
-import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, ManyToOne, ManyToMany, OneToMany, JoinTable, UpdateDateColumn} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, ManyToOne, ManyToMany, OneToMany, JoinTable, UpdateDateColumn, DeleteDateColumn} from "typeorm";
 import { Albums } from "./albuns.entities";
 import { Genres } from "./genres.entities";
 import { Likes } from "./likes.entities";
@@ -16,34 +16,35 @@ class Musics{
 
     @Column({ type: "time" })
     duration:string
-
+    
     @Column({ default: false})
-    deletedAt: boolean
-
+    isActive: boolean
+    
     @ManyToMany(() => Albums, albums => albums.musics)
     albums: Albums[]
-
+    
     @ManyToOne(() => Genres, genres => genres.musics)
     genre: Genres
-
+    
     @OneToMany(() => Likes, likes => likes.music)
     likes: Likes
-
+    
     @ManyToMany(() => Playlists, playlists => playlists.musics)
     playlists: Playlists
-
+    
     @ManyToOne(() => Users, performer => performer.musics)
     performer: Users
-
+    
     @ManyToMany(() => Users, performers => performers.feats)
     @JoinTable({
         name: "musicsFeats"
     })
     feats: Users[]
 
+    
     @CreateDateColumn()
     createdAt: Date
-
+    
     @UpdateDateColumn()
     updatedAt: Date
 }

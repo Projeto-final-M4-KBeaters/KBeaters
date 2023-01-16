@@ -64,5 +64,6 @@ export {
     IPerformer,
     IMusicPatchRequest,
     IMusicPatchResponse,
-    IMusicByAlbumResponse
+    IMusicByAlbumResponse,
+    IMusicPatchResponse
 }
