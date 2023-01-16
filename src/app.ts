@@ -4,6 +4,7 @@ import "reflect-metadata";
 import express from "express";
 import { handleError } from "./errors";
 import { userRoutes, loginRoutes, genresRoutes, adminRoutes, musicsRoutes } from "./routes";
+import albumsRoutes from "./routes/albums/albums.routes";
 
 
 
@@ -16,6 +17,7 @@ app.use("/users", userRoutes)
 app.use("/login", loginRoutes)
 app.use("/genres", genresRoutes)
 app.use("/musics", musicsRoutes)
+app.use("/albums", albumsRoutes)
 
 app.use(handleError)
 
