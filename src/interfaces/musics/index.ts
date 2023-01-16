@@ -34,5 +34,6 @@ interface IListMusicsByPerformer {
 export {
     IMusicRequest,
     IMusicResponse,
-    IListMusicsByPerformer
+    IListMusicsByPerformer,
+    IPerformer
 }

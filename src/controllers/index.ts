@@ -13,6 +13,8 @@ import listUniqueMusicController from "./musics/listUniqueMusic.controller";
 import musicsPostController from "./musics/musicsPost.controller";
 import deleteMusicController from "./musics/deleteMusic.controller";
 import listAllMusicsByPerformerController from "./musics/listAllMusicsByPerformer.controller";
+import registerAlbumController from "./albums/registerAlbums.controller";
+
 
 export { 
     registerUserController, 
@@ -30,5 +32,6 @@ export {
     listAllMusicsByPerformerController,
     listAllMusicsController,
     listUniqueMusicController,
+    registerAlbumController
 };
 
