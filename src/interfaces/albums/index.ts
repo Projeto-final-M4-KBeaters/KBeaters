@@ -1,6 +1,5 @@
+import { IMusicByAlbumResponse, IPerformer, IMusicResponse } from "../musics"
 import { Musics } from "../../entities/musics.entities"
-import { IPerformer } from "../musics"
-import { IMusicResponse } from "../musics"
 
 interface IAlbumRequest{
     name: string
@@ -14,6 +13,15 @@ interface IAlbumResponse{
     createdAt: Date
 }
 
+interface IListMusicByAlbumResponse{
+    id: string,
+    name: string,
+    duration: string,
+    createdAt: Date,
+    musics: IMusicByAlbumResponse[],
+    performer: IPerformer
+}
+
 interface IlistAlbumResponse{
     id:string,
     name:string,
@@ -24,4 +32,4 @@ interface IlistAlbumResponse{
 }
 
 
-export { IAlbumRequest, IAlbumResponse,IlistAlbumResponse }
+export { IAlbumRequest, IAlbumResponse, IlistAlbumResponse, IListMusicByAlbumResponse }
