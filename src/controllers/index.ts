@@ -16,6 +16,7 @@ import listAllMusicsByPerformerController from "./musics/listAllMusicsByPerforme
 import registerAlbumController from "./albums/registerAlbums.controller";
 import patchMusicsController from "./musics/patchMusic.controller";
 import addMusicToAlbumsController from "./albums/addMusicAlbums.controller";
+import removeMusicFromAlbumController from "./albums/removeMusicAlbum.controller";
 
 export { 
     registerUserController, 
@@ -35,6 +36,7 @@ export {
     registerAlbumController,
     musicsPostController,
     patchMusicsController,
-    addMusicToAlbumsController
+    addMusicToAlbumsController,
+    removeMusicFromAlbumController
 };
 

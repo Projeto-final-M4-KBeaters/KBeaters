@@ -19,6 +19,7 @@ import registerAlbumService from "./albums/registerAlbums.service";
 import patchMusicService from "./musics/patchMusic.service";
 import listAllAlbumsService from "./albums/listAllAlbums.service";
 import addMusicsToAlbumService from "./albums/addMusicsToAlbums.service";
+import removeMusicFromAlbumService from "./albums/removeMusicsToAlbum.service";
 
 export{
     registerUserService, 
@@ -41,5 +42,6 @@ export{
     registerAlbumService,
     patchMusicService,
     listAllAlbumsService,
-    addMusicsToAlbumService
+    addMusicsToAlbumService,
+    removeMusicFromAlbumService
 };

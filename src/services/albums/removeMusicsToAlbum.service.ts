@@ -2,14 +2,13 @@ import AppDataSource from "../../data-source"
 import { Albums } from "../../entities/albuns.entities"
 import { Musics } from "../../entities/musics.entities"
 import { AppError } from "../../errors"
-import { IAlbumRequest, IAlbumResponse,IlistAlbumResponse } from "../../interfaces/albums"
+import { IlistAlbumResponse } from "../../interfaces/albums"
 
-
-const addMusicsToAlbumService = async(albumID:string,musicID:string) => {
+const removeMusicFromAlbumService = async(albumID:string,musicID:string) => {
 
     const albumRepository = AppDataSource.getRepository(Albums)
     const musicRepository = AppDataSource.getRepository(Musics)
-    
+
     const findMusic = await musicRepository.findOne({
         where:{
             id: musicID
@@ -24,37 +23,37 @@ const addMusicsToAlbumService = async(albumID:string,musicID:string) => {
             musics:true
         }
     })
-    
-    
+
     const {id,name,duration,musics,performer,createdAt} = findAlbum as IlistAlbumResponse
-    
-    if(musics.find(music => music.id === findMusic?.id)){
-        throw new AppError("Music Not Exists In Album", 409)
-    }
-    
-    
+
     const sumTime = findMusic!.duration.split(":") 
     const time = duration.split(":")
     const dateTime = new Date()
-    dateTime.setMinutes(Number(time[1]) + Number(sumTime[1]))
-    dateTime.setSeconds(Number(time[2]) + Number(sumTime[2]))
+    dateTime.setMinutes(Number(time[1]) - Number(sumTime[1]))
+    dateTime.setSeconds(Number(time[2]) - Number(sumTime[2]))
     const durationStr = `${dateTime.getHours()}:${dateTime.getMinutes()}:${dateTime.getSeconds()}`
 
+    const newMusics = musics.filter((music) => music.id !== findMusic?.id)
 
-    const addMusic = albumRepository.create({
+    if(!musics.find(music => music.id === findMusic?.id)){
+        throw new AppError("Music Already In Album", 409)
+    }
+
+    const removeMusic = albumRepository.create({
         id,
         name,
         duration: durationStr,
-        musics: [...musics, findMusic!],
+        musics: newMusics,
         performer,
         createdAt
     })
 
 
 
-    await albumRepository.save(addMusic)
+    await albumRepository.save(removeMusic)
 
-    return addMusic
+    return removeMusic
+
 }
 
-export default addMusicsToAlbumService
+export default removeMusicFromAlbumService
