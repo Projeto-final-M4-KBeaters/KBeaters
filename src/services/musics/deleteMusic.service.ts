@@ -9,7 +9,7 @@ const deleteMusicService =  async (musicId: string): Promise<object> => {
         id: musicId
     })
 
-    music!.deletedAt = true
+    music!.isActive = false
     await musicRepository.save(music!)
 
     return {}

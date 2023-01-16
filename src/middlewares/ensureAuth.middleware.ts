@@ -8,6 +8,7 @@ import { userRegisterResponseSerializer } from "../serializers/users";
 
 
 const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFunction) => {
+    
 
     let token = req.headers.authorization
 

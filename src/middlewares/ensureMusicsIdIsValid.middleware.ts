@@ -8,11 +8,13 @@ const ensureMusicIdIsValidMiddleware = async (req: Request, res: Response, next:
 
     const findMusic = await musicRepo.findOneBy({id: req.params.id})
 
+
     if(!findMusic) {
         throw new AppError("User not exists", 404)
     }
 
     req.providedMusics = findMusic
+    
 
     if(req.body.id !== undefined){
         throw new AppError("Id Cannot Be Changed", 403)

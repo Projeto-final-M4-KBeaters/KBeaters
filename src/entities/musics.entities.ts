@@ -16,37 +16,37 @@ class Musics{
 
     @Column({ type: "time" })
     duration:string
-
+    
+    @Column({ default: false})
+    isActive: boolean
+    
     @ManyToMany(() => Albums, albums => albums.musics)
     albums: Albums[]
-
+    
     @ManyToOne(() => Genres, genres => genres.musics)
     genre: Genres
-
+    
     @OneToMany(() => Likes, likes => likes.music)
     likes: Likes
-
+    
     @ManyToMany(() => Playlists, playlists => playlists.musics)
     playlists: Playlists
-
+    
     @ManyToOne(() => Users, performer => performer.musics)
     performer: Users
-
+    
     @ManyToMany(() => Users, performers => performers.feats)
     @JoinTable({
         name: "musicsFeats"
     })
     feats: Users[]
 
-    @Column({default: true})
-    isActive: boolean
-
+    
     @CreateDateColumn()
     createdAt: Date
-
+    
     @UpdateDateColumn()
     updatedAt: Date
-
 }
 
 export {Musics};
