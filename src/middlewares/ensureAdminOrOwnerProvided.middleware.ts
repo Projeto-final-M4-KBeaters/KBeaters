@@ -15,7 +15,7 @@ const ensureAuthIsAdmOrOwnerProvidedMiddleware = async (req: Request, res:Respon
     .getOne()
 
     if(!musics){
-        throw new AppError("Music not exist", 403)  
+        throw new AppError("You don't own such music.", 403)  
     }
 
     if(!musics.isActive){
