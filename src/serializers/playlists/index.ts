@@ -33,8 +33,8 @@ const listAllPlaylistsSerializer: SchemaOf<IPlaylistsResponse> = yup.object().sh
         yup.object({
             id: yup.string().required(),
             name: yup.string().required()
-        })
-    ),
+        }).notRequired()
+    ).notRequired(),
     updatedAt: yup.date().required()
 })
 

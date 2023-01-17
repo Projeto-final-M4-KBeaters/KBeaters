@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { listAllPlaylistsController, listUserPlaylistController, listUniquePlaylistController } from "../../controllers";
+import { listAllPlaylistsController, listUserPlaylistController, listUniquePlaylistController, patchPlaylistsController } from "../../controllers";
 import registerPlaylistsController from "../../controllers/playlists/registerPlaylists.controller";
-import { ensureAuthMiddleware, ensureDataIsValidMiddleware, ensurePlaylistExistsMiddleware } from "../../middlewares";
+import { ensureAdminOrOwnerPlaylistMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensurePlaylistExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
 import { playlistPostSerializer } from "../../serializers/playlists";
 
 const playlistsRoutes = Router();
@@ -9,8 +9,8 @@ const playlistsRoutes = Router();
 playlistsRoutes.post("",  ensureAuthMiddleware, ensureDataIsValidMiddleware(playlistPostSerializer), registerPlaylistsController)
 playlistsRoutes.get("", listAllPlaylistsController)
 playlistsRoutes.get("/:id", ensurePlaylistExistsMiddleware, listUniquePlaylistController)
-playlistsRoutes.get("", ensureAuthMiddleware, listAllPlaylistsController)
 playlistsRoutes.get("/users/:id", ensureAuthMiddleware, listUserPlaylistController)
+playlistsRoutes.patch("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware,ensureDataIsValidMiddleware(playlistPostSerializer), ensurePlaylistExistsMiddleware, ensureAdminOrOwnerPlaylistMiddleware, patchPlaylistsController)
 
 
 export default playlistsRoutes;
