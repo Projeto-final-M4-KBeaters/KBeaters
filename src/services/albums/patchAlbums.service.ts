@@ -12,17 +12,20 @@ const patchAlbumService = async (req: Request) => {
             id: req.params.id
         },
         relations: {
-            musics: true
+            musics: {
+                performer: true
+            },
+            performer : true
         }
     })
     if(album){
         const { name } = req.body;
         album.name = name;
         await albumsRepo.save(album);
-        // const response = listResponseSerializer.validate(album, {
-        //     stripUnknown: true
-        // })
-        return album
+        const response = listResponseSerializer.validate(album, {
+            stripUnknown: true
+        })
+        return response
     }
     throw new AppError ("Album not found", 404);
 

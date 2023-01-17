@@ -31,7 +31,7 @@ const listResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
             id: yup.string().required(),
             name: yup.string().required(),
             duration: yup.string().required()
-        }).notRequired()
+        }).required()
     ).required(),
     performer: yup.object({
         id: yup.string().required(),

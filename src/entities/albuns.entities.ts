@@ -13,6 +13,9 @@ class Albums{
     @Column({type:"time", default:"00:00:00"})
     duration:string
 
+    @Column({ default: false})
+    isActive: boolean
+
     @ManyToMany(() => Musics, musics => musics.albums)
     @JoinTable({
         name: "albumsToMusics"
