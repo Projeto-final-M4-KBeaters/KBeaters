@@ -65,5 +65,4 @@ export {
     IMusicPatchRequest,
     IMusicPatchResponse,
     IMusicByAlbumResponse,
-    IMusicPatchResponse
 }
