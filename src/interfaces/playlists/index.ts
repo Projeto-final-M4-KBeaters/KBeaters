@@ -25,16 +25,16 @@ interface IPlaylistsResponse{
     duration: string,
     createdAt: Date,
     user: IUser,
-    musics: IMusic[]
+    musics?: IMusic[],
     updatedAt: Date
 }
 
 interface ISpecificUserPlaylistResponse{
-    id: string
-    name: string
-    duration: string
-    createdAt: string
-    updatedAt: string
+    id: string,
+    name: string,
+    duration: string,
+    createdAt: string,
+    updatedAt: string,
     musics: IMusicByAlbumResponse[]
 }
 

@@ -24,6 +24,8 @@ import listAllAlbumsByPerformerController from "./albums/listAllAlbumsByPerforme
 import listAllPlaylistsController from "./playlists/listAllPlaylists.controller";
 import listUniquePlaylistController from "./playlists/listUniquePlaylist.controller";
 import listUserPlaylistController from "./playlists/listUserPlaylist.controller";
+import patchPlaylistsController from "./playlists/patchPlaylists.controller";
+
 
 
 export { 
@@ -52,7 +54,8 @@ export {
     listAllAlbumsByPerformerController,
     listAllPlaylistsController,
     listUniquePlaylistController,
-    listUserPlaylistController
-
+    listUserPlaylistController,
+    patchPlaylistsController
+    
 };
 

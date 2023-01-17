@@ -24,10 +24,12 @@ import patchAlbumService from "./albums/patchAlbums.service";
 import removeMusicFromAlbumService from "./albums/removeMusicsToAlbum.service";
 import deleteAlbumService from "./albums/deleteAlbum.service";
 import listAllAlbumsByPerformerService from "./albums/listAllAlbumsByPerformer.service";
-import registerPlaylistsService from "./playlists/registerAlbums.service";
+import registerPlaylistsService from "./playlists/registerPlaylists.service";
 import listAllPlaylistsService from "./playlists/listAllPlaylists.service";
 import listUniquePlaylistService from "./playlists/listUniquePlaylist.service";
 import listUserPlaylistService from "./playlists/listUserPlaylist.service";
+import patchPlaylistsService from "./playlists/patchPlaylists.service";
+
 
 export{
     registerUserService, 
@@ -59,5 +61,6 @@ export{
     registerPlaylistsService,
     listAllPlaylistsService,
     listUniquePlaylistService,
-    listUserPlaylistService
+    listUserPlaylistService,
+    patchPlaylistsService
 };
