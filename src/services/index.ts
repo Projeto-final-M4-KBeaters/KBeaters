@@ -20,6 +20,7 @@ import patchMusicService from "./musics/patchMusic.service";
 import listAlbumService from "./albums/listAlbum.service";
 import listAllAlbumsService from "./albums/listAllAlbums.service";
 import addMusicsToAlbumService from "./albums/addMusicsToAlbums.service";
+import removeMusicFromAlbumService from "./albums/removeMusicsToAlbum.service";
 import deleteAlbumService from "./albums/deleteAlbum.service";
 import listAllAlbumsByPerformerService from "./albums/listAllAlbumsByPerformer.service";
 
@@ -46,6 +47,7 @@ export{
     listAlbumService,
     listAllAlbumsService,
     addMusicsToAlbumService,
+    removeMusicFromAlbumService,
     deleteAlbumService,
     listAllAlbumsByPerformerService
 };
