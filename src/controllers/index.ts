@@ -39,8 +39,7 @@ export {
     registerAlbumController,
     musicsPostController,
     patchMusicsController,
-    addMusicToAlbumsController,
-    removeMusicFromAlbumController
+    removeMusicFromAlbumController,
     listAlbumController,
     addMusicToAlbumsController,
     deleteAlbumController,
