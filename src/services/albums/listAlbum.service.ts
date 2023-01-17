@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Albums } from "../../entities/albuns.entities";
+import { IAlbumResponse } from "../../interfaces/albums";
 import {listResponseSerializer } from "../../serializers/albums";
 
-const listAlbumService = async (idAlbum: string) => {
+const listAlbumService = async (idAlbum: string): Promise<IAlbumResponse> => {
     const albumRepository = AppDataSource.getRepository(Albums)
     
 

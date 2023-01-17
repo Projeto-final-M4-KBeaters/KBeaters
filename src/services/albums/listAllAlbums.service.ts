@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source"
 import { Albums } from "../../entities/albuns.entities"
+import { IAlbumResponse } from "../../interfaces/albums"
 import { listAlbumResponseArray } from "../../serializers/albums"
 
-const listAllAlbumsService = async() => {
+const listAllAlbumsService = async (): Promise<IAlbumResponse[]> => {
     const albumRepository = AppDataSource.getRepository(Albums)
 
     const listAlbums = await albumRepository.find({
