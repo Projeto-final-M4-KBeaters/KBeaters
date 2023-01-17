@@ -26,6 +26,7 @@ import deleteAlbumService from "./albums/deleteAlbum.service";
 import listAllAlbumsByPerformerService from "./albums/listAllAlbumsByPerformer.service";
 import registerPlaylistsService from "./playlists/registerAlbums.service";
 import listAllPlaylistsService from "./playlists/listAllPlaylists.service";
+import listUniquePlaylistService from "./playlists/listUniquePlaylist.service";
 import listUserPlaylistService from "./playlists/listUserPlaylist.service";
 
 export{
@@ -57,5 +58,6 @@ export{
     listAllAlbumsByPerformerService,
     registerPlaylistsService,
     listAllPlaylistsService,
+    listUniquePlaylistService,
     listUserPlaylistService
 };

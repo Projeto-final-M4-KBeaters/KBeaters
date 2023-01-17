@@ -64,3 +64,4 @@ const listAllPlaylistsByUser: SchemaOf<IPlaylistsUserResponse> = yup.object().sh
 })
 
 export { playlistPostSerializer, resgisterPlaylistResponse, listPlaylistsResponseArray, listAllPlaylistsSerializer, listAllPlaylistsByUser }
+
