@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
 import { listAllPlaylistsByUser } from "../../serializers/playlists";
 
-const listUserPlaylistService = async (userId: string) => {
+const listUserPlaylistService = async (userId: string): Promise<object> => {
 
     const userRepository = AppDataSource.getRepository(Users)
 
