@@ -1,17 +1,27 @@
 import AppDataSource from "../../data-source"
 import { Albums } from "../../entities/albuns.entities"
 import { Users } from "../../entities/users.entities"
-
+import { listAlbumResponseArray, listAllAlbumsByPerformerSerializerResponse } from "../../serializers/albums"
 
 const listAllAlbumsByPerformerService = async (performerId: string) => {
-    const albums = AppDataSource.getRepository(Albums)
+    const user = AppDataSource.getRepository(Users)
 
-    const findAlbums = await albums.createQueryBuilder("albums")
-    .innerJoinAndSelect("albums.performer", "performer")
-    .where("performer.id = :id_performer", {id_performer: performerId})
-    .getMany()
+    const findAlbums = await user.find({
+        where: {
+            id: performerId
+        },
+        relations: {
+            albums: {
+                musics: true
+            }
 
-    return findAlbums
+        }
+    })
+
+    const responseAlbumsFound = await listAllAlbumsByPerformerSerializerResponse.validate(findAlbums,{
+        stripUnknown:true
+    })
+    return responseAlbumsFound
 }
 
 export default listAllAlbumsByPerformerService

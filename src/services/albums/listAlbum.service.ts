@@ -1,18 +1,23 @@
 import AppDataSource from "../../data-source";
 import { Albums } from "../../entities/albuns.entities";
-import { listMusicsByAlbumResponseSerializer } from "../../serializers/albums";
+import {listResponseSerializer } from "../../serializers/albums";
 
-const listAlbumService = async (idAlbum: string): Promise<object> => {
-
+const listAlbumService = async (idAlbum: string) => {
     const albumRepository = AppDataSource.getRepository(Albums)
     
-    const musics = await albumRepository.createQueryBuilder("albums")
-    .innerJoinAndSelect("albums.musics", "musics")
-    .innerJoinAndSelect("albums.performer", "users")
-    .where("albums.id = :id_album", { id_album: idAlbum})
-    .getOne()
+
+    const findAlbum = await albumRepository.findOne({
+        where: {
+            id: idAlbum
+        },
+        relations: {
+            performer:true,
+            musics:true
+        }
+    })
     
-    const musicResponse = await listMusicsByAlbumResponseSerializer.validate(musics, {
+    
+    const musicResponse = await listResponseSerializer.validate(findAlbum, {
             stripUnknown: true
         }
     )

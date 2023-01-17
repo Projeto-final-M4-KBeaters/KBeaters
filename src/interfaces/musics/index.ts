@@ -56,6 +56,10 @@ interface IMusicByAlbumResponse {
     duration: string
 }
 
+interface IMusic{
+    id: string
+    name: string
+}
 
 export {
     IMusicRequest,
@@ -64,5 +68,5 @@ export {
     IPerformer,
     IMusicPatchRequest,
     IMusicByAlbumResponse,
-    IMusicPatchResponse
+    IMusic
 }
