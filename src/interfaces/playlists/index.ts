@@ -1,4 +1,4 @@
-import { IMusic, IPerformer } from "../musics"
+import { IMusic, IMusicByAlbumResponse, IPerformer } from "../musics"
 import { IUserResponse } from "../users"
 
 interface IUser {
@@ -29,4 +29,19 @@ interface IPlaylistsResponse{
     updatedAt: Date
 }
 
-export { IPlaylistRequest, IPlaylistResponse, IUser, IPlaylistsResponse }
+interface ISpecificUserPlaylistResponse{
+    id: string
+    name: string
+    duration: string
+    createdAt: string
+    updatedAt: string
+    musics: IMusicByAlbumResponse[]
+}
+
+interface IPlaylistsUserResponse{
+    id: string,
+    name: string,
+    playlists: ISpecificUserPlaylistResponse[]
+}
+
+export { IPlaylistRequest, IPlaylistResponse, IUser, IPlaylistsResponse, IPlaylistsUserResponse }
