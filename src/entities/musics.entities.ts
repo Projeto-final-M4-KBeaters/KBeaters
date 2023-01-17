@@ -15,9 +15,9 @@ class Musics{
     name: string
 
     @Column({ type: "time" })
-    duration:string
+    duration: string
     
-    @Column({ default: false})
+    @Column({ default: true })
     isActive: boolean
     
     @ManyToMany(() => Albums, albums => albums.musics)
@@ -30,7 +30,7 @@ class Musics{
     likes: Likes
     
     @ManyToMany(() => Playlists, playlists => playlists.musics)
-    playlists: Playlists
+    playlists: Playlists[]
     
     @ManyToOne(() => Users, performer => performer.musics)
     performer: Users

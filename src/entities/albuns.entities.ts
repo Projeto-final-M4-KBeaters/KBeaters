@@ -1,4 +1,4 @@
-import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable, UpdateDateColumn} from "typeorm";
 import { Musics } from "./musics.entities";
 import { Users } from "./users.entities";
 
@@ -10,10 +10,10 @@ class Albums{
     @Column({length: 100})
     name: string
 
-    @Column({type:"time",default:"00:00:00"})
+    @Column({ type:"time", default: "00:00:00" })
     duration:string
 
-    @Column({ default: false})
+    @Column({ default: true })
     isActive: boolean
 
     @ManyToMany(() => Musics, musics => musics.albums)
@@ -27,6 +27,9 @@ class Albums{
 
     @CreateDateColumn()
     createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
 }
 
 export {Albums};
