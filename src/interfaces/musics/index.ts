@@ -56,6 +56,10 @@ interface IMusicByAlbumResponse {
     duration: string
 }
 
+interface IMusic{
+    id: string
+    name: string
+}
 
 export {
     IMusicRequest,
@@ -65,4 +69,5 @@ export {
     IMusicPatchRequest,
     IMusicPatchResponse,
     IMusicByAlbumResponse,
+    IMusic
 }

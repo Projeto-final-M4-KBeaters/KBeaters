@@ -20,6 +20,7 @@ import addMusicToAlbumsController from "./albums/addMusicAlbums.controller";
 import removeMusicFromAlbumController from "./albums/removeMusicAlbum.controller";
 import deleteAlbumController from "./albums/deleteAlbum.controller";
 import listAllAlbumsByPerformerController from "./albums/listAllAlbumsByPerformer.controller";
+import listAllPlaylistsController from "./playlists/listAllPlaylists.controller";
 
 export { 
     registerUserController, 
@@ -43,6 +44,7 @@ export {
     listAlbumController,
     addMusicToAlbumsController,
     deleteAlbumController,
-    listAllAlbumsByPerformerController
+    listAllAlbumsByPerformerController,
+    listAllPlaylistsController
 };
 
