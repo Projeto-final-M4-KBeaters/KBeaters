@@ -42,4 +42,4 @@ const listPlaylistsResponseArray: SchemaOf<IPlaylistsResponse[]> = yup.array(
     listAllPlaylistsSerializer
 )
 
-export { playlistPostSerializer, resgisterPlaylistResponse, listPlaylistsResponseArray }
+export { playlistPostSerializer, resgisterPlaylistResponse, listPlaylistsResponseArray, listAllPlaylistsSerializer }
