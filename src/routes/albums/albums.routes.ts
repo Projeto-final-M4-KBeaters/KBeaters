@@ -13,8 +13,8 @@ albumsRoutes.delete("/remove/:id", ensureAuthMiddleware,ensureAuthIsPerformerMid
 albumsRoutes.get("/:id", ensureUUIDIsValidMiddleware, listAlbumController)
 albumsRoutes.get("/performer/:id",ensureUUIDIsValidMiddleware, ensureUserToBeSearchedIsPerformerMiddleware, listAllAlbumsByPerformerController )
 albumsRoutes.post("/add/:id", ensureAuthMiddleware,ensureAuthIsPerformerMiddleware,ensureAuthIsAdmOrOwnerProvidedMiddleware,addMusicToAlbumsController)
-albumsRoutes.patch("/:id", patchAlbumController)
-albumsRoutes.delete("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, deleteAlbumController)
+albumsRoutes.patch("/:id", ensureAuthMiddleware, ensureAuthIsPerformerMiddleware, ensureDataIsValidMiddleware(albumPostSerializer) ,patchAlbumController)
+albumsRoutes.delete("/:id", ensureAuthMiddleware,ensureUUIDIsValidMiddleware, deleteAlbumController)
 
 
 export default albumsRoutes;

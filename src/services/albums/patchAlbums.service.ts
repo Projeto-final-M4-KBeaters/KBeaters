@@ -8,15 +8,19 @@ import { listResponseSerializer } from "../../serializers/albums";
 const patchAlbumService = async (req: Request) => {
     const albumsRepo = AppDataSource.getRepository(Albums);
     const album = await albumsRepo.findOne({
-        where: {
-            id: req.params.id
-        },
         relations: {
             musics: {
                 performer: true
             },
             performer : true
-        }
+        },
+        where: {
+            id: req.params.id,
+            performer: {
+                id: req.user.id
+            }
+            
+        },
     })
     if(album){
         const { name } = req.body;
@@ -27,7 +31,7 @@ const patchAlbumService = async (req: Request) => {
         })
         return response
     }
-    throw new AppError ("Album not found", 404);
+    throw new AppError ("You don't own such album.", 400);
 
 }
 

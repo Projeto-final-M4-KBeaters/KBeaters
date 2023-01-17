@@ -33,15 +33,15 @@ const musicsPostService = async (req: Request): Promise<[number, object]> => {
         })
     }
     
-    const genres = await genreRepo.find({
+    const genre = await genreRepo.findOne({
         where: {
             id: genreId
         }
     })
-    if(!genres){
+    if(!genre){
         return [404, { message: "Genre not found." }]
     }
-    const genre = genres[0];
+
     const newMusic = {
         name,
         performer,
