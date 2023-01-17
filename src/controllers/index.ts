@@ -22,6 +22,7 @@ import removeMusicFromAlbumController from "./albums/removeMusicAlbum.controller
 import deleteAlbumController from "./albums/deleteAlbum.controller";
 import listAllAlbumsByPerformerController from "./albums/listAllAlbumsByPerformer.controller";
 import listAllPlaylistsController from "./playlists/listAllPlaylists.controller";
+import listUserPlaylistController from "./playlists/listUserPlaylist.controller";
 
 export { 
     registerUserController, 
@@ -47,6 +48,7 @@ export {
     patchAlbumController,
     deleteAlbumController,
     listAllAlbumsByPerformerController,
-    listAllPlaylistsController
+    listAllPlaylistsController,
+    listUserPlaylistController
 };
 
