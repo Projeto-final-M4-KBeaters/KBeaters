@@ -10,7 +10,7 @@ class Albums{
     @Column({length: 100})
     name: string
 
-    @Column({type:"time",default:"00:00:00"})
+    @Column({type:"time", default:"00:00:00"})
     duration:string
 
     @ManyToMany(() => Musics, musics => musics.albums)

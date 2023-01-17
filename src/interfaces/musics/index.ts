@@ -63,7 +63,6 @@ export {
     IListMusicsByPerformer,
     IPerformer,
     IMusicPatchRequest,
-    IMusicPatchResponse,
     IMusicByAlbumResponse,
     IMusicPatchResponse
 }

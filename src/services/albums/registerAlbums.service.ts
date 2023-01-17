@@ -14,6 +14,7 @@ const registerAlbumService = async (albumData: IAlbumRequest, performer: IUserRe
         performer
     }
     const createAlbum = albumRepository.create(newAlbum)
+    createAlbum.duration = "00:00:00"
     await albumRepository.save(createAlbum)
 
     const returnedData = resgisterAlbumResponse.validate(createAlbum, {stripUnknown: true})

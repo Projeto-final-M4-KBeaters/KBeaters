@@ -31,7 +31,7 @@ const listResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
             id: yup.string().required(),
             name: yup.string().required(),
             duration: yup.string().required()
-        }).required()
+        }).notRequired()
     ).required(),
     performer: yup.object({
         id: yup.string().required(),
@@ -43,4 +43,4 @@ const listAlbumResponseArray: SchemaOf<IAlbumResponse[]> = yup.array(
     listResponseSerializer
 )
 
-export {albumPostSerializer, resgisterAlbumResponse,listAlbumResponseArray, listMusicsByAlbumResponseSerializer}
+export {albumPostSerializer, resgisterAlbumResponse,listAlbumResponseArray, listMusicsByAlbumResponseSerializer, listResponseSerializer}
