@@ -29,7 +29,7 @@ const addMusicsToAlbumService = async(albumID:string,musicID:string) => {
     const {id,name,duration,musics,performer,createdAt} = findAlbum as IlistAlbumResponse
     
     if(musics.find(music => music.id === findMusic?.id)){
-        throw new AppError("Music Not Exists In Album", 409)
+        throw new AppError("Music Already Exists In Album", 409)
     }
     
     

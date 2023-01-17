@@ -15,7 +15,6 @@ const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFuncti
     if(!token){
         throw new AppError("Invalid token", 401)
     }
-
     token = token.split(" ")[1]
 
     jwt.verify(token, process.env.SECRET_KEY as string, async (error, decoded: any) => {
@@ -24,11 +23,16 @@ const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFuncti
             return res.status(401).json({ message: "Invalid token" })
 
         }
+        console.log(decoded.sub)
         const userRepo = AppDataSource.getRepository(Users)
         const user = await userRepo.findOne({ where: { id: decoded.sub as string}})
+        if(!user){
+            return res.status(401).json({ message: "Invalid token" })
+        }
         const userFiltered = await userRegisterResponseSerializer.validate(user, {
             stripUnknown: true
         })
+        
         req.user = userFiltered
 
         return next()

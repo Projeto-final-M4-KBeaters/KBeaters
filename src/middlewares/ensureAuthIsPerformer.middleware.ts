@@ -9,6 +9,6 @@ const ensureAuthIsPerformerMiddleware = async (req: Request, res: Response, next
         return next()
     }
     
-    throw new AppError("User must be a performer to post musics.", 403)
+    throw new AppError("User must be a performer.", 403)
 }
 export default ensureAuthIsPerformerMiddleware;
