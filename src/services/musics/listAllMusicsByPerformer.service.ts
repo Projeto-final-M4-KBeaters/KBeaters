@@ -4,7 +4,7 @@ import { Users } from "../../entities/users.entities"
 import { IListMusicsByPerformer } from "../../interfaces/musics"
 
 
-const listAllMusicsByPerformerService =async (performerId:string) => {
+const listAllMusicsByPerformerService = async (performerId:string) => {
     const performerRepository = AppDataSource.getRepository(Users)
     const musicsRepository = AppDataSource.getRepository(Musics)
 
