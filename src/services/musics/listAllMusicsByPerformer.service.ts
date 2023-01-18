@@ -1,8 +1,6 @@
 import AppDataSource from "../../data-source"
 import { Musics } from "../../entities/musics.entities"
 import { Users } from "../../entities/users.entities"
-import { IListMusicsByPerformer } from "../../interfaces/musics"
-
 
 const listAllMusicsByPerformerService = async (performerId:string): Promise<object> => {
     const performerRepository = AppDataSource.getRepository(Users)

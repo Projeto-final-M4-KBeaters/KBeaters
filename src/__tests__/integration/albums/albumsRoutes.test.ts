@@ -8,6 +8,7 @@ import { Users } from "../../../entities/users.entities";
 import { Musics } from "../../../entities/musics.entities";
 import { Genres } from "../../../entities/genres.entities";
 import { IListMusicsByPerformer, IMusicRequest } from "../../../interfaces/musics";
+import { response } from "express";
 
 describe("/albums", () => {
     let connection : DataSource;
@@ -50,7 +51,7 @@ describe("/albums", () => {
         await connection.destroy()     
     });
 
-    test("POST /albums - should be able to crate album", async () => {
+    test("POST /albums - should be able to create album", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userLoginResponse = await request(app).post("/login").send(mockedPerformerLogin)
@@ -66,7 +67,7 @@ describe("/albums", () => {
         expect(response.status).toBe(201)
     })
 
-    test("POST /albums - should not be able to crate album if not performer", async () => {
+    test("POST /albums - should not be able to create album if not performer", async () => {
         await request(app).post("/users").send(mockedUserRegister)
 
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
@@ -162,7 +163,7 @@ describe("/albums", () => {
         expect(response.status).toBe(400)
     })
 
-    test("POST /albums - shold be able to add music in album,", async () => {
+    test("POST /albums - should be able to add music in album,", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
@@ -192,4 +193,96 @@ describe("/albums", () => {
         expect(addMusicAlbum.body.musics).toHaveLength(1)
         expect(addMusicAlbum.status).toBe(201)
     })
+
+    test("POST /albums - should not be able to add Music with invalid Album Id", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IListMusicsByPerformer = {
+            id: createMusic.body.id
+        }
+
+        const addMusicAlbum = await request(app).post(`/albums/add/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+
+        expect(addMusicAlbum.body).toHaveProperty("message")
+        expect(addMusicAlbum.status).toBe(409)
+    })
+
+    test("POST /albums - should not be able to add Music with invalid Music Id", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IListMusicsByPerformer = {
+            id: "invalidUUID"
+        }
+
+        const addMusicAlbum = await request(app).post(`/albums/add/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+
+        expect(addMusicAlbum.body).toHaveProperty("message")
+        expect(addMusicAlbum.status).toBe(409)
+    })
+
+    test("POST /albums - should not be able to add Music that already exists", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IListMusicsByPerformer = {
+            id: createGenre.body.id
+        }
+
+        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlreadyAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+
+        expect(addMusicAlreadyAlbum.body).toHaveProperty("message")
+        expect(addMusicAlreadyAlbum.status).toBe(409)
+    })
+
 })

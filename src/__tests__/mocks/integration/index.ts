@@ -57,4 +57,6 @@ const mockedAlbumPost: IAlbumRequest = {
     name: "Festinha na piscina"
 }
 
+
+
 export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedInvalidUUID, mockedAlbumPost}

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { IListMusicsByPerformer } from "../../interfaces/musics";
 import { listAllMusicsByPerformerService } from "../../services";
 
 

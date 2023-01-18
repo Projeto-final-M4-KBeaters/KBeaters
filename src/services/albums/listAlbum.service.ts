@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Albums } from "../../entities/albuns.entities";
 import { IAlbumResponse } from "../../interfaces/albums";
-import {listResponseSerializer } from "../../serializers/albums";
+import {listAlbumResponseSerializer } from "../../serializers/albums";
 
 const listAlbumService = async (idAlbum: string): Promise<IAlbumResponse> => {
     const albumRepository = AppDataSource.getRepository(Albums)
@@ -18,7 +18,7 @@ const listAlbumService = async (idAlbum: string): Promise<IAlbumResponse> => {
     })
     
     
-    const musicResponse = await listResponseSerializer.validate(findAlbum, {
+    const musicResponse = await listAlbumResponseSerializer.validate(findAlbum, {
             stripUnknown: true
         }
     )

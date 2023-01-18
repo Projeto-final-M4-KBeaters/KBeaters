@@ -1,12 +1,12 @@
 import AppDataSource from "../../data-source";
 import { Playlists } from "../../entities/playlists.entities";
-import { IPlaylistRequest, IPlaylistResponse } from "../../interfaces/playlists"
+import { IPlaylistRequest, IPlaylistsResponse } from "../../interfaces/playlists"
 import { IUserResponse } from "../../interfaces/users"
 import { resgisterPlaylistResponse } from "../../serializers/playlists";
 
 
 
-const registerPlaylistsService = async (dataPlaylist: IPlaylistRequest, user: IUserResponse): Promise<IPlaylistResponse> => {
+const registerPlaylistsService = async (dataPlaylist: IPlaylistRequest, user: IUserResponse): Promise<IPlaylistsResponse> => {
 
     const playlistRepository = AppDataSource.getRepository(Playlists)
 

@@ -19,8 +19,7 @@ const resgisterAlbumResponse: SchemaOf<IAlbumResponse> = yup.object()
 
     })
 
-// const listMusicsByAlbumResponseSerializer: SchemaOf<IListMusicByAlbumResponse> = yup.object()
-const listResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
+const listAlbumResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
     .shape({
         id: yup.string().required(),
         name: yup.string().required(),
@@ -31,14 +30,13 @@ const listResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
                 id: yup.string().required(),
                 name: yup.string().required(),
                 duration: yup.string().required()
-            }).required()
-        ).notRequired(),
+            }).notRequired()
+        ).required(),
         performer: yup.object({
             id: yup.string().required(),
             name: yup.string().required()
         }).required()
     })
-
 
 const listAllAlbumsByPerformerSerializer: SchemaOf<IlistAllAlbumsByPerformerResponse> = yup.object()
     .shape({
@@ -55,15 +53,12 @@ const listAllAlbumsByPerformerSerializer: SchemaOf<IlistAllAlbumsByPerformerResp
         ).notRequired()
     })
 
-
-
-
 const listAlbumResponseArray: SchemaOf<IAlbumResponse[]> = yup.array(
-    listResponseSerializer
+    listAlbumResponseSerializer
 )
 
 const listAllAlbumsByPerformerSerializerResponse : SchemaOf<IlistAllAlbumsByPerformerResponse[]> = yup.array(
     listAllAlbumsByPerformerSerializer
 )
 
-export { albumPostSerializer, resgisterAlbumResponse,listAllAlbumsByPerformerSerializerResponse, listAlbumResponseArray,listAllAlbumsByPerformerSerializer, listResponseSerializer }
+export { albumPostSerializer, resgisterAlbumResponse,listAllAlbumsByPerformerSerializerResponse, listAlbumResponseArray,listAllAlbumsByPerformerSerializer, listAlbumResponseSerializer }

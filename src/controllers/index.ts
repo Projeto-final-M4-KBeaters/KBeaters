@@ -26,6 +26,8 @@ import listUniquePlaylistController from "./playlists/listUniquePlaylist.control
 import listUserPlaylistController from "./playlists/listUserPlaylist.controller";
 import patchPlaylistsController from "./playlists/patchPlaylists.controller";
 import deletePlaylistController from "./playlists/deletePlaylist.controller";
+import addMusicsToPlaylistController from "./playlists/addMusicsToPlaylist.controller";
+import removeMusicsFromPlaylistController from "./playlists/removeMusicsFromPlaylist.controller";
 
 export {
 	registerUserController,
@@ -56,4 +58,7 @@ export {
 	listUserPlaylistController,
 	patchPlaylistsController,
 	deletePlaylistController,
+	addMusicsToPlaylistController,
+	removeMusicsFromPlaylistController
+	
 };
