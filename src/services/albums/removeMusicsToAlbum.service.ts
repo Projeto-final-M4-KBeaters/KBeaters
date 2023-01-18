@@ -4,7 +4,7 @@ import { Musics } from "../../entities/musics.entities"
 import { AppError } from "../../errors"
 import { IlistAlbumResponse } from "../../interfaces/albums"
 
-const removeMusicFromAlbumService = async(albumID:string,musicID:string) => {
+const removeMusicFromAlbumService = async(albumID:string,musicID:string): Promise<object> => {
 
     const albumRepository = AppDataSource.getRepository(Albums)
     const musicRepository = AppDataSource.getRepository(Musics)

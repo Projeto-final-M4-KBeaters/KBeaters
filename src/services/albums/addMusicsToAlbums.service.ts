@@ -5,7 +5,7 @@ import { AppError } from "../../errors"
 import { IAlbumRequest, IAlbumResponse,IlistAlbumResponse } from "../../interfaces/albums"
 
 
-const addMusicsToAlbumService = async(albumID:string,musicID:string) => {
+const addMusicsToAlbumService = async(albumID:string,musicID:string): Promise<object> => {
 
     const albumRepository = AppDataSource.getRepository(Albums)
     const musicRepository = AppDataSource.getRepository(Musics)

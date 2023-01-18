@@ -1,5 +1,6 @@
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/users.entities";
+import { IPlaylistsUserResponse } from "../../interfaces/playlists";
 import { listAllPlaylistsByUser } from "../../serializers/playlists";
 
 const listUserPlaylistService = async (userId: string): Promise<object> => {

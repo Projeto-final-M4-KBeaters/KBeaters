@@ -18,7 +18,8 @@ import ensureAuthIsAdmOrOwnerProvidedMiddleware from "./ensureAdminOrOwnerProvid
 import ensureUserToBeSearchedIsPerformerMiddleware from "./ensureUserToBeSearchedIsPerformer.middleware";
 import ensurePlaylistExistsMiddleware from "./ensurePlaylistExists.middleware";
 import ensureAdminOrOwnerPlaylistMiddleware from "./ensureAdminOrOwnerPlaylist.middleware";
-
+import ensureAlbumIdIsValidMiddleware from "./ensureAlbumIdIsValid.middleware";
+import ensureUserIdPlaylistIsValidMiddleware from "./ensureUserIdPlaylistIsValid.middleware";
 
 export {
     ensureDataIsValidMiddleware,
@@ -40,5 +41,7 @@ export {
     ensureAuthIsAdmOrOwnerProvidedMiddleware,
     ensureUserToBeSearchedIsPerformerMiddleware,
     ensurePlaylistExistsMiddleware,
-    ensureAdminOrOwnerPlaylistMiddleware
+    ensureAdminOrOwnerPlaylistMiddleware,
+    ensureAlbumIdIsValidMiddleware,
+    ensureUserIdPlaylistIsValidMiddleware
 };

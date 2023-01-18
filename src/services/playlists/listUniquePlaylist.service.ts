@@ -1,8 +1,9 @@
 
 import { Playlists } from "../../entities/playlists.entities"
+import { IPlaylistResponse, IPlaylistsResponse } from "../../interfaces/playlists"
 import {listAllPlaylistsSerializer} from "../../serializers/playlists"
 
-const listUniquePlaylistService = async (foundedPlaylist: Playlists) => {
+const listUniquePlaylistService = async (foundedPlaylist: Playlists): Promise<IPlaylistsResponse> => {
 
     
 
