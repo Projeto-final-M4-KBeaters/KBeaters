@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source"
 import { Albums } from "../../entities/albuns.entities"
 import { Musics } from "../../entities/musics.entities"
 import { AppError } from "../../errors"
-import { IAlbumRequest, IAlbumResponse,IlistAlbumResponse } from "../../interfaces/albums"
+import { IlistAlbumResponse } from "../../interfaces/albums"
 
 
 const addMusicsToAlbumService = async(albumID:string,musicID:string): Promise<object> => {

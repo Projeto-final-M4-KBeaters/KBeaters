@@ -1,16 +1,16 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IPlaylistAddMusicRequest, IPlaylistRequest, IPlaylistResponse, IPlaylistsResponse, IPlaylistsUserResponse } from "../../interfaces/playlists";
+import { IPlaylistAddOrRemoveMusicRequest, IPlaylistRequest, IPlaylistsResponse, IPlaylistsUserResponse } from "../../interfaces/playlists";
 
 const playlistPostSerializer: SchemaOf<IPlaylistRequest> = yup.object().shape({
     name: yup.string().required()
 })
 
-const playlistAddMusicSerializer: SchemaOf<IPlaylistAddMusicRequest> = yup.object().shape({
+const playlistAddMusicSerializer: SchemaOf<IPlaylistAddOrRemoveMusicRequest> = yup.object().shape({
     id: yup.string().required()
 })
 
-const resgisterPlaylistResponse: SchemaOf<IPlaylistResponse> = yup.object().shape({
+const resgisterPlaylistResponse: SchemaOf<IPlaylistsResponse> = yup.object().shape({
     id: yup.string().required(),
     name: yup.string().required(),
     duration: yup.string().required(),
@@ -19,7 +19,13 @@ const resgisterPlaylistResponse: SchemaOf<IPlaylistResponse> = yup.object().shap
         name: yup.string().required()
     }).required(),
     createdAt: yup.date().required(),
-    updatedAt: yup.date().required()
+    updatedAt: yup.date().required(),
+    musics: yup.array().of(
+        yup.object({
+            id: yup.string().required(),
+            name: yup.string().required()
+        }).notRequired()
+    ).notRequired(),
 
 })
 
