@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { listAllMusicsByGenrerController, deleteMusicController, listAllMusicsByPerformerController, musicsPostController, listUniqueMusicController, listAllMusicsController, patchMusicsController } from "../../controllers";
 import { ensureAuthIsAdmOrOwnerMiddleware, ensureAuthIsPerformerMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureExistsGenreMiddleware, ensureMusicIdIsValidMiddleware, ensureMusicNameNotExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
-import { musicPatchRequestSerializer, musicPatchSerializer, musicsRequestSerializer } from "../../serializers/musics";
+import { musicPatchRequestSerializer, musicsRequestSerializer } from "../../serializers/musics";
 
 const musicsRoutes = Router();
 

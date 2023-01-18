@@ -11,7 +11,6 @@ const musicsRequestSerializer: SchemaOf<IMusicRequest> = yup.object().shape({
 })
 
 const musicsResponseSerializer: SchemaOf<IMusicResponse> = yup.object().shape({
-    id: yup.string().required(),
     name: yup.string().required(),
     duration: yup.string().required(),
     createdAt: yup.date().required(),
