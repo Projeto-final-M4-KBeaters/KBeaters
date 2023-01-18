@@ -48,11 +48,6 @@ interface IMusicResponseSimples{
 export {
     IMusicRequest,
     IMusicResponse,
-<<<<<<< HEAD
-    IListMusicsByPerformer,
-    IPerformer,
-=======
->>>>>>> feebaa870d02bfe17cab41105e1330661feddd66
     IMusicPatchRequest,
     IMusicByAlbumOrPlaylistResponse,
     IMusicPatchResponse,

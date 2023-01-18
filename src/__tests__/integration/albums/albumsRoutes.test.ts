@@ -7,8 +7,9 @@ import { mockedAdminLogin, mockedAdminRegister, mockedAlbumPost, mockedGenrePost
 import { Users } from "../../../entities/users.entities";
 import { Musics } from "../../../entities/musics.entities";
 import { Genres } from "../../../entities/genres.entities";
-import { IListMusicsByPerformer, IMusicRequest } from "../../../interfaces/musics";
+import { IMusicRequest } from "../../../interfaces/musics";
 import { response } from "express";
+import { IPlaylistAddOrRemoveMusicRequest } from "../../../interfaces/playlists";
 
 describe("/albums", () => {
     let connection : DataSource;
@@ -141,7 +142,7 @@ describe("/albums", () => {
         
         const response = await request(app).get(`/albums/performer/${createUserPerformer.body.id}`).send()
 
-        expect(response.body[0].id).toEqual(createUserPerformer.body.id)
+        expect(response.body.id).toEqual(createUserPerformer.body.id)
         expect(response.status).toBe(200)
         
     })
@@ -183,12 +184,14 @@ describe("/albums", () => {
 
         const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
 
-        const idMusicToAdd: IListMusicsByPerformer = {
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: createMusic.body.id
         }
 
         const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        
+        console.log(createMusic.body)
+        console.log(addMusicAlbum.body)
+
         expect(addMusicAlbum.body.musics[0].id).toEqual(idMusicToAdd.id)
         expect(addMusicAlbum.body.musics).toHaveLength(1)
         expect(addMusicAlbum.status).toBe(201)
@@ -214,7 +217,7 @@ describe("/albums", () => {
 
         const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
 
-        const idMusicToAdd: IListMusicsByPerformer = {
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: createMusic.body.id
         }
 
@@ -244,7 +247,7 @@ describe("/albums", () => {
 
         const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
 
-        const idMusicToAdd: IListMusicsByPerformer = {
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: "invalidUUID"
         }
 
@@ -274,7 +277,7 @@ describe("/albums", () => {
 
         const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
 
-        const idMusicToAdd: IListMusicsByPerformer = {
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: createGenre.body.id
         }
 
