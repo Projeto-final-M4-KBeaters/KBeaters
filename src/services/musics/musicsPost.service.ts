@@ -3,22 +3,23 @@ import AppDataSource from "../../data-source";
 import { Genres } from "../../entities/genres.entities";
 import { Musics } from "../../entities/musics.entities";
 import { Users } from "../../entities/users.entities";
-import { IMusicRequest } from "../../interfaces/musics";
+import { AppError } from "../../errors";
+import { IMusicRequest, IMusicResponse } from "../../interfaces/musics";
 import { musicsResponseSerializer } from "../../serializers/musics";
 
-const musicsPostService = async (req: Request): Promise<[number, object]> => {
+const musicsPostService = async (req: Request): Promise<IMusicResponse> => {
     const { name, duration, genreId, featsId } = req.body as IMusicRequest;
-    
+
     const performer = req.user;
     const usersRepo = AppDataSource.getRepository(Users);
     const musicsRepo = AppDataSource.getRepository(Musics);
     const genreRepo = AppDataSource.getRepository(Genres);
     const feats = [] as Users[]
-    
-    if(featsId){
+
+    if (featsId) {
         const featsPromise = featsId.map(async (id) => {
             const featUser = await usersRepo.find({
-                where:{
+                where: {
                     id: id,
                     isPerformer: true
                 }
@@ -26,20 +27,20 @@ const musicsPostService = async (req: Request): Promise<[number, object]> => {
             return featUser[0];
         })
         await Promise.all(featsPromise)
-        .then(res => {
-           res.forEach(item => {
-            if(item) feats.push(item);
-           })
-        })
+            .then(res => {
+                res.forEach(item => {
+                    if (item) feats.push(item);
+                })
+            })
     }
-    
+
     const genre = await genreRepo.findOne({
         where: {
             id: genreId
         }
     })
-    if(!genre){
-        return [404, { message: "Genre not found." }]
+    if (!genre) {
+        throw new AppError("Genre not found.", 404)
     }
 
     const newMusic = {
@@ -54,11 +55,11 @@ const musicsPostService = async (req: Request): Promise<[number, object]> => {
     const response = await musicsResponseSerializer.validate(
         musicSave,
         {
-          stripUnknown: true,
+            stripUnknown: true,
         }
     )
 
-    return [201, response]
+    return response
 }
 
 export default musicsPostService;

@@ -18,8 +18,8 @@ const listAllAlbumsByPerformerService = async (performerId: string): Promise<Ili
         }
     })
 
-    const responseAlbumsFound = await listAllAlbumsByPerformerSerializer.validate(findAlbums,{
-        stripUnknown:true
+    const responseAlbumsFound = await listAllAlbumsByPerformerSerializer.validate(findAlbums, {
+        stripUnknown: true
     })
     return responseAlbumsFound!
 }

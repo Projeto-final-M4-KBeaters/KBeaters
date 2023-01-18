@@ -24,19 +24,21 @@ const addMusicsToAlbumService = async (albumID: string, musicID: string): Promis
         relations: {
             musics: true,
             performer: true
+        },
+        order: {
+            musics: {
+                isActive: 'desc'
+            }
         }
     })
 
-
-    const { id, name, duration, musics, performer, createdAt, updatedAt, isActive } = findAlbum as IlistAlbumResponse
-
-    if (musics.find(music => music.id === findMusic?.id)) {
+    if (findAlbum!.musics.find(music => music.id === findMusic?.id)) {
         throw new AppError("Music Already Exists In Album", 409)
     }
 
 
     const sumTime = findMusic!.duration.split(":")
-    const time = duration.split(":")
+    const time = findMusic!.duration.split(":")
     const dateTime = new Date()
     dateTime.setHours(
         Number(sumTime[0]) + Number(time[0]),
@@ -48,23 +50,12 @@ const addMusicsToAlbumService = async (albumID: string, musicID: string): Promis
     const seconds = dateTime.getSeconds() > 9 ? dateTime.getSeconds() : "0" + dateTime.getSeconds();
 
     const durationStr = `${hours}:${minutes}:${seconds}`;
+    findAlbum!.duration = durationStr;
+    findAlbum!.musics = [...findAlbum!.musics, findMusic!]
 
-
-    const addMusic = albumRepository.create({
-        id,
-        name,
-        duration: durationStr,
-        musics: [...musics, findMusic!],
-        performer,
-        createdAt,
-        updatedAt,
-        isActive
-    })
-
-
-
-    const musicSave = await albumRepository.save(addMusic)
+    const musicSave = await albumRepository.save(findAlbum!)
     const response = await listAlbumResponseSerializer.validate(musicSave, { stripUnknown: true })
+
     return response
 }
 

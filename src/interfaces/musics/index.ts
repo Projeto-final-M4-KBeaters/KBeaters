@@ -7,7 +7,7 @@ interface IMusicRequest {
     name: string
     duration: string
     genreId: string
-    featsId: string[]
+    featsId?: string[]
 }
 
 interface IMusicResponse {
@@ -22,12 +22,12 @@ interface IMusicResponse {
     genre: IGenreResponse
 }
 
-interface IMusicPatchRequest{
+interface IMusicPatchRequest {
     name?: string
     genreId?: string
 }
 
-interface IMusicPatchResponse{
+interface IMusicPatchResponse {
     name: string
     duration: string
     createdAt: Date
@@ -42,7 +42,7 @@ interface IMusicByAlbumOrPlaylistResponse {
     duration: string
 }
 
-interface IMusicResponseSimples{
+interface IMusicResponseSimples {
     id: string
     name: string
 }

@@ -11,10 +11,13 @@ const listAllMusicsService = async (): Promise<IMusicResponse[]> => {
             performer: true,
             feats: true,
             genre: true
+        },
+        order: {
+            isActive: 'desc'
         }
     });
     const response = await listMusicsResponseArray.validate(musicsList, { stripUnknown: true });
-    
+
     return response!
 }
 

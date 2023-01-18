@@ -9,6 +9,8 @@ const deleteAlbumService = async (albumId: string): Promise<null> => {
 
     album!.isActive = false
 
+    await albumRepo.save(album!);
+
     return null
 };
 

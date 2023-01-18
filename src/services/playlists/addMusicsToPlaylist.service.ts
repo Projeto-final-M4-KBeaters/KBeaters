@@ -3,9 +3,10 @@ import AppDataSource from "../../data-source";
 import { Musics } from "../../entities/musics.entities";
 import { Playlists } from "../../entities/playlists.entities";
 import { AppError } from "../../errors";
+import { IPlaylistsResponse } from "../../interfaces/playlists";
 import { listAllPlaylistsSerializer } from "../../serializers/playlists";
 
-const addMusicsToPlaylistService = async (req: Request) => {
+const addMusicsToPlaylistService = async (req: Request): Promise<IPlaylistsResponse> => {
     const musicId = req.body.id;
     const userId = req.user.id;
     const playlist = req.providedPlaylist;
@@ -30,10 +31,10 @@ const addMusicsToPlaylistService = async (req: Request) => {
 
         }
     })
-    if(!findMusic) {
+    if (!findMusic) {
         throw new AppError("Music not found.", 403);
     }
-    if(findMusicOnPlaylist){
+    if (findMusicOnPlaylist) {
         throw new AppError("Music already added before", 409)
     }
 
@@ -45,9 +46,9 @@ const addMusicsToPlaylistService = async (req: Request) => {
         Number(sumTime[1]) + Number(time[1]),
         Number(sumTime[2]) + Number(time[2])
     );
-    const hours = dateTime.getHours() > 9 ? dateTime.getHours() : "0"+dateTime.getHours();
-    const minutes = dateTime.getMinutes() > 9 ? dateTime.getMinutes() : "0"+dateTime.getMinutes();
-    const seconds = dateTime.getSeconds() > 9 ? dateTime.getSeconds() : "0"+dateTime.getSeconds();
+    const hours = dateTime.getHours() > 9 ? dateTime.getHours() : "0" + dateTime.getHours();
+    const minutes = dateTime.getMinutes() > 9 ? dateTime.getMinutes() : "0" + dateTime.getMinutes();
+    const seconds = dateTime.getSeconds() > 9 ? dateTime.getSeconds() : "0" + dateTime.getSeconds();
 
     const durationStr = `${hours}:${minutes}:${seconds}`;
     playlist.musics = [...playlist.musics, findMusic];
@@ -57,7 +58,7 @@ const addMusicsToPlaylistService = async (req: Request) => {
     const response = await listAllPlaylistsSerializer.validate(playlist, {
         stripUnknown: true
     })
-    
+
     return response;
 }
 

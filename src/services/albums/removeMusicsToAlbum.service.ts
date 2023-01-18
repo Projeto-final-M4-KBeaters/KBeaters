@@ -49,7 +49,7 @@ const removeMusicFromAlbumService = async (albumID: string, musicID: string): Pr
 
     findAlbum.musics = newMusics;
 
-    const albumSave = await albumRepository.save(findAlbum);
+    await albumRepository.save(findAlbum);
 
     const response = await listAlbumResponseSerializer.validate(findAlbum, { stripUnknown: true })
 

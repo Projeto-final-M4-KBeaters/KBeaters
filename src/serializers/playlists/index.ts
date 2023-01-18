@@ -68,7 +68,7 @@ const listAllPlaylistsByUser: SchemaOf<IPlaylistsUserResponse> = yup.object().sh
             name: yup.string().required(),
             id: yup.string().required()
         })
-    ).required(),
+    ).notRequired(),
     name: yup.string().required(),
     id: yup.string().required()
 })
