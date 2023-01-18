@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source"
 import { Users } from "../../entities/users.entities"
+import { IlistAllAlbumsByPerformerResponse } from "../../interfaces/albums"
 import { listAllAlbumsByPerformerSerializer, listAllAlbumsByPerformerSerializerResponse } from "../../serializers/albums"
 
-const listAllAlbumsByPerformerService = async (performerId: string): Promise<object> => {
+const listAllAlbumsByPerformerService = async (performerId: string): Promise<IlistAllAlbumsByPerformerResponse> => {
     const user = AppDataSource.getRepository(Users)
 
     const findAlbums = await user.findOne({

@@ -57,7 +57,7 @@ const addMusicsToPlaylistService = async (req: Request) => {
     const response = await listAllPlaylistsSerializer.validate(playlist, {
         stripUnknown: true
     })
-    console.log(playlist)
+    
     return response;
 }
 

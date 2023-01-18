@@ -52,12 +52,12 @@ const removeMusicsFromPlaylistsService = async (req: Request) => {
     const seconds = dateTime.getSeconds() > 9 ? dateTime.getSeconds() : "0"+dateTime.getSeconds();
     const durationStr = `${hours}:${minutes}:${seconds}`;
     playlist.duration = durationStr;
-    console.log("bah")
+    
     await playlistsRepo.save(playlist);
     const response = await listAllPlaylistsSerializer.validate(playlist, {
          stripUnknown: true
     })
-    console.log("che")
+    
 
     return playlist;
 }
