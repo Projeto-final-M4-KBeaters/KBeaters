@@ -1,4 +1,4 @@
-import {mockedGenrePost, mockedAdminLogin, mockedAdminRegister, mockedPerformerLogin, mockedPerformerRegister, mockedUserLogin, mockedUserRegister, mockedAlbumPost, mockedInvalidUUID } from "./integration";
+import {mockedPatchAlbum,mockedPerformerRegisterFake,mockedGenrePost, mockedAdminLogin, mockedAdminRegister, mockedPerformerLogin, mockedPerformerRegister, mockedUserLogin, mockedUserRegister, mockedAlbumPost, mockedInvalidUUID } from "./integration";
 
 
 export { 
@@ -10,5 +10,7 @@ export {
     mockedPerformerRegister,
     mockedGenrePost,
     mockedAlbumPost,
-    mockedInvalidUUID
+    mockedInvalidUUID,
+    mockedPerformerRegisterFake,
+    mockedPatchAlbum
 }

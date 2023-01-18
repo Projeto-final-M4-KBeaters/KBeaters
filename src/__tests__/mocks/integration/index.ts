@@ -25,6 +25,13 @@ const mockedPerformerRegister : IUserRequest={
     isPerformer: true
 }
 
+const mockedPerformerRegisterFake : IUserRequest={
+    name: "jp",
+    email: "jp@mail.com",
+    password: "123456",
+    isPerformer: true
+}
+
 const mockedInactiveRegister : IUserPatchRequest={
     name: "lucas",
     email: "schmitao@mail.com",
@@ -57,6 +64,10 @@ const mockedAlbumPost: IAlbumRequest = {
     name: "Festinha na piscina"
 }
 
+const mockedPatchAlbum: IAlbumRequest = {
+    name: "Sem Festas Hoje"
+}
 
 
-export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedInvalidUUID, mockedAlbumPost}
+
+export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedInvalidUUID, mockedAlbumPost,mockedPerformerRegisterFake,mockedPatchAlbum}

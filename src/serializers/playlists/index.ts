@@ -23,7 +23,7 @@ const resgisterPlaylistResponse: SchemaOf<IPlaylistsResponse> = yup.object().sha
         id: yup.string().required(),
         name: yup.string().required()
     }).required(),
-    isActive: yup.string().required(),
+    isActive: yup.boolean().required(),
     duration: yup.string().required(),
     name: yup.string().required(),
     id: yup.string().required(),
@@ -43,7 +43,7 @@ const listAllPlaylistsSerializer: SchemaOf<IPlaylistsResponse> = yup.object().sh
     updatedAt: yup.date().required(),
     createdAt: yup.date().required(),
     duration: yup.string().required(),
-    isActive: yup.string().required(),
+    isActive: yup.boolean().required(),
     name: yup.string().required(),
     id: yup.string().required(),
 })

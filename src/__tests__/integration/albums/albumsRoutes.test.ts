@@ -3,7 +3,7 @@ import app from "../../../app";
 import request from "supertest"
 import AppDataSource from "../../../data-source";
 import { Albums } from "../../../entities/albuns.entities"
-import { mockedAdminLogin, mockedAdminRegister, mockedAlbumPost, mockedGenrePost, mockedInvalidUUID, mockedPerformerLogin, mockedPerformerRegister, mockedUserLogin, mockedUserRegister } from "../../mocks";
+import { mockedAdminLogin, mockedAdminRegister, mockedAlbumPost, mockedGenrePost, mockedInvalidUUID, mockedPatchAlbum, mockedPerformerLogin, mockedPerformerRegister, mockedPerformerRegisterFake, mockedUserLogin, mockedUserRegister } from "../../mocks";
 import { Users } from "../../../entities/users.entities";
 import { Musics } from "../../../entities/musics.entities";
 import { Genres } from "../../../entities/genres.entities";
@@ -199,7 +199,7 @@ describe("/albums", () => {
     });
 
     test("POST /albums - should not be able to add Music with invalid Album Id", async() => {
-        console.log("oi")
+        
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
@@ -232,65 +232,334 @@ describe("/albums", () => {
         expect(addMusicAlbum.status).toBe(409)
     })
 
-    // test("POST /albums - should not be able to add Music with invalid Music Id", async() => {
-    //     await request(app).post("/users").send(mockedPerformerRegister)
+    test("POST /albums - should not be able to add Music with not exists Album Id", async() => {
+        
+        await request(app).post("/users").send(mockedPerformerRegister)
 
-    //     const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+        
 
-    //     const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
-    //     const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
-    //     const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
-    //     const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+        
 
-    //     const musicToBeCreated: IMusicRequest = {
-    //         name: "João Pedro mais conhecido como bola de fogo",
-    //         duration: "10:15",
-    //         genreId: createGenre.body.id,
-    //         featsId: []
-    //     }
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
 
-    //     const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
 
-    //     const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
-    //         id: "invalidUUID"
-    //     }
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
 
-    //     const addMusicAlbum = await request(app).post(`/albums/add/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
 
-    //     expect(addMusicAlbum.body).toHaveProperty("message")
-    //     expect(addMusicAlbum.status).toBe(409)
-    // })
+        const addMusicAlbum = await request(app).post(`/albums/add/${"invalidUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
 
-    // test("POST /albums - should not be able to add Music that already exists", async() => {
-    //     await request(app).post("/users").send(mockedPerformerRegister)
+        expect(addMusicAlbum.body).toHaveProperty("message")
+        expect(addMusicAlbum.status).toBe(409)
+    })
 
-    //     const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+    test("POST /albums - should not be able to add Music with invalid Music Id", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
 
-    //     const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-    //     const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
-    //     const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
-    //     const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
-    //     const musicToBeCreated: IMusicRequest = {
-    //         name: "João Pedro mais conhecido como bola de fogo",
-    //         duration: "10:15",
-    //         genreId: createGenre.body.id,
-    //         featsId: []
-    //     }
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
 
-    //     const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
 
-    //     const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
-    //         id: createGenre.body.id
-    //     }
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
 
-    //     const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-    //     const addMusicAlreadyAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: "invalidUUID"
+        }
 
-    //     expect(addMusicAlreadyAlbum.body).toHaveProperty("message")
-    //     expect(addMusicAlreadyAlbum.status).toBe(409)
-    // })
+        const addMusicAlbum = await request(app).post(`/albums/add/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+
+        expect(addMusicAlbum.body).toHaveProperty("message")
+        expect(addMusicAlbum.status).toBe(409)
+    })
+
+    test("POST /albums - should not be able to add Music that already exists", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
+
+        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlreadyAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+
+        expect(addMusicAlreadyAlbum.body).toHaveProperty("message")
+        expect(addMusicAlreadyAlbum.status).toBe(409)
+    })
+
+    test("POST /albums - should not be able to add Music without been the Owner", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+        await request(app).post("/users").send(mockedPerformerRegisterFake)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+        const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+        
+
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
+
+        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(idMusicToAdd)
+       
+
+        expect(addMusicAlbum.body).toHaveProperty("message")
+        expect(addMusicAlbum.status).toBe(403)
+    })
+
+    test("DELETE /albums - should be able to remove music from album", async () => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
+        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const deleteMusicAlbum = await request(app).delete(`/albums/remove/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const musicAlbum = await request(app).get(`/albums/${createAlbum.body.id}`).send()
+
+        
+        
+        expect(musicAlbum.body.musics).toHaveLength(0)
+        expect(deleteMusicAlbum.status).toBe(204)
+    });
+
+    test("DELETE /albums - should not be able to remove music from album with INVALID Album Id", async () => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
+        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const deleteMusicAlbum = await request(app).delete(`/albums/remove/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const musicAlbum = await request(app).get(`/albums/${createAlbum.body.id}`).send()
+
+        
+        
+        expect(musicAlbum.body.musics).toHaveLength(1)
+        expect(deleteMusicAlbum.body).toHaveProperty("message")
+        expect(deleteMusicAlbum.status).toBe(409)
+    });
+
+    test("DELETE /albums - should not be able to remove music from album with not exists album id", async () => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
+        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const deleteMusicAlbum = await request(app).delete(`/albums/remove/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const musicAlbum = await request(app).get(`/albums/${createAlbum.body.id}`).send()
+
+        
+        
+        expect(musicAlbum.body.musics).toHaveLength(1)
+        expect(deleteMusicAlbum.body).toHaveProperty("message")
+        expect(deleteMusicAlbum.status).toBe(409)
+    });
+
+    test("DELETE /albums - should not be able to remove Music without been the Owner", async() => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+        await request(app).post("/users").send(mockedPerformerRegisterFake)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+        const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const musicToBeCreated: IMusicRequest = {
+            name: "João Pedro mais conhecido como bola de fogo",
+            duration: "10:15",
+            genreId: createGenre.body.id,
+            featsId: []
+        }
+
+        const createMusic = await request(app).post("/musics").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(musicToBeCreated)
+        
+
+        const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
+            id: createMusic.body.id
+        }
+
+        const removeMusicAlbum = await request(app).delete(`/albums/remove/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(idMusicToAdd)
+       
+
+        expect(removeMusicAlbum.body).toHaveProperty("message")
+        expect(removeMusicAlbum.status).toBe(403)
+    })
+
+    test("PATCH /albums - should be able to change the album name", async () => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const changeAlbumName = await request(app).patch(`/albums/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedPatchAlbum)
+        
+        console.log(changeAlbumName)
+
+        expect(changeAlbumName.body.name).toEqual("Sem Festas Hoje")
+        expect(changeAlbumName.status).toBe(200)
+        
+    });
+
+    test("PATCH /albums - should not be able to change the name without the correct Owner", async () => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+        await request(app).post("/users").send(mockedPerformerRegisterFake)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+        const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const changeAlbumName = await request(app).patch(`/albums/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(mockedPatchAlbum)
+        
+        
+        expect(changeAlbumName.body).toHaveProperty("message")
+        expect(changeAlbumName.status).toBe(400)
+        
+    });
+
+    test("PATCH /albums - should not be able to change album name with invalid UUID", async () => {
+        await request(app).post("/users").send(mockedPerformerRegister)
+        await request(app).post("/users").send(mockedPerformerRegisterFake)
+
+        const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
+        const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
+
+        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+
+        const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
+        const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
+        const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
+
+        const changeAlbumName = await request(app).patch(`/albums/${"NotUUID"}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(mockedPatchAlbum)
+        
+        
+        expect(changeAlbumName.body).toHaveProperty("message")
+        expect(changeAlbumName.status).toBe(409)
+        
+    });
+
+    
+    
+
 
 })
