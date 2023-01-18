@@ -64,6 +64,7 @@ interface IMusic{
 export {
     IMusicRequest,
     IMusicResponse,
+    IMusicPatchResponse,
     IListMusicsByPerformer,
     IPerformer,
     IMusicPatchRequest,
