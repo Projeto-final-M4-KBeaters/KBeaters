@@ -1,4 +1,5 @@
 import { IGenreRequest } from "../../../interfaces/genres"
+import { IMusicRequest } from "../../../interfaces/musics"
 import { IUserRequest, IUserPatchRequest, IUserLogin } from "../../../interfaces/users"
 
 
@@ -48,5 +49,6 @@ const mockedPerformerLogin : IUserLogin = {
 const mockedGenrePost : IGenreRequest = {
     name: "forrozim"
 }
+
 
 export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister}
