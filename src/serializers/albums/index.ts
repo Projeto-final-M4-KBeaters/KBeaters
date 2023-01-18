@@ -8,23 +8,24 @@ const albumPostSerializer: SchemaOf<IAlbumRequest> = yup.object().shape({
 
 const resgisterAlbumResponse: SchemaOf<IAlbumResponse> = yup.object()
     .shape({
-        id: yup.string().required(),
-        name: yup.string().required(),
-        duration: yup.string().required(),
+        updatedAt: yup.date().required(),
+        createdAt: yup.date().required(),
+
         performer: yup.object({
             id: yup.string().required(),
             name: yup.string().required()
         }).required(),
-        createdAt: yup.date().required()
-
+        duration: yup.string().required(),
+        name: yup.string().required(),
+        id: yup.string().required(),
     })
 
 const listAlbumResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
     .shape({
-        id: yup.string().required(),
-        name: yup.string().required(),
-        duration: yup.string().required(),
-        createdAt: yup.date().required(),
+        performer: yup.object({
+            id: yup.string().required(),
+            name: yup.string().required()
+        }).required(),
         musics: yup.array().of(
             yup.object({
                 id: yup.string().required(),
@@ -32,16 +33,15 @@ const listAlbumResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
                 duration: yup.string().required()
             }).notRequired()
         ).required(),
-        performer: yup.object({
-            id: yup.string().required(),
-            name: yup.string().required()
-        }).required()
+        createdAt: yup.date().required(),
+        updatedAt: yup.date().required(),
+        duration: yup.string().required(),
+        name: yup.string().required(),
+        id: yup.string().required(),
     })
 
 const listAllAlbumsByPerformerSerializer: SchemaOf<IlistAllAlbumsByPerformerResponse> = yup.object()
     .shape({
-        id: yup.string().required(),
-        name: yup.string().required(),
         albums: yup.array().of(
             yup.object({
                 id: yup.string().required(),
@@ -50,8 +50,10 @@ const listAllAlbumsByPerformerSerializer: SchemaOf<IlistAllAlbumsByPerformerResp
                 createdAt: yup.date().required(),
                 musics: yup.array()
             }).required()
-        ).notRequired()
-    })
+        ).notRequired(),
+        name: yup.string().required(),
+        id: yup.string().required(),
+})
 
 const listAlbumResponseArray: SchemaOf<IAlbumResponse[]> = yup.array(
     listAlbumResponseSerializer

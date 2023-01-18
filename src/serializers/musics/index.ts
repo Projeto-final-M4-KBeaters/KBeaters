@@ -1,7 +1,6 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 import { IMusicPatchRequest, IMusicPatchResponse, IMusicRequest, IMusicResponse } from "../../interfaces/musics";
-import { IUserRequest } from "../../interfaces/users";
 
 const musicsRequestSerializer: SchemaOf<IMusicRequest> = yup.object().shape({
     name: yup.string().required(),
@@ -11,11 +10,7 @@ const musicsRequestSerializer: SchemaOf<IMusicRequest> = yup.object().shape({
 })
 
 const musicsResponseSerializer: SchemaOf<IMusicResponse> = yup.object().shape({
-    name: yup.string().required(),
-    duration: yup.string().required(),
-    createdAt: yup.date().required(),
-    updatedAt: yup.date().required(),
-    performer: yup.object({
+    genre: yup.object({
         id: yup.string().required(),
         name: yup.string().required()
     }).required(),
@@ -24,26 +19,35 @@ const musicsResponseSerializer: SchemaOf<IMusicResponse> = yup.object().shape({
             id: yup.string().required(),
             name: yup.string().required(),
         }).notRequired()
-    ).required(),
-    genre: yup.object({
-        id: yup.string().required(),
-        name: yup.string().required()
-    }).required()
-})
-
-const musicPatchSerializer: SchemaOf<IMusicPatchResponse> = yup.object().shape({
-    name: yup.string().required(),
-    duration: yup.string().required(),
-    createdAt: yup.date().required(),
-    updatedAt: yup.date().required(),
+    ).notRequired(),
     performer: yup.object({
         id: yup.string().required(),
         name: yup.string().required()
     }).required(),
+    updatedAt: yup.date().required(),
+    createdAt: yup.date().required(),
+    duration: yup.string().required(),
+    name: yup.string().required(),
+    id: yup.string().required(),    
+}) 
+
+const listMusicsResponseArray: SchemaOf<IMusicResponse[]> = yup.array(
+    musicsResponseSerializer
+)
+
+const musicPatchSerializer: SchemaOf<IMusicPatchResponse> = yup.object().shape({
     genre: yup.object({
         id: yup.string().required(),
         name: yup.string().required()
-    }).required()
+    }).required(),
+    performer: yup.object({
+        id: yup.string().required(),
+        name: yup.string().required()
+    }).required(),
+    createdAt: yup.date().required(),
+    updatedAt: yup.date().required(),
+    duration: yup.string().required(),
+    name: yup.string().required(),
 })
 
 const musicPatchRequestSerializer: SchemaOf<IMusicPatchRequest> = yup.object().shape({
@@ -59,5 +63,6 @@ export {
     musicsResponseSerializer,
     musicsRequestSerializer,
     musicPatchSerializer,
-    musicPatchRequestSerializer
+    musicPatchRequestSerializer,
+    listMusicsResponseArray
 }

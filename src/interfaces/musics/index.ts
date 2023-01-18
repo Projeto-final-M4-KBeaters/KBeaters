@@ -11,13 +11,14 @@ interface IMusicRequest {
 }
 
 interface IMusicResponse {
+    id: string
     name: string
     duration: string
     createdAt: Date
     updatedAt: Date
     performer: IUserResponseSimplified
+    feats?: IUserResponseSimplified[]
     genre: IGenreResponse
-    feats: IUserResponseSimplified[]
 }
 
 interface IMusicPatchRequest{

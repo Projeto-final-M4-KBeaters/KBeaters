@@ -9,11 +9,11 @@ const albumsRoutes = Router();
 
 albumsRoutes.post("", ensureAuthMiddleware, ensureAuthIsPerformerMiddleware, ensureDataIsValidMiddleware(albumPostSerializer), registerAlbumController)
 albumsRoutes.get("", listAllAlbumsController)
-albumsRoutes.get("/performer/:id",ensureUUIDIsValidMiddleware, ensureUserToBeSearchedIsPerformerMiddleware, listAllAlbumsByPerformerController)
-albumsRoutes.get("/:id", ensureUUIDIsValidMiddleware, ensureAlbumIdIsValidMiddleware, listAlbumController)
-albumsRoutes.post("/add/:id", ensureAuthMiddleware,ensureAuthIsPerformerMiddleware,ensureAuthIsAdmOrOwnerProvidedMiddleware,addMusicToAlbumsController)
+albumsRoutes.get("/:id", ensureAlbumIdIsValidMiddleware, ensureUUIDIsValidMiddleware, listAlbumController)
+albumsRoutes.get("/performer/:id",ensureUUIDIsValidMiddleware, ensureUserToBeSearchedIsPerformerMiddleware, listAllAlbumsByPerformerController )
+albumsRoutes.post("/add/:id", ensureAuthMiddleware,ensureUUIDIsValidMiddleware,ensureAuthIsPerformerMiddleware,ensureAuthIsAdmOrOwnerProvidedMiddleware,addMusicToAlbumsController)
 albumsRoutes.patch("/:id", ensureAuthMiddleware, ensureAuthIsPerformerMiddleware, ensureDataIsValidMiddleware(albumPostSerializer) ,patchAlbumController)
-albumsRoutes.delete("/remove/:id", ensureAuthMiddleware,ensureAuthIsPerformerMiddleware,ensureAuthIsAdmOrOwnerProvidedMiddleware,removeMusicFromAlbumController)
+albumsRoutes.delete("/remove/:id", ensureAuthMiddleware, ensureAuthIsPerformerMiddleware, ensureUUIDIsValidMiddleware, ensureAuthIsAdmOrOwnerProvidedMiddleware,removeMusicFromAlbumController)
 albumsRoutes.delete("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, deleteAlbumController)
 
 export default albumsRoutes;
