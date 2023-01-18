@@ -29,7 +29,7 @@ import listAllPlaylistsService from "./playlists/listAllPlaylists.service";
 import listUniquePlaylistService from "./playlists/listUniquePlaylist.service";
 import listUserPlaylistService from "./playlists/listUserPlaylist.service";
 import patchPlaylistsService from "./playlists/patchPlaylists.service";
-
+import addMusicsToPlaylistService from "./playlists/addMusicsToPlaylist.service";
 
 export{
     registerUserService, 
@@ -62,5 +62,6 @@ export{
     listAllPlaylistsService,
     listUniquePlaylistService,
     listUserPlaylistService,
-    patchPlaylistsService
+    patchPlaylistsService,
+    addMusicsToPlaylistService
 };
