@@ -26,6 +26,7 @@ const musicsResponseSerializer: SchemaOf<IMusicResponse> = yup.object().shape({
     }).required(),
     updatedAt: yup.date().required(),
     createdAt: yup.date().required(),
+    isActive: yup.boolean().required(),
     duration: yup.string().required(),
     name: yup.string().required(),
     id: yup.string().required(),    
@@ -46,8 +47,10 @@ const musicPatchSerializer: SchemaOf<IMusicPatchResponse> = yup.object().shape({
     }).required(),
     createdAt: yup.date().required(),
     updatedAt: yup.date().required(),
+    isActive: yup.boolean().required(),
     duration: yup.string().required(),
     name: yup.string().required(),
+    id: yup.string().required()
 })
 
 const musicPatchRequestSerializer: SchemaOf<IMusicPatchRequest> = yup.object().shape({

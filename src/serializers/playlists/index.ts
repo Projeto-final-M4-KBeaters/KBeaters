@@ -11,26 +11,25 @@ const playlistAddMusicSerializer: SchemaOf<IPlaylistAddOrRemoveMusicRequest> = y
 })
 
 const resgisterPlaylistResponse: SchemaOf<IPlaylistsResponse> = yup.object().shape({
-    id: yup.string().required(),
-    name: yup.string().required(),
-    duration: yup.string().required(),
-    user: yup.object({
-        id: yup.string().required(),
-        name: yup.string().required()
-    }).required(),
-    createdAt: yup.date().required(),
-    updatedAt: yup.date().required(),
     musics: yup.array().of(
         yup.object({
             id: yup.string().required(),
             name: yup.string().required()
         }).notRequired()
     ).notRequired(),
-
+    updatedAt: yup.date().required(),
+    createdAt: yup.date().required(),
+    user: yup.object({
+        id: yup.string().required(),
+        name: yup.string().required()
+    }).required(),
+    isActive: yup.string().required(),
+    duration: yup.string().required(),
+    name: yup.string().required(),
+    id: yup.string().required(),
 })
 
 const listAllPlaylistsSerializer: SchemaOf<IPlaylistsResponse> = yup.object().shape({
-    updatedAt: yup.date().required(),
     musics: yup.array().of(
         yup.object({
             id: yup.string().required(),
@@ -41,8 +40,10 @@ const listAllPlaylistsSerializer: SchemaOf<IPlaylistsResponse> = yup.object().sh
         id: yup.string().required(),
         name: yup.string().required()
     }).required(),
+    updatedAt: yup.date().required(),
     createdAt: yup.date().required(),
     duration: yup.string().required(),
+    isActive: yup.string().required(),
     name: yup.string().required(),
     id: yup.string().required(),
 })

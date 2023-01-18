@@ -16,6 +16,7 @@ interface IMusicResponse {
     duration: string
     createdAt: Date
     updatedAt: Date
+    isActive: boolean
     performer: IUserResponseSimplified
     feats?: IUserResponseSimplified[]
     genre: IGenreResponse
