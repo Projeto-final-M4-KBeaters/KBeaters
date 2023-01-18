@@ -1,11 +1,14 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IPlaylistRequest, IPlaylistResponse, IPlaylistsResponse, IPlaylistsUserResponse } from "../../interfaces/playlists";
+import { IPlaylistAddMusicRequest, IPlaylistRequest, IPlaylistResponse, IPlaylistsResponse, IPlaylistsUserResponse } from "../../interfaces/playlists";
 
 const playlistPostSerializer: SchemaOf<IPlaylistRequest> = yup.object().shape({
     name: yup.string().required()
 })
 
+const playlistAddMusicSerializer: SchemaOf<IPlaylistAddMusicRequest> = yup.object().shape({
+    id: yup.string().required()
+})
 
 const resgisterPlaylistResponse: SchemaOf<IPlaylistResponse> = yup.object().shape({
     id: yup.string().required(),
@@ -63,5 +66,5 @@ const listAllPlaylistsByUser: SchemaOf<IPlaylistsUserResponse> = yup.object().sh
     id: yup.string().required()
 })
 
-export { playlistPostSerializer, resgisterPlaylistResponse, listPlaylistsResponseArray, listAllPlaylistsSerializer, listAllPlaylistsByUser }
+export { playlistPostSerializer, resgisterPlaylistResponse, listPlaylistsResponseArray, listAllPlaylistsSerializer, listAllPlaylistsByUser, playlistAddMusicSerializer }
 

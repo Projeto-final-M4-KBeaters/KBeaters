@@ -30,6 +30,7 @@ import listUniquePlaylistService from "./playlists/listUniquePlaylist.service";
 import listUserPlaylistService from "./playlists/listUserPlaylist.service";
 import patchPlaylistsService from "./playlists/patchPlaylists.service";
 import deletePLaylistService from "./playlists/deletePlaylist.service";
+import addMusicsToPlaylistService from "./playlists/addMusicsToPlaylist.service";
 
 export {
 	registerUserService,
@@ -64,4 +65,5 @@ export {
 	listUserPlaylistService,
 	patchPlaylistsService,
 	deletePLaylistService,
+    addMusicsToPlaylistService
 };

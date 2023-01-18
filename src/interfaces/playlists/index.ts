@@ -44,4 +44,8 @@ interface IPlaylistsUserResponse{
     playlists: ISpecificUserPlaylistResponse[]
 }
 
-export { IPlaylistRequest, IPlaylistResponse, IUser, IPlaylistsResponse, IPlaylistsUserResponse }
+interface IPlaylistAddMusicRequest {
+    id: string
+}
+
+export { IPlaylistRequest, IPlaylistResponse, IUser, IPlaylistsResponse, IPlaylistsUserResponse, IPlaylistAddMusicRequest }
