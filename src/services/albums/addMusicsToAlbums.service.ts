@@ -36,9 +36,16 @@ const addMusicsToAlbumService = async(albumID:string,musicID:string): Promise<ob
     const sumTime = findMusic!.duration.split(":") 
     const time = duration.split(":")
     const dateTime = new Date()
-    dateTime.setMinutes(Number(time[1]) + Number(sumTime[1]))
-    dateTime.setSeconds(Number(time[2]) + Number(sumTime[2]))
-    const durationStr = `${dateTime.getHours()}:${dateTime.getMinutes()}:${dateTime.getSeconds()}`
+    dateTime.setHours(
+        Number(sumTime[0]) + Number(time[0]),
+        Number(sumTime[1]) + Number(time[1]),
+        Number(sumTime[2]) + Number(time[2])
+    )
+    const hours = dateTime.getHours() > 9 ? dateTime.getHours() : "0"+dateTime.getHours();
+    const minutes = dateTime.getMinutes() > 9 ? dateTime.getMinutes() : "0"+dateTime.getMinutes();
+    const seconds = dateTime.getSeconds() > 9 ? dateTime.getSeconds() : "0"+dateTime.getSeconds();
+
+    const durationStr = `${hours}:${minutes}:${seconds}`;
 
 
     const addMusic = albumRepository.create({
