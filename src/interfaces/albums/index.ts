@@ -28,7 +28,7 @@ interface IlistAlbumResponse {
 interface IlistAllAlbumsByPerformerResponse {
     id: string
     name: string
-    albums: IlistAlbumResponse[]
+    albums?: IlistAlbumResponse[]
 }
 
 export {

@@ -12,8 +12,8 @@ playlistsRoutes.get("", listAllPlaylistsController)
 playlistsRoutes.get("/:id", ensurePlaylistExistsMiddleware, ensureUUIDIsValidMiddleware, listUniquePlaylistController)
 playlistsRoutes.get("/users/:id", ensureUUIDIsValidMiddleware, ensureUserIdPlaylistIsValidMiddleware, listUserPlaylistController)
 playlistsRoutes.patch("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureDataIsValidMiddleware(playlistPostSerializer), ensurePlaylistExistsMiddleware, ensureAdminOrOwnerPlaylistMiddleware, patchPlaylistsController)
-playlistsRoutes.delete("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureAdminOrOwnerPlaylistMiddleware, ensurePlaylistExistsMiddleware,deletePlaylistController)
 playlistsRoutes.delete("/remove/:id", ensureAuthMiddleware, ensureDataIsValidMiddleware(playlistAddMusicSerializer), ensureUUIDIsValidMiddleware, ensurePlaylistExistsMiddleware, ensureAdminOrOwnerPlaylistMiddleware, removeMusicsFromPlaylistController)
+playlistsRoutes.delete("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware,ensurePlaylistExistsMiddleware,ensureAdminOrOwnerPlaylistMiddleware,deletePlaylistController)
 
 export default playlistsRoutes;
 
