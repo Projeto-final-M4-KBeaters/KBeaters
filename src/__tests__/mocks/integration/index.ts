@@ -1,5 +1,6 @@
 import { IAlbumRequest } from "../../../interfaces/albums"
 import { IGenreRequest } from "../../../interfaces/genres"
+import { IMusicRequest } from "../../../interfaces/musics"
 import { IUserRequest, IUserPatchRequest, IUserLogin } from "../../../interfaces/users"
 
 
@@ -50,10 +51,10 @@ const mockedGenrePost : IGenreRequest = {
     name: "forrozim"
 }
 
-const mockedAlbumPost : IAlbumRequest = {
+const mockedInvalidUUID: string = "123e4567-e89b-12d3-a456-426614174000"
+
+const mockedAlbumPost: IAlbumRequest = {
     name: "Festinha na piscina"
 }
 
-const mockedInvalidUUID : string = "660bd697-e670-4236-8e25-7e98d33b0873"
-
-export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedAlbumPost, mockedInvalidUUID}
+export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister, mockedInvalidUUID, mockedAlbumPost}
