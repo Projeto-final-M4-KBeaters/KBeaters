@@ -1,10 +1,10 @@
 import AppDataSource from "../../data-source";
 import { Musics } from "../../entities/musics.entities";
 import { AppError } from "../../errors";
-import { IMusicPatchRequest, IMusicRequest, IMusicResponse } from "../../interfaces/musics";
+import { IMusicPatchRequest, IMusicPatchResponse, IMusicRequest, IMusicResponse } from "../../interfaces/musics";
 import { musicPatchSerializer, musicsResponseSerializer } from "../../serializers/musics";
 
-const patchMusicService = async(musicDataUpdated:IMusicPatchRequest,musicData:IMusicResponse,musicId:string) => {
+const patchMusicService = async(musicDataUpdated:IMusicPatchRequest,musicData:IMusicResponse,musicId:string): Promise<IMusicPatchResponse> => {
 
     const musicsRepo = AppDataSource.getRepository(Musics)
     
