@@ -17,7 +17,7 @@ musicsRoutes.get("", listAllMusicsController)
 musicsRoutes.get("/performer/:id", ensureUUIDIsValidMiddleware,  listAllMusicsByPerformerController)
 musicsRoutes.get("/genres/:id", ensureUUIDIsValidMiddleware, ensureExistsGenreMiddleware, listAllMusicsByGenrerController)
 musicsRoutes.get("/:id", ensureUUIDIsValidMiddleware, listUniqueMusicController)
-musicsRoutes.delete("/:id",ensureAuthMiddleware, ensureAuthIsAdmOrOwnerMiddleware, deleteMusicController)
-musicsRoutes.patch("/:id", ensureAuthMiddleware,ensureDataIsValidMiddleware(musicPatchRequestSerializer),ensureMusicIdIsValidMiddleware,ensureUUIDIsValidMiddleware,ensureAuthIsAdmOrOwnerMiddleware,ensureAuthIsPerformerMiddleware,patchMusicsController)
+musicsRoutes.delete("/:id",ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureAuthIsAdmOrOwnerMiddleware, deleteMusicController)
+musicsRoutes.patch("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureDataIsValidMiddleware(musicPatchRequestSerializer),ensureMusicIdIsValidMiddleware,ensureUUIDIsValidMiddleware,ensureAuthIsAdmOrOwnerMiddleware,ensureAuthIsPerformerMiddleware,patchMusicsController)
 
 export default musicsRoutes;
