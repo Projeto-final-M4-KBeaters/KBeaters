@@ -23,7 +23,6 @@ const ensureAuthMiddleware = async (req: Request, res:Response, next: NextFuncti
             return res.status(401).json({ message: "Invalid token" })
 
         }
-        console.log(decoded.sub)
         const userRepo = AppDataSource.getRepository(Users)
         const user = await userRepo.findOne({ where: { id: decoded.sub as string}})
         if(!user){
