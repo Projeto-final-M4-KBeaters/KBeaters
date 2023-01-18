@@ -142,6 +142,8 @@ describe("/albums", () => {
         
         const response = await request(app).get(`/albums/performer/${createUserPerformer.body.id}`).send()
 
+        console.log(response.body)
+
         expect(response.body.id).toEqual(createUserPerformer.body.id)
         expect(response.status).toBe(200)
         
@@ -164,7 +166,7 @@ describe("/albums", () => {
         expect(response.status).toBe(400)
     })
 
-    test("POST /albums - should be able to add music in album,", async () => {
+    test("POST /albums - should be able to add music in album", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
@@ -189,8 +191,7 @@ describe("/albums", () => {
         }
 
         const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        console.log(createMusic.body)
-        console.log(addMusicAlbum.body)
+    
 
         expect(addMusicAlbum.body.musics[0].id).toEqual(idMusicToAdd.id)
         expect(addMusicAlbum.body.musics).toHaveLength(1)
