@@ -1,8 +1,10 @@
 import { Request } from "express";
+import { validate } from "uuid";
 import AppDataSource from "../../data-source";
 import { Genres } from "../../entities/genres.entities";
 import { Musics } from "../../entities/musics.entities";
 import { Users } from "../../entities/users.entities";
+import { AppError } from "../../errors";
 import { IMusicRequest } from "../../interfaces/musics";
 import { musicsResponseSerializer } from "../../serializers/musics";
 
@@ -32,7 +34,11 @@ const musicsPostService = async (req: Request): Promise<[number, object]> => {
            })
         })
     }
-    
+
+    if(!validate(genreId)){
+        throw new AppError("Provide valid genreId UUID.", 409);
+    }
+
     const genre = await genreRepo.findOne({
         where: {
             id: genreId
