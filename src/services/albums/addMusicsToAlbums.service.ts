@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source"
 import { Albums } from "../../entities/albuns.entities"
 import { Musics } from "../../entities/musics.entities"
 import { AppError } from "../../errors"
-import { IAlbumResponse, IlistAlbumResponse } from "../../interfaces/albums"
+import { IAlbumResponse } from "../../interfaces/albums"
 import { listAlbumResponseSerializer } from "../../serializers/albums"
 
 

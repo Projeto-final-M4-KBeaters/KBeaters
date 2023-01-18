@@ -1,5 +1,4 @@
 import AppDataSource from "../../data-source";
-import { Genres } from "../../entities/genres.entities";
 import { Musics } from "../../entities/musics.entities";
 
 

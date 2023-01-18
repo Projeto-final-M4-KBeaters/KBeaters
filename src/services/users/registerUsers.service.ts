@@ -5,7 +5,7 @@ import { AppError } from "../../errors";
 import { IUserRequest, IUserResponse } from "../../interfaces/users";
 import { userRegisterResponseSerializer } from "../../serializers/users";
 
-const registerUserService = async (usersData: IUserRequest): Promise <IUserResponse>=> {
+const registerUserService = async (usersData: IUserRequest): Promise<IUserResponse> => {
 
   const userRepository = AppDataSource.getRepository(Users)
 
@@ -14,7 +14,7 @@ const registerUserService = async (usersData: IUserRequest): Promise <IUserRespo
   })
 
   if (userExist) {
-    if(!userExist.isActive){
+    if (!userExist.isActive) {
       throw new AppError("User disabled", 409)
     }
     throw new AppError("Already exists", 409)
@@ -23,7 +23,7 @@ const registerUserService = async (usersData: IUserRequest): Promise <IUserRespo
   const createdUser = userRepository.create(usersData)
 
   await userRepository.save(createdUser)
-  
+
   const returnedData = await userRegisterResponseSerializer.validate(
     createdUser,
     {
@@ -32,7 +32,7 @@ const registerUserService = async (usersData: IUserRequest): Promise <IUserRespo
   )
 
   return returnedData
-  
+
 }
 
 export default registerUserService;
