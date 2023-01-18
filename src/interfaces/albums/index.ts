@@ -10,6 +10,7 @@ interface IAlbumResponse{
     name: string,
     duration?: string,
     createdAt: Date
+    updatedAt: Date
 }
 
 interface IlistAlbumResponse{
