@@ -8,8 +8,8 @@ const genrePostSerializer: SchemaOf<IGenreRequest> = yup.object().shape({
 })
 
 const genreResponseSerializer: SchemaOf<IGenreResponse> = yup.object().shape({
+    name: yup.string().required(),
     id:yup.string().required(),
-    name: yup.string().required()
 })
 
 const listGenresResponseSerializer: SchemaOf<IGenreResponse[]> = yup.array(
