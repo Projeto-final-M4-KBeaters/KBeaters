@@ -9,10 +9,10 @@ const playlistsRoutes = Router();
 playlistsRoutes.post("",  ensureAuthMiddleware, ensureDataIsValidMiddleware(playlistPostSerializer), registerPlaylistsController)
 playlistsRoutes.post("/add/:id", ensureAuthMiddleware, ensureDataIsValidMiddleware(playlistAddMusicSerializer), ensureUUIDIsValidMiddleware, ensurePlaylistExistsMiddleware, ensureAdminOrOwnerPlaylistMiddleware, addMusicsToPlaylistController)
 playlistsRoutes.get("", listAllPlaylistsController)
-playlistsRoutes.get("/:id", ensurePlaylistExistsMiddleware, listUniquePlaylistController)
+playlistsRoutes.get("/:id", ensurePlaylistExistsMiddleware, ensureUUIDIsValidMiddleware, listUniquePlaylistController)
 playlistsRoutes.get("/users/:id", ensureUUIDIsValidMiddleware, ensureUserIdPlaylistIsValidMiddleware, listUserPlaylistController)
 playlistsRoutes.patch("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureDataIsValidMiddleware(playlistPostSerializer), ensurePlaylistExistsMiddleware, ensureAdminOrOwnerPlaylistMiddleware, patchPlaylistsController)
-playlistsRoutes.delete("/:id", ensureAuthMiddleware, ensureAdminOrOwnerPlaylistMiddleware, ensurePlaylistExistsMiddleware,deletePlaylistController)
+playlistsRoutes.delete("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureAdminOrOwnerPlaylistMiddleware, ensurePlaylistExistsMiddleware,deletePlaylistController)
 playlistsRoutes.delete("/remove/:id", ensureAuthMiddleware, ensureDataIsValidMiddleware(playlistAddMusicSerializer), ensureUUIDIsValidMiddleware, ensurePlaylistExistsMiddleware, ensureAdminOrOwnerPlaylistMiddleware, removeMusicsFromPlaylistController)
 
 export default playlistsRoutes;

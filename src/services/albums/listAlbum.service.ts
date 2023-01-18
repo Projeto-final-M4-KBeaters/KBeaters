@@ -17,7 +17,6 @@ const listAlbumService = async (idAlbum: string): Promise<IAlbumResponse> => {
         }
     })
     
-    
     const musicResponse = await listAlbumResponseSerializer.validate(findAlbum, {
             stripUnknown: true
         }
