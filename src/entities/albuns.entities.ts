@@ -1,6 +1,6 @@
-import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable, UpdateDateColumn} from "typeorm";
 import { Musics } from "./musics.entities";
-import { PerformersToAlbums } from "./performers_albums.entities";
+import { Users } from "./users.entities";
 
 @Entity("albums")
 class Albums{
@@ -10,17 +10,26 @@ class Albums{
     @Column({length: 100})
     name: string
 
-    @Column({length: 150})
+    @Column({ type:"time", default: "00:00:00" })
     duration:string
+
+    @Column({ default: true })
+    isActive: boolean
+
+    @ManyToMany(() => Musics, musics => musics.albums)
+    @JoinTable({
+        name: "albumsToMusics"
+    })
+    musics: Musics[]
+
+    @ManyToOne(() => Users, performer => performer.albums)
+    performer: Users
 
     @CreateDateColumn()
     createdAt: Date
 
-    @OneToMany(() => Musics, musics => musics.albums)
-    musics: Musics[]
-
-    @OneToMany(() => PerformersToAlbums, performersToAlbums => performersToAlbums.albums)
-    performerToAlbums: PerformersToAlbums[]
+    @UpdateDateColumn()
+    updatedAt: Date
 }
 
 export {Albums};

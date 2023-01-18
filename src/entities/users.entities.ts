@@ -1,8 +1,8 @@
 import { hashSync } from "bcryptjs";
-import { Entity,PrimaryGeneratedColumn,Column, OneToOne, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeUpdate, BeforeInsert, JoinColumn} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, OneToOne, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeUpdate, BeforeInsert, JoinColumn, ManyToMany, ManyToOne} from "typeorm";
+import { Albums } from "./albuns.entities";
 import { Likes } from "./likes.entities";
-import { PerformersToAlbums } from "./performers_albums.entities";
-import { PerformersToMusics } from "./performers_musics.entities";
+import { Musics } from "./musics.entities";
 import { Playlists } from "./playlists.entities";
 
 @Entity("users")
@@ -37,21 +37,17 @@ class Users{
     @OneToMany(() => Playlists, userPlaylist => userPlaylist.user, {nullable:true})
     playlists: Playlists[]
 
-    @OneToMany(() => PerformersToMusics, performerToMusic => performerToMusic.owner, {nullable:true})
-    musics: PerformersToMusics[]
+    @OneToMany(() => Musics, musics => musics.performer)
+    musics: Musics[]
 
-    @OneToMany(() => PerformersToMusics, performerToMusic => performerToMusic.feat, {nullable:true})
-    featMusics: PerformersToMusics[]
+    @ManyToMany(() => Musics, musics => musics.feats)
+    feats: Musics[]
 
-    @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.owner, {nullable:true})
-    performerToAlbums: PerformersToAlbums[]
+    @OneToMany(() => Albums, albums => albums.performer, {nullable:true})
+    albums: Albums[]
 
-    @OneToMany(() => PerformersToAlbums, performerToAlbum => performerToAlbum.feat, {nullable:true})
-    performerToFeatAlbums: PerformersToAlbums[]
-
-    @OneToOne(() => Likes, {nullable:true}) 
-    @JoinColumn()
-    likeMusic: Likes 
+    @OneToMany(() => Likes, likes => likes.user, {nullable:true}) 
+    likeMusic: Likes[] 
     
     @BeforeInsert()
     hashPassword(){

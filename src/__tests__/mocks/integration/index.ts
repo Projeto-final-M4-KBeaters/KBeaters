@@ -1,4 +1,5 @@
 import { IGenreRequest } from "../../../interfaces/genres"
+import { IMusicRequest } from "../../../interfaces/musics"
 import { IUserRequest, IUserPatchRequest, IUserLogin } from "../../../interfaces/users"
 
 
@@ -10,9 +11,10 @@ const mockedUserRegister : IUserRequest={
 }
 
 const mockedAdminRegister : IUserRequest={
-    name: "lucas",
-    email: "schmitao@mail.com",
+    name: "igordelas",
+    email: "igordelas@mail.com",
     password: "123456",
+    isPerformer: false
 }
 
 const mockedPerformerRegister : IUserRequest={
@@ -47,5 +49,6 @@ const mockedPerformerLogin : IUserLogin = {
 const mockedGenrePost : IGenreRequest = {
     name: "forrozim"
 }
+
 
 export {mockedAdminLogin, mockedGenrePost, mockedInactiveRegister, mockedPerformerLogin, mockedUserLogin, mockedUserRegister,mockedAdminRegister, mockedPerformerRegister}

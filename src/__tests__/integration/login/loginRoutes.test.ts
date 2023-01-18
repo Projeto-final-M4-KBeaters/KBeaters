@@ -44,7 +44,7 @@ describe("/login", () => {
     })
     test("POST /login -  should not be able to login with the user with incorrect password or email",async () => {
         const response = await request(app).post("/login").send({
-            email: "schmitao@mail.com",
+            email: "schmitao@mai.com",
             password: "1234567"
         });
 
