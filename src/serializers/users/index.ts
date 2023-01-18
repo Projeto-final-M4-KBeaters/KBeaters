@@ -12,14 +12,14 @@ const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
 const userRegisterResponseSerializer: SchemaOf<IUserResponse> = yup
   .object()
   .shape({
-    id: yup.string().required(),
-    name: yup.string().required(),
-    email: yup.string().email().required(),
-    isAdmin: yup.boolean().required(),
-    isPerformer: yup.boolean().required(),
-    isActive: yup.boolean().required(),
-    createdAt: yup.date().required(),
     updatedAt: yup.date().required(),
+    createdAt: yup.date().required(),
+    isAdmin: yup.boolean().required(),
+    isActive: yup.boolean().required(),
+    isPerformer: yup.boolean().required(),
+    email: yup.string().email().required(),
+    name: yup.string().required(),
+    id: yup.string().required(),
   })
 
 const listUsersResponseSerializer: SchemaOf<IUserResponse[]> = yup.array(

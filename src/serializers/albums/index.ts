@@ -8,13 +8,13 @@ const albumPostSerializer: SchemaOf<IAlbumRequest> = yup.object().shape({
 
 const resgisterAlbumResponse: SchemaOf<IAlbumResponse> = yup.object()
     .shape({
-        updatedAt: yup.date().required(),
-        createdAt: yup.date().required(),
-
         performer: yup.object({
             id: yup.string().required(),
             name: yup.string().required()
         }).required(),
+        updatedAt: yup.date().required(),
+        createdAt: yup.date().required(),
+        isActive: yup.boolean().required(),
         duration: yup.string().required(),
         name: yup.string().required(),
         id: yup.string().required(),
@@ -35,6 +35,7 @@ const listAlbumResponseSerializer: SchemaOf<IAlbumResponse> = yup.object()
         ).required(),
         createdAt: yup.date().required(),
         updatedAt: yup.date().required(),
+        isActive: yup.boolean().required(),
         duration: yup.string().required(),
         name: yup.string().required(),
         id: yup.string().required(),
