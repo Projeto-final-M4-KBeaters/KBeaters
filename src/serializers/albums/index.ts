@@ -54,14 +54,14 @@ const listAllAlbumsByPerformerSerializer: SchemaOf<IlistAllAlbumsByPerformerResp
         ).notRequired(),
         name: yup.string().required(),
         id: yup.string().required(),
-})
+    })
 
 const listAlbumResponseArray: SchemaOf<IAlbumResponse[]> = yup.array(
     listAlbumResponseSerializer
 )
 
-const listAllAlbumsByPerformerSerializerResponse : SchemaOf<IlistAllAlbumsByPerformerResponse[]> = yup.array(
+const listAllAlbumsByPerformerSerializerResponse: SchemaOf<IlistAllAlbumsByPerformerResponse[]> = yup.array(
     listAllAlbumsByPerformerSerializer
 )
 
-export { albumPostSerializer, resgisterAlbumResponse,listAllAlbumsByPerformerSerializerResponse, listAlbumResponseArray,listAllAlbumsByPerformerSerializer, listAlbumResponseSerializer }
+export { albumPostSerializer, resgisterAlbumResponse, listAllAlbumsByPerformerSerializerResponse, listAlbumResponseArray, listAllAlbumsByPerformerSerializer, listAlbumResponseSerializer }
