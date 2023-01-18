@@ -1,14 +1,13 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import AppDataSource from "../../data-source";
 import { Musics } from "../../entities/musics.entities";
 import { Playlists } from "../../entities/playlists.entities";
 import { AppError } from "../../errors";
 import { listAllPlaylistsSerializer } from "../../serializers/playlists";
 
-const addMusicsToPlaylistService = async (req: Request) => {
-    const musicId = req.body.id;
-    const userId = req.user.id;
+const removeMusicsFromPlaylistsService = async (req: Request) => {
     const playlist = req.providedPlaylist;
+    const musicId = req.body.id;
     const musicsRepo = AppDataSource.getRepository(Musics);
     const playlistsRepo = AppDataSource.getRepository(Playlists);
 
@@ -33,32 +32,34 @@ const addMusicsToPlaylistService = async (req: Request) => {
     if(!findMusic) {
         throw new AppError("Music not found.", 403);
     }
-    if(findMusicOnPlaylist){
-        throw new AppError("Music already added before", 409)
+    if(!findMusicOnPlaylist){
+        throw new AppError("Music isn't in playlist.", 409)
     }
 
-    const sumTime = findMusic!.duration.split(":");
-    const time = playlist.duration.split(":");
+    const newMusics = playlist.musics.filter((music) => music.id != findMusic.id);
+    playlist.musics = newMusics;
+
+    const sumTime = playlist.duration.split(":");
+    const time = findMusic.duration.split(":");
     const dateTime = new Date();
     dateTime.setHours(
-        Number(sumTime[0]) + Number(time[0]),
-        Number(sumTime[1]) + Number(time[1]),
-        Number(sumTime[2]) + Number(time[2])
+        Number(sumTime[0]) - Number(time[0]),
+        Number(sumTime[1]) - Number(time[1]),
+        Number(sumTime[2]) - Number(time[2])
     );
     const hours = dateTime.getHours() > 9 ? dateTime.getHours() : "0"+dateTime.getHours();
     const minutes = dateTime.getMinutes() > 9 ? dateTime.getMinutes() : "0"+dateTime.getMinutes();
     const seconds = dateTime.getSeconds() > 9 ? dateTime.getSeconds() : "0"+dateTime.getSeconds();
-
     const durationStr = `${hours}:${minutes}:${seconds}`;
-    playlist.musics = [...playlist.musics, findMusic];
     playlist.duration = durationStr;
+    console.log("bah")
     await playlistsRepo.save(playlist);
-
     const response = await listAllPlaylistsSerializer.validate(playlist, {
-        stripUnknown: true
+         stripUnknown: true
     })
-    console.log(playlist)
-    return response;
+    console.log("che")
+
+    return playlist;
 }
 
-export default addMusicsToPlaylistService;
+export default removeMusicsFromPlaylistsService;
