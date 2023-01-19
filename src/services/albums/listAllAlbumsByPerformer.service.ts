@@ -1,12 +1,12 @@
 import AppDataSource from "../../data-source"
-import { Albums } from "../../entities/albuns.entities"
 import { Users } from "../../entities/users.entities"
-import { listAlbumResponseArray, listAllAlbumsByPerformerSerializerResponse } from "../../serializers/albums"
+import { IlistAllAlbumsByPerformerResponse } from "../../interfaces/albums"
+import { listAllAlbumsByPerformerSerializer } from "../../serializers/albums"
 
-const listAllAlbumsByPerformerService = async (performerId: string) => {
+const listAllAlbumsByPerformerService = async (performerId: string): Promise<IlistAllAlbumsByPerformerResponse> => {
     const user = AppDataSource.getRepository(Users)
 
-    const findAlbums = await user.find({
+    const findAlbums = await user.findOne({
         where: {
             id: performerId
         },
@@ -18,10 +18,10 @@ const listAllAlbumsByPerformerService = async (performerId: string) => {
         }
     })
 
-    const responseAlbumsFound = await listAllAlbumsByPerformerSerializerResponse.validate(findAlbums,{
-        stripUnknown:true
+    const responseAlbumsFound = await listAllAlbumsByPerformerSerializer.validate(findAlbums, {
+        stripUnknown: true
     })
-    return responseAlbumsFound
+    return responseAlbumsFound!
 }
 
 export default listAllAlbumsByPerformerService

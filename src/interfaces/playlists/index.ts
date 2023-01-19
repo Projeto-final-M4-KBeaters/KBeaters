@@ -1,47 +1,33 @@
-import { IMusic, IMusicByAlbumResponse, IPerformer } from "../musics"
-import { IUserResponse } from "../users"
-
-interface IUser {
-    id: string,
-    name: string
-}
+import { IMusicResponseSimples } from "../musics"
+import { IUserPlaylistResponse, IUserResponseSimplified } from "../users"
 
 interface IPlaylistRequest {
     name: string
 }
 
-interface IPlaylistResponse{
-    id: string,
-    name: string,
-    duration: string,
-    user: IUser,
-    createdAt: Date,
-    updatedAt: Date
-}
-
-interface IPlaylistsResponse{
+interface IPlaylistsResponse {
     id: string,
     name: string,
     duration: string,
     createdAt: Date,
-    user: IUser,
-    musics: IMusic[]
+    user: IUserResponseSimplified,
+    musics?: IMusicResponseSimples[],
     updatedAt: Date
 }
 
-interface ISpecificUserPlaylistResponse{
+interface IPlaylistsUserResponse {
+    id: string,
+    name: string,
+    playlists?: IUserPlaylistResponse[]
+}
+
+interface IPlaylistAddOrRemoveMusicRequest {
     id: string
-    name: string
-    duration: string
-    createdAt: string
-    updatedAt: string
-    musics: IMusicByAlbumResponse[]
 }
 
-interface IPlaylistsUserResponse{
-    id: string,
-    name: string,
-    playlists: ISpecificUserPlaylistResponse[]
+export {
+    IPlaylistRequest,
+    IPlaylistsResponse,
+    IPlaylistsUserResponse,
+    IPlaylistAddOrRemoveMusicRequest
 }
-
-export { IPlaylistRequest, IPlaylistResponse, IUser, IPlaylistsResponse, IPlaylistsUserResponse }

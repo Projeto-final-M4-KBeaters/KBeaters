@@ -1,9 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Playlists } from "../../entities/playlists.entities";
-import { IPlaylistResponse } from "../../interfaces/playlists";
+import { IPlaylistsResponse } from "../../interfaces/playlists";
 import { listPlaylistsResponseArray } from "../../serializers/playlists";
 
-const listAllPlaylistsService = async () => {
+const listAllPlaylistsService = async (): Promise<IPlaylistsResponse[]> => {
     const playlistRepository =  AppDataSource.getRepository(Playlists)
 
     const listPlaylists = await playlistRepository.find({
@@ -17,6 +17,6 @@ const listAllPlaylistsService = async () => {
         stripUnknown:true
     })
     
-    return playlists
+    return playlists!
 } 
 export default listAllPlaylistsService;

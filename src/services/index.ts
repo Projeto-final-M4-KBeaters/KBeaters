@@ -24,38 +24,48 @@ import patchAlbumService from "./albums/patchAlbums.service";
 import removeMusicFromAlbumService from "./albums/removeMusicsToAlbum.service";
 import deleteAlbumService from "./albums/deleteAlbum.service";
 import listAllAlbumsByPerformerService from "./albums/listAllAlbumsByPerformer.service";
-import registerPlaylistsService from "./playlists/registerAlbums.service";
+import registerPlaylistsService from "./playlists/registerPlaylists.service";
 import listAllPlaylistsService from "./playlists/listAllPlaylists.service";
+import listUniquePlaylistService from "./playlists/listUniquePlaylist.service";
 import listUserPlaylistService from "./playlists/listUserPlaylist.service";
+import patchPlaylistsService from "./playlists/patchPlaylists.service";
+import deletePLaylistService from "./playlists/deletePlaylist.service";
+import addMusicsToPlaylistService from "./playlists/addMusicsToPlaylist.service";
+import removeMusicsFromPlaylistsService from "./playlists/removeMusicsFromPlaylist.service";
 
-export{
-    registerUserService, 
-    listAllUsersService, 
-    listAllPerformersService, 
-    loginService, 
-    deleteUserService, 
-    patchUserService,
-    listUserService,
-    genrePostService,
-    reactiveUserService,
-    listUniqueGenreService,
-    registerAdminService,
-    listAllMusicsByGenrerService,
-    musicsPostService,
-    deleteMusicService,
-    listAllMusicsByPerformerService,
-    listAllMusicsService,
-    listUniqueMusicService,
-    registerAlbumService,
-    patchMusicService,
-    listAlbumService,
-    listAllAlbumsService,
-    addMusicsToAlbumService,
-    patchAlbumService,
-    removeMusicFromAlbumService,
-    deleteAlbumService,
-    listAllAlbumsByPerformerService,
-    registerPlaylistsService,
-    listAllPlaylistsService,
-    listUserPlaylistService
+export {
+	registerUserService,
+	listAllUsersService,
+	listAllPerformersService,
+	loginService,
+	deleteUserService,
+	patchUserService,
+	listUserService,
+	genrePostService,
+	reactiveUserService,
+	listUniqueGenreService,
+	registerAdminService,
+	listAllMusicsByGenrerService,
+	musicsPostService,
+	deleteMusicService,
+	listAllMusicsByPerformerService,
+	listAllMusicsService,
+	listUniqueMusicService,
+	registerAlbumService,
+	patchMusicService,
+	listAlbumService,
+	listAllAlbumsService,
+	addMusicsToAlbumService,
+	patchAlbumService,
+	removeMusicFromAlbumService,
+	deleteAlbumService,
+	listAllAlbumsByPerformerService,
+	registerPlaylistsService,
+	listAllPlaylistsService,
+	listUniquePlaylistService,
+	listUserPlaylistService,
+	patchPlaylistsService,
+	deletePLaylistService,
+    addMusicsToPlaylistService,
+	removeMusicsFromPlaylistsService
 };

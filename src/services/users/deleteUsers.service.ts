@@ -3,7 +3,7 @@ import { Users } from "../../entities/users.entities";
 import { IUserResponse } from "../../interfaces/users";
 
 
-const deleteUserService =  async (userId: string): Promise <IUserResponse> => {
+const deleteUserService =  async (userId: string): Promise <null> => {
 
     const userRepository =  AppDataSource.getRepository(Users)
 
@@ -14,7 +14,7 @@ const deleteUserService =  async (userId: string): Promise <IUserResponse> => {
     user!.isActive = false
     await userRepository.save(user!)
 
-    return user!
+    return null
 
 }
 

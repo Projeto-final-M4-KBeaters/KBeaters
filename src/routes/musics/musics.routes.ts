@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { listAllMusicsByGenrerController, deleteMusicController, listAllMusicsByPerformerController, musicsPostController, listUniqueMusicController, listAllMusicsController, patchMusicsController } from "../../controllers";
 import { ensureAuthIsAdmOrOwnerMiddleware, ensureAuthIsPerformerMiddleware, ensureAuthMiddleware, ensureDataIsValidMiddleware, ensureExistsGenreMiddleware, ensureMusicIdIsValidMiddleware, ensureMusicNameNotExistsMiddleware, ensureUUIDIsValidMiddleware } from "../../middlewares";
-import { musicPatchRequestSerializer, musicPatchSerializer, musicsRequestSerializer } from "../../serializers/musics";
+import { musicPatchRequestSerializer, musicsRequestSerializer } from "../../serializers/musics";
 
 const musicsRoutes = Router();
 
@@ -17,7 +17,7 @@ musicsRoutes.get("", listAllMusicsController)
 musicsRoutes.get("/performer/:id", ensureUUIDIsValidMiddleware,  listAllMusicsByPerformerController)
 musicsRoutes.get("/genres/:id", ensureUUIDIsValidMiddleware, ensureExistsGenreMiddleware, listAllMusicsByGenrerController)
 musicsRoutes.get("/:id", ensureUUIDIsValidMiddleware, listUniqueMusicController)
-musicsRoutes.delete("/:id",ensureAuthMiddleware, ensureAuthIsAdmOrOwnerMiddleware, deleteMusicController)
-musicsRoutes.patch("/:id", ensureAuthMiddleware,ensureDataIsValidMiddleware(musicPatchRequestSerializer),ensureMusicIdIsValidMiddleware,ensureUUIDIsValidMiddleware,ensureAuthIsAdmOrOwnerMiddleware,ensureAuthIsPerformerMiddleware,patchMusicsController)
+musicsRoutes.delete("/:id",ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureAuthIsAdmOrOwnerMiddleware, deleteMusicController)
+musicsRoutes.patch("/:id", ensureAuthMiddleware, ensureUUIDIsValidMiddleware, ensureDataIsValidMiddleware(musicPatchRequestSerializer),ensureMusicIdIsValidMiddleware,ensureUUIDIsValidMiddleware,ensureAuthIsAdmOrOwnerMiddleware,ensureAuthIsPerformerMiddleware,patchMusicsController)
 
 export default musicsRoutes;

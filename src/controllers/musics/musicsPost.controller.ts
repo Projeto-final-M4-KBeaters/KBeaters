@@ -3,9 +3,9 @@ import { IMusicRequest } from "../../interfaces/musics";
 import { musicsPostService } from "../../services";
 
 const musicsPostController = async (req: Request, res: Response) => {
-    const [data, response] = await musicsPostService(req)
+    const response = await musicsPostService(req)
 
-    return res.status(data).json(response)
+    return res.status(201).json(response)
 }
 
 export default musicsPostController;

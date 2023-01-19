@@ -1,45 +1,39 @@
-import { IMusicByAlbumResponse, IPerformer, IMusicResponse } from "../musics"
-import { Musics } from "../../entities/musics.entities"
+import { IMusicByAlbumOrPlaylistResponse } from "../musics"
+import { IUserResponseSimplified } from "../users"
 
-interface IAlbumRequest{
+interface IAlbumRequest {
     name: string
 }
 
-interface IAlbumResponse{
+interface IAlbumResponse {
     id: string,
     name: string,
     duration?: string,
+    isActive: boolean
     createdAt: Date
+    updatedAt: Date
+
 }
 
-// interface IListMusicByAlbumResponse{
-//     id: string,
-//     name: string,
-//     duration: string,
-//     createdAt: Date,
-//     musics: IMusicByAlbumResponse[],
-//     performer: IPerformer
-// }
-
-interface IlistAlbumResponse{
-    id:string,
-    name:string,
-    duration:string,
-    performer: IPerformer
-    musics: IMusicByAlbumResponse[]
-    createdAt:Date
+interface IlistAlbumResponse {
+    id: string,
+    name: string,
+    duration: string,
+    performer: IUserResponseSimplified
+    musics: IMusicByAlbumOrPlaylistResponse[]
+    createdAt: Date
+    updatedAt: Date
+    isActive: boolean
 }
-interface teste{
-    id:string | undefined,
-    name:string | undefined,
-    duration:string | undefined,
-    musics: IMusicByAlbumResponse[] | undefined
-    createdAt:Date | undefined
-}
-interface IlistAllAlbumsByPerformerResponse{
-    id:string
-    name:string 
-    albums: []
+interface IlistAllAlbumsByPerformerResponse {
+    id: string
+    name: string
+    albums?: IlistAlbumResponse[]
 }
 
-export { IAlbumRequest, IAlbumResponse,teste, IlistAlbumResponse, IlistAllAlbumsByPerformerResponse}
+export {
+    IAlbumRequest,
+    IAlbumResponse,
+    IlistAlbumResponse,
+    IlistAllAlbumsByPerformerResponse
+}

@@ -18,7 +18,7 @@ const ensureAuthIsAdmOrOwnerMiddleware = async (req: Request, res:Response, next
             throw new AppError("Music not exist", 403)  
     }
 
-    if(musics.isActive){
+    if(!musics.isActive){
         throw new AppError("music has already been deleted", 403)
     }
 

@@ -1,62 +1,48 @@
 import { Genres } from "../../entities/genres.entities"
 import { Users } from "../../entities/users.entities"
+import { IGenreResponse } from "../genres"
+import { IUserResponseSimplified } from "../users"
 
 interface IMusicRequest {
     name: string
     duration: string
     genreId: string
-    featsId: string[]
-}
-
-interface IMusicResponse {
-    name: string
-    duration: string
-    createdAt: Date
-    updatedAt: Date
-    performer: IPerformer
-    genre: IGenre
-    feats: IPerformer[]
-    
-}
-interface IPerformer {
-    id: string
-    name: string
-}
-
-interface IGenre{
-    id: string
-    name: string
-}
-
-interface IListMusicsByPerformer {
-    id: string
-}
-
-interface IMusicPatchRequest{
-    id?:string
-    name?: string
-    duration?: string
-    genreId?: string
-    performerId?: string
     featsId?: string[]
 }
 
-interface IMusicPatchResponse{
+interface IMusicResponse {
+    id: string
     name: string
     duration: string
     createdAt: Date
     updatedAt: Date
-    performer: IPerformer
-    genre: IGenre
+    isActive: boolean
+    performer: IUserResponseSimplified
+    feats?: IUserResponseSimplified[]
+    genre: IGenreResponse
 }
 
-interface IMusicByAlbumResponse {
+interface IMusicPatchRequest {
+    name?: string
+    genreId?: string
+}
+
+interface IMusicPatchResponse {
+    name: string
+    duration: string
+    createdAt: Date
+    updatedAt: Date
+    performer: IUserResponseSimplified
+    genre: IGenreResponse
+}
+
+interface IMusicByAlbumOrPlaylistResponse {
     id: string
     name: string
     duration: string
 }
 
-interface IMusic{
+interface IMusicResponseSimples {
     id: string
     name: string
 }
@@ -64,10 +50,8 @@ interface IMusic{
 export {
     IMusicRequest,
     IMusicResponse,
-    IMusicPatchResponse,
-    IListMusicsByPerformer,
-    IPerformer,
     IMusicPatchRequest,
-    IMusicByAlbumResponse,
-    IMusic
+    IMusicByAlbumOrPlaylistResponse,
+    IMusicPatchResponse,
+    IMusicResponseSimples
 }

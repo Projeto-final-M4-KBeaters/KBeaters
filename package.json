@@ -12,7 +12,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env NODE_ENV=test SECRET_KEY=totalmenteSecreta! jest"
+    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest --verbose --runInBand"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",

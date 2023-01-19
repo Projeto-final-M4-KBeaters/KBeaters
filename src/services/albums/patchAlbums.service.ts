@@ -2,10 +2,10 @@ import { Request } from "express";
 import AppDataSource from "../../data-source";
 import { Albums } from "../../entities/albuns.entities";
 import { AppError } from "../../errors";
-import { IAlbumRequest } from "../../interfaces/albums";
-import { listResponseSerializer } from "../../serializers/albums";
+import { IAlbumResponse } from "../../interfaces/albums";
+import { listAlbumResponseSerializer } from "../../serializers/albums";
 
-const patchAlbumService = async (req: Request) => {
+const patchAlbumService = async (req: Request): Promise<IAlbumResponse> => {
     const albumsRepo = AppDataSource.getRepository(Albums);
     const album = await albumsRepo.findOne({
         relations: {
@@ -26,7 +26,7 @@ const patchAlbumService = async (req: Request) => {
         const { name } = req.body;
         album.name = name;
         await albumsRepo.save(album);
-        const response = listResponseSerializer.validate(album, {
+        const response = listAlbumResponseSerializer.validate(album, {
             stripUnknown: true
         })
         return response
