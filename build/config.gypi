@@ -380,7 +380,7 @@
     "v8_trace_maps": 0,
     "v8_use_siphash": 1,
     "want_separate_host_toolset": 0,
-    "nodedir": "C:\\Users\\mathe\\AppData\\Local\\node-gyp\\Cache\\18.12.1",
+    "nodedir": "C:\\Users\\igorv\\AppData\\Local\\node-gyp\\Cache\\18.12.1",
     "standalone_static_library": 1,
     "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe",
     "bin_links": "true",
