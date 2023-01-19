@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../../controllers");
+const middlewares_1 = require("../../middlewares");
+const musics_1 = require("../../serializers/musics");
+const musicsRoutes = (0, express_1.Router)();
+musicsRoutes.post("", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureAuthIsPerformerMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(musics_1.musicsRequestSerializer), middlewares_1.ensureMusicNameNotExistsMiddleware, controllers_1.musicsPostController);
+musicsRoutes.get("", controllers_1.listAllMusicsController);
+musicsRoutes.get("/performer/:id", middlewares_1.ensureUUIDIsValidMiddleware, controllers_1.listAllMusicsByPerformerController);
+musicsRoutes.get("/genres/:id", middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureExistsGenreMiddleware, controllers_1.listAllMusicsByGenrerController);
+musicsRoutes.get("/:id", middlewares_1.ensureUUIDIsValidMiddleware, controllers_1.listUniqueMusicController);
+musicsRoutes.delete("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAuthIsAdmOrOwnerMiddleware, controllers_1.deleteMusicController);
+musicsRoutes.patch("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(musics_1.musicPatchRequestSerializer), middlewares_1.ensureMusicIdIsValidMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAuthIsAdmOrOwnerMiddleware, middlewares_1.ensureAuthIsPerformerMiddleware, controllers_1.patchMusicsController);
+exports.default = musicsRoutes;

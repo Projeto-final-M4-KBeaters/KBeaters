@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mockedPatchAlbum = exports.mockedPerformerRegisterFake = exports.mockedInvalidUUID = exports.mockedAlbumPost = exports.mockedGenrePost = exports.mockedPerformerRegister = exports.mockedAdminRegister = exports.mockedUserRegister = exports.mockedUserLogin = exports.mockedPerformerLogin = exports.mockedAdminLogin = void 0;
+const integration_1 = require("./integration");
+Object.defineProperty(exports, "mockedPatchAlbum", { enumerable: true, get: function () { return integration_1.mockedPatchAlbum; } });
+Object.defineProperty(exports, "mockedPerformerRegisterFake", { enumerable: true, get: function () { return integration_1.mockedPerformerRegisterFake; } });
+Object.defineProperty(exports, "mockedGenrePost", { enumerable: true, get: function () { return integration_1.mockedGenrePost; } });
+Object.defineProperty(exports, "mockedAdminLogin", { enumerable: true, get: function () { return integration_1.mockedAdminLogin; } });
+Object.defineProperty(exports, "mockedAdminRegister", { enumerable: true, get: function () { return integration_1.mockedAdminRegister; } });
+Object.defineProperty(exports, "mockedPerformerLogin", { enumerable: true, get: function () { return integration_1.mockedPerformerLogin; } });
+Object.defineProperty(exports, "mockedPerformerRegister", { enumerable: true, get: function () { return integration_1.mockedPerformerRegister; } });
+Object.defineProperty(exports, "mockedUserLogin", { enumerable: true, get: function () { return integration_1.mockedUserLogin; } });
+Object.defineProperty(exports, "mockedUserRegister", { enumerable: true, get: function () { return integration_1.mockedUserRegister; } });
+Object.defineProperty(exports, "mockedAlbumPost", { enumerable: true, get: function () { return integration_1.mockedAlbumPost; } });
+Object.defineProperty(exports, "mockedInvalidUUID", { enumerable: true, get: function () { return integration_1.mockedInvalidUUID; } });

@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../../controllers");
+const listAllAlbums_controller_1 = __importDefault(require("../../controllers/albums/listAllAlbums.controller"));
+const middlewares_1 = require("../../middlewares");
+const albums_1 = require("../../serializers/albums");
+const albumsRoutes = (0, express_1.Router)();
+albumsRoutes.post("", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureAuthIsPerformerMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(albums_1.albumPostSerializer), controllers_1.registerAlbumController);
+albumsRoutes.get("", listAllAlbums_controller_1.default);
+albumsRoutes.get("/:id", middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAlbumIdIsValidMiddleware, controllers_1.listAlbumController);
+albumsRoutes.get("/performer/:id", middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureUserToBeSearchedIsPerformerMiddleware, controllers_1.listAllAlbumsByPerformerController);
+albumsRoutes.post("/add/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAuthIsPerformerMiddleware, middlewares_1.ensureAuthIsAdmOrOwnerProvidedMiddleware, controllers_1.addMusicToAlbumsController);
+albumsRoutes.patch("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAuthIsPerformerMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(albums_1.albumPostSerializer), controllers_1.patchAlbumController);
+albumsRoutes.delete("/remove/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureAuthIsPerformerMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAuthIsAdmOrOwnerProvidedMiddleware, controllers_1.removeMusicFromAlbumController);
+albumsRoutes.delete("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, controllers_1.deleteAlbumController);
+exports.default = albumsRoutes;

@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../../controllers");
+const registerPlaylists_controller_1 = __importDefault(require("../../controllers/playlists/registerPlaylists.controller"));
+const middlewares_1 = require("../../middlewares");
+const playlists_1 = require("../../serializers/playlists");
+const playlistsRoutes = (0, express_1.Router)();
+playlistsRoutes.post("", middlewares_1.ensureAuthMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(playlists_1.playlistPostSerializer), registerPlaylists_controller_1.default);
+playlistsRoutes.post("/add/:id", middlewares_1.ensureAuthMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(playlists_1.playlistAddMusicSerializer), middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensurePlaylistExistsMiddleware, middlewares_1.ensureAdminOrOwnerPlaylistMiddleware, controllers_1.addMusicsToPlaylistController);
+playlistsRoutes.get("", controllers_1.listAllPlaylistsController);
+playlistsRoutes.get("/:id", middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensurePlaylistExistsMiddleware, controllers_1.listUniquePlaylistController);
+playlistsRoutes.get("/users/:id", middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureUserIdPlaylistIsValidMiddleware, controllers_1.listUserPlaylistController);
+playlistsRoutes.patch("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(playlists_1.playlistPostSerializer), middlewares_1.ensurePlaylistExistsMiddleware, middlewares_1.ensureAdminOrOwnerPlaylistMiddleware, controllers_1.patchPlaylistsController);
+playlistsRoutes.delete("/remove/:id", middlewares_1.ensureAuthMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(playlists_1.playlistAddMusicSerializer), middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensurePlaylistExistsMiddleware, middlewares_1.ensureAdminOrOwnerPlaylistMiddleware, controllers_1.removeMusicsFromPlaylistController);
+playlistsRoutes.delete("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensurePlaylistExistsMiddleware, middlewares_1.ensureAdminOrOwnerPlaylistMiddleware, controllers_1.deletePlaylistController);
+exports.default = playlistsRoutes;

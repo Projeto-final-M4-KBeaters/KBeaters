@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+require("express-async-errors");
+require("reflect-metadata");
+const express_1 = __importDefault(require("express"));
+const errors_1 = require("./errors");
+const routes_1 = require("./routes");
+const albums_routes_1 = __importDefault(require("./routes/albums/albums.routes"));
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use("/admin", routes_1.adminRoutes);
+app.use("/users", routes_1.userRoutes);
+app.use("/login", routes_1.loginRoutes);
+app.use("/genres", routes_1.genresRoutes);
+app.use("/musics", routes_1.musicsRoutes);
+app.use("/albums", albums_routes_1.default);
+app.use("/playlists", routes_1.playlistsRoutes);
+app.use(errors_1.handleError);
+exports.default = app;

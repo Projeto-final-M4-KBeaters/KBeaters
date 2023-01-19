@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../../controllers");
+const middlewares_1 = require("../../middlewares");
+const users_1 = require("../../serializers/users");
+const userRoutes = (0, express_1.Router)();
+userRoutes.post("", (0, middlewares_1.ensureDataIsValidMiddleware)(users_1.userSerializer), controllers_1.registerUserController);
+userRoutes.get("", controllers_1.listAllUsersController);
+userRoutes.get("/performer", controllers_1.listAllPerformersController);
+userRoutes.get("/:id", middlewares_1.ensureUserIdIsValidMiddleware, controllers_1.listUserController);
+userRoutes.patch("/reactivate", (0, middlewares_1.ensureDataIsValidMiddleware)(users_1.loginSerializer), controllers_1.reactivateUsersController);
+userRoutes.delete("/:id", middlewares_1.ensureAuthMiddleware, middlewares_1.ensureAuthAdminOrSelfMiddleware, middlewares_1.ensureUserIdIsValidMiddleware, middlewares_1.ensureUserIsActiveMiddleware, controllers_1.deleteUserController);
+userRoutes.patch("/:id", (0, middlewares_1.ensureDataIsValidMiddleware)(users_1.userPatchRequestSerializer), middlewares_1.ensureUUIDIsValidMiddleware, middlewares_1.ensureAuthMiddleware, middlewares_1.ensureAuthAdminOrSelfMiddleware, middlewares_1.ensureBodyExistsMiddleware, middlewares_1.ensureUserIdIsValidMiddleware, middlewares_1.ensureEmailNotExistsMiddleware, controllers_1.patchUserController);
+exports.default = userRoutes;
