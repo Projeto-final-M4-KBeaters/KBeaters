@@ -10,5 +10,4 @@ export default {
     "**/__tests__/**/*.[jt]s?(x)", // .ts / .js
     "**/?(*.)+(spec|test).[jt]s?(x)", // *.spec/test.ts / *.spec/test.js
   ],
-  modulePathIgnorePatterns: ["mocks", "dist"]
 };

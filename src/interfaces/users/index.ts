@@ -7,7 +7,7 @@ interface IUserRequest{
     name: string
     password: string
     email: string
-    isPerformer: boolean
+    isPerformer?: boolean
 }
 
 interface IUserResponse{

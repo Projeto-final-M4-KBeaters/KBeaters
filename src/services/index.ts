@@ -9,24 +9,6 @@ import genrePostService from "./genres/genresPost.service";
 import reactiveUserService from "./users/reactivateUsers.service";
 import listUniqueGenreService from "./genres/listUniqueGenre.service";
 import registerAdminService from "./admin/registerAdmin.service";
-import listAllMusicsByGenrerService from "./musics/listAllMusicsByGenrer.service";
-import listAllMusicsService from "./musics/listAllMusics.service";
-import listUniqueMusicService from "./musics/listUniqueMusic.service";
-import musicsPostService from "./musics/musicsPost.service";
-import deleteMusicService from "./musics/deleteMusic.service";
-import listAllMusicsByPerformerService from "./musics/listAllMusicsByPerformer.service";
-import registerAlbumService from "./albums/registerAlbums.service";
-import patchMusicService from "./musics/patchMusic.service";
-import listAlbumService from "./albums/listAlbum.service";
-import listAllAlbumsService from "./albums/listAllAlbums.service";
-import addMusicsToAlbumService from "./albums/addMusicsToAlbums.service";
-import patchAlbumService from "./albums/patchAlbums.service";
-import removeMusicFromAlbumService from "./albums/removeMusicsToAlbum.service";
-import deleteAlbumService from "./albums/deleteAlbum.service";
-import listAllAlbumsByPerformerService from "./albums/listAllAlbumsByPerformer.service";
-import registerPlaylistsService from "./playlists/registerAlbums.service";
-import listAllPlaylistsService from "./playlists/listAllPlaylists.service";
-import listUserPlaylistService from "./playlists/listUserPlaylist.service";
 
 export{
     registerUserService, 
@@ -39,23 +21,5 @@ export{
     genrePostService,
     reactiveUserService,
     listUniqueGenreService,
-    registerAdminService,
-    listAllMusicsByGenrerService,
-    musicsPostService,
-    deleteMusicService,
-    listAllMusicsByPerformerService,
-    listAllMusicsService,
-    listUniqueMusicService,
-    registerAlbumService,
-    patchMusicService,
-    listAlbumService,
-    listAllAlbumsService,
-    addMusicsToAlbumService,
-    patchAlbumService,
-    removeMusicFromAlbumService,
-    deleteAlbumService,
-    listAllAlbumsByPerformerService,
-    registerPlaylistsService,
-    listAllPlaylistsService,
-    listUserPlaylistService
+    registerAdminService
 };

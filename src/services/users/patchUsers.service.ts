@@ -19,8 +19,6 @@ const patchUserService = async (userDataUpdated: IUserPatchRequest, userData: IU
 
     const user = await userRepo.save(newUser)
 
-    
-
     const returnedData = await userRegisterResponseSerializer.validate(user, {
         stripUnknown: true
     })

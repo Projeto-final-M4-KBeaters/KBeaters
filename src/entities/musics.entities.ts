@@ -1,9 +1,9 @@
-import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, ManyToOne, ManyToMany, OneToMany, JoinTable, UpdateDateColumn, DeleteDateColumn} from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column, CreateDateColumn, ManyToOne, ManyToMany, OneToMany, JoinTable} from "typeorm";
 import { Albums } from "./albuns.entities";
 import { Genres } from "./genres.entities";
 import { Likes } from "./likes.entities";
+import { PerformersToMusics } from "./performers_musics.entities";
 import { Playlists } from "./playlists.entities";
-import { Users } from "./users.entities";
 //import { PlaylistsToMusics } from "./playlists_musics.entities";
 
 @Entity("musics")
@@ -14,39 +14,27 @@ class Musics{
     @Column({length: 100})
     name: string
 
-    @Column({ type: "time" })
-    duration: string
-    
-    @Column({ default: true })
-    isActive: boolean
-    
-    @ManyToMany(() => Albums, albums => albums.musics)
-    albums: Albums[]
-    
-    @ManyToOne(() => Genres, genres => genres.musics)
-    genre: Genres
-    
-    @OneToMany(() => Likes, likes => likes.music)
-    likes: Likes
-    
-    @ManyToMany(() => Playlists, playlists => playlists.musics)
-    playlists: Playlists[]
-    
-    @ManyToOne(() => Users, performer => performer.musics)
-    performer: Users
-    
-    @ManyToMany(() => Users, performers => performers.feats)
-    @JoinTable({
-        name: "musicsFeats"
-    })
-    feats: Users[]
+    @Column({length: 150})
+    duration:string
 
-    
     @CreateDateColumn()
     createdAt: Date
-    
-    @UpdateDateColumn()
-    updatedAt: Date
+
+    @ManyToOne(() => Albums, albums => albums.musics)
+    albums: Albums
+
+    @ManyToOne(() => Genres, genres => genres.musics)
+    genres: Genres
+
+    @ManyToOne(() => Likes, likes => likes.musics)
+    likes: Likes
+
+    @ManyToMany(() => Playlists, playlists => playlists.musics)
+    @JoinTable()
+    playlists: Playlists
+
+    @OneToMany(() => PerformersToMusics, performersToMusics => performersToMusics.musics)
+    performerToMusics: PerformersToMusics
 }
 
 export {Musics};
