@@ -10,12 +10,15 @@ const listAllAlbumsService = async (): Promise<IAlbumResponse[]> => {
         relations: {
             musics: true,
             performer: true
+        },
+        order: {
+            isActive: 'desc'
         }
     })
 
-    const returnedData = await listAlbumResponseArray.validate(listAlbums, 
+    const returnedData = await listAlbumResponseArray.validate(listAlbums,
         {
-        stripUnknown: true
+            stripUnknown: true
         }
     )
 

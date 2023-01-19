@@ -1,18 +1,18 @@
-import { IMusicByAlbumOrPlaylistResponse } from "../musics"
+import { IMusicByAlbumOrPlaylistResponse, IMusicResponse } from "../musics"
 
 interface IUserLogin {
     email: string
     password: string
 }
 
-interface IUserRequest{
+interface IUserRequest {
     name: string
     password: string
     email: string
     isPerformer: boolean
 }
 
-interface IUserResponse{
+interface IUserResponse {
     id: string
     name: string
     email: string
@@ -23,31 +23,39 @@ interface IUserResponse{
     updatedAt: Date
 }
 
-interface IUserResponseSimplified{
+interface IUserResponseSimplified {
     id: string
     name: string
 }
-interface IUserPatchRequest{
+interface IUserPatchRequest {
     name?: string
     email?: string
     password?: string
     isPerformer?: boolean
 }
 
-interface IUserPlaylistResponse{
+interface IUserPlaylistResponse {
     id: string,
     name: string,
     duration: string,
     createdAt: string,
     updatedAt: string,
-    musics: IMusicByAlbumOrPlaylistResponse[]
+    musics?: IMusicByAlbumOrPlaylistResponse[]
 }
-
-export { 
-    IUserLogin, 
-    IUserRequest, 
-    IUserResponse, 
+interface IUserMusicsResponse {
+    id: string,
+    name: string,
+    createdAt: Date,
+    updatedAt: Date,
+    isActive: boolean,
+    musics?: IMusicByAlbumOrPlaylistResponse[]
+}
+export {
+    IUserLogin,
+    IUserRequest,
+    IUserResponse,
     IUserPatchRequest,
     IUserResponseSimplified,
-    IUserPlaylistResponse
+    IUserPlaylistResponse,
+    IUserMusicsResponse
 }

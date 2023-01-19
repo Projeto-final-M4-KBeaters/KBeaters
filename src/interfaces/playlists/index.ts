@@ -5,7 +5,7 @@ interface IPlaylistRequest {
     name: string
 }
 
-interface IPlaylistsResponse{
+interface IPlaylistsResponse {
     id: string,
     name: string,
     duration: string,
@@ -15,19 +15,19 @@ interface IPlaylistsResponse{
     updatedAt: Date
 }
 
-interface IPlaylistsUserResponse{
+interface IPlaylistsUserResponse {
     id: string,
     name: string,
-    playlists: IUserPlaylistResponse[]
+    playlists?: IUserPlaylistResponse[]
 }
 
 interface IPlaylistAddOrRemoveMusicRequest {
     id: string
 }
 
-export { 
-    IPlaylistRequest, 
-    IPlaylistsResponse, 
-    IPlaylistsUserResponse, 
-    IPlaylistAddOrRemoveMusicRequest 
+export {
+    IPlaylistRequest,
+    IPlaylistsResponse,
+    IPlaylistsUserResponse,
+    IPlaylistAddOrRemoveMusicRequest
 }

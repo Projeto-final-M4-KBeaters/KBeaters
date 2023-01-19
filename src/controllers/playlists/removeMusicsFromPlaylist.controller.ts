@@ -4,7 +4,7 @@ import { addMusicsToPlaylistService, removeMusicsFromPlaylistsService } from "..
 const removeMusicsFromPlaylistController = async (req: Request, res: Response) => {
     const response = await removeMusicsFromPlaylistsService(req);
 
-    return res.status(200).json(response);
+    return res.status(204).json(response);
 }
 
 export default removeMusicsFromPlaylistController;

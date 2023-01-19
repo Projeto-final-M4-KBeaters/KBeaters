@@ -2,7 +2,7 @@ import { DataSource, Repository } from "typeorm";
 import app from "../../../app";
 import request from "supertest"
 import AppDataSource from "../../../data-source";
-import { Albums } from "../../../entities/albuns.entities"
+import { Playlists } from "../../../entities/playlists.entities"
 import { mockedAdminLogin, mockedAdminRegister, mockedAlbumPost, mockedGenrePost, mockedInvalidUUID, mockedPatchAlbum, mockedPerformerLogin, mockedPerformerRegister, mockedPerformerRegisterFake, mockedUserLogin, mockedUserRegister } from "../../mocks";
 import { Users } from "../../../entities/users.entities";
 import { Musics } from "../../../entities/musics.entities";
@@ -11,9 +11,9 @@ import { IMusicRequest } from "../../../interfaces/musics";
 import { response } from "express";
 import { IPlaylistAddOrRemoveMusicRequest } from "../../../interfaces/playlists";
 
-describe("/albums", () => {
+describe("/playlists", () => {
     let connection: DataSource;
-    let albumsRepo: Repository<Albums>;
+    let playlistsRepo: Repository<Playlists>;
     let userRepo: Repository<Users>;
     let musicsRepo: Repository<Musics>;
     let genreRepo: Repository<Genres>;
@@ -22,7 +22,7 @@ describe("/albums", () => {
     beforeAll(async () => {
         await AppDataSource.initialize().then((res) => {
             connection = res
-            albumsRepo = connection.getRepository(Albums);
+            playlistsRepo = connection.getRepository(Playlists);
             userRepo = connection.getRepository(Users);
             musicsRepo = connection.getRepository(Musics);
             genreRepo = connection.getRepository(Genres);
@@ -38,8 +38,8 @@ describe("/albums", () => {
     beforeEach(async () => {
         const musics = await musicsRepo.find();
         await musicsRepo.remove(musics);
-        const albums = await albumsRepo.find();
-        await albumsRepo.remove(albums)
+        const playlists = await playlistsRepo.find();
+        await playlistsRepo.remove(playlists)
         const genres = await genreRepo.find();
         await genreRepo.remove(genres);
         const users = await userRepo.find();
@@ -52,95 +52,84 @@ describe("/albums", () => {
         await connection.destroy()
     });
 
-    test("POST /albums - should be able to create album", async () => {
+    test("POST /playlists - should be able to create playlist", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userLoginResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const response = await request(app).post("/albums").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
+        const response = await request(app).post("/playlists").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
 
         expect(response.body.name).toEqual("Festinha na piscina")
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("duration")
         expect(response.body).toHaveProperty("createdAt")
-        expect(response.body).toHaveProperty("performer")
-        expect(response.body.performer.name).toEqual("lucas")
+        expect(response.body).toHaveProperty("user")
+        expect(response.body.user.name).toEqual("lucas")
         expect(response.status).toBe(201)
     })
 
-    test("POST /albums - should not be able to create album if not performer", async () => {
-        await request(app).post("/users").send(mockedUserRegister)
-
-        const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
-
-        const response = await request(app).post("/albums").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
-
-        expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(403)
-    })
-
-    test("GET /albums - should be able to list all albums", async () => {
+    test("GET /playlists - should be able to list all playlists", async () => {
 
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userLoginResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        await request(app).post("/albums").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
+        await request(app).post("/playlists").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
 
-        const response = await request(app).get("/albums").send()
+        const response = await request(app).get("/playlists").send()
 
         expect(response.body).toHaveProperty("map")
         expect(response.status).toBe(200)
 
     })
 
-    test("GET /albums - should be able to list a unique album by id", async () => {
+    test("GET /playlists - should be able to list a unique playlist by id", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userLoginResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const album = await request(app).post("/albums").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
+        const playlist = await request(app).post("/playlists").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
 
-        const response = await request(app).get(`/albums/${album.body.id}`).send()
+        const response = await request(app).get(`/playlists/${playlist.body.id}`).send()
 
-        expect(response.body.id).toEqual(album.body.id)
+        expect(response.body.id).toEqual(playlist.body.id)
         expect(response.status).toBe(200)
 
     })
 
-    test("GET /albums - should not be able to list a unique album by invalid UUID", async () => {
+    test("GET /playlists - should not be able to list a unique playlist by invalid UUID", async () => {
 
 
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userLoginResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        await request(app).post("/albums").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
+        await request(app).post("/playlists").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
 
-        const response = await request(app).get(`/albums/${"notUUID"}`).send()
+        const response = await request(app).get(`/playlists/${"notUUID"}`).send()
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(409)
     })
 
-    test("GET /albums - should not be able to list a unique album by don't exists", async () => {
+    test("GET /playlists - should not be able to list a unique playlist by don't exists", async () => {
 
-        const response = await request(app).get(`/albums/${mockedInvalidUUID}`).send()
+        const response = await request(app).get(`/playlists/${mockedInvalidUUID}`).send()
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(404)
     })
 
-    test("GET /albums - should be able to list all albums of Performer by id", async () => {
+    test("GET /playlists - should be able to list all playlists of Performer by id", async () => {
 
         const createUserPerformer = await request(app).post("/users").send(mockedPerformerRegister)
 
 
         const userLoginResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        await request(app).post("/albums").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
+        await request(app).post("/playlists").set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAlbumPost)
 
-        const response = await request(app).get(`/albums/performer/${createUserPerformer.body.id}`).send()
+        const response = await request(app).get(`/playlists/users/${createUserPerformer.body.id}`).send()
 
 
 
@@ -149,29 +138,21 @@ describe("/albums", () => {
 
     })
 
-    test("GET /albums - should not be able to list all albums of Performer by invalid UUID", async () => {
+    test("GET /playlists - should not be able to list all playlists of Performer by invalid UUID", async () => {
 
-        const response = await request(app).get(`/albums/performer/${"invalidUUID"}`).send()
+        const response = await request(app).get(`/playlists/users/${"invalidUUID"}`).send()
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(409)
 
     })
 
-    test("GET /albums - should not be able to list all albums of not Performer", async () => {
-
-        const response = await request(app).get(`/albums/performer/${mockedInvalidUUID}`).send()
-
-        expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(400)
-    })
-
-    test("POST /albums - should be able to add music in album", async () => {
+    test("POST /playlists - should be able to add music in playlist", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -190,7 +171,7 @@ describe("/albums", () => {
             id: createMusic.body.id
         }
 
-        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
 
 
         expect(addMusicAlbum.body.musics[0].id).toEqual(idMusicToAdd.id)
@@ -198,14 +179,14 @@ describe("/albums", () => {
         expect(addMusicAlbum.status).toBe(201)
     });
 
-    test("POST /albums - should not be able to add Music with invalid Album Id", async () => {
+    test("POST /playlists - should not be able to add Music with invalid Album Id", async () => {
 
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
 
 
@@ -226,20 +207,20 @@ describe("/albums", () => {
             id: createMusic.body.id
         }
 
-        const addMusicAlbum = await request(app).post(`/albums/add/${"invalidUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlbum = await request(app).post(`/playlists/add/${"invalidUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
 
         expect(addMusicAlbum.body).toHaveProperty("message")
         expect(addMusicAlbum.status).toBe(409)
     })
 
-    test("POST /albums - should not be able to add Music with not exists Album Id", async () => {
+    test("POST /playlists - should not be able to add Music with not exists Album Id", async () => {
 
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
 
 
@@ -260,18 +241,18 @@ describe("/albums", () => {
             id: createMusic.body.id
         }
 
-        const addMusicAlbum = await request(app).post(`/albums/add/${"invalidUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlbum = await request(app).post(`/playlists/add/${"invalidUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
 
         expect(addMusicAlbum.body).toHaveProperty("message")
         expect(addMusicAlbum.status).toBe(409)
     })
 
-    test("POST /albums - should not be able to add Music with invalid Music Id", async () => {
+    test("POST /playlists - should not be able to add Music with invalid Music Id", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -290,18 +271,18 @@ describe("/albums", () => {
             id: "invalidUUID"
         }
 
-        const addMusicAlbum = await request(app).post(`/albums/add/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlbum = await request(app).post(`/playlists/add/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
 
         expect(addMusicAlbum.body).toHaveProperty("message")
         expect(addMusicAlbum.status).toBe(409)
     })
 
-    test("POST /albums - should not be able to add Music that already exists", async () => {
+    test("POST /playlists - should not be able to add Music that already exists", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -320,21 +301,21 @@ describe("/albums", () => {
             id: createMusic.body.id
         }
 
-        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const addMusicAlreadyAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const addMusicAlreadyAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
 
         expect(addMusicAlreadyAlbum.body).toHaveProperty("message")
         expect(addMusicAlreadyAlbum.status).toBe(409)
     })
 
-    test("POST /albums - should not be able to add Music without been the Owner", async () => {
+    test("POST /playlists - should not be able to add Music without been the Owner", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
         await request(app).post("/users").send(mockedPerformerRegisterFake)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
         const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -354,19 +335,19 @@ describe("/albums", () => {
             id: createMusic.body.id
         }
 
-        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(idMusicToAdd)
+        const addMusicAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(idMusicToAdd)
 
 
         expect(addMusicAlbum.body).toHaveProperty("message")
         expect(addMusicAlbum.status).toBe(403)
     })
 
-    test("DELETE /albums - should be able to remove music from album", async () => {
+    test("DELETE /playlists - should be able to remove music from playlist", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -384,9 +365,9 @@ describe("/albums", () => {
         const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: createMusic.body.id
         }
-        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const deleteMusicAlbum = await request(app).delete(`/albums/remove/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const musicAlbum = await request(app).get(`/albums/${createAlbum.body.id}`).send()
+        const addMusicAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const deleteMusicAlbum = await request(app).delete(`/playlists/remove/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const musicAlbum = await request(app).get(`/playlists/${createAlbum.body.id}`).send()
 
 
 
@@ -394,12 +375,12 @@ describe("/albums", () => {
         expect(deleteMusicAlbum.status).toBe(204)
     });
 
-    test("DELETE /albums - should not be able to remove music from album with INVALID Album Id", async () => {
+    test("DELETE /playlists - should not be able to remove music from playlist with INVALID Album Id", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -417,9 +398,9 @@ describe("/albums", () => {
         const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: createMusic.body.id
         }
-        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const deleteMusicAlbum = await request(app).delete(`/albums/remove/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const musicAlbum = await request(app).get(`/albums/${createAlbum.body.id}`).send()
+        const addMusicAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const deleteMusicAlbum = await request(app).delete(`/playlists/remove/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const musicAlbum = await request(app).get(`/playlists/${createAlbum.body.id}`).send()
 
 
 
@@ -428,12 +409,12 @@ describe("/albums", () => {
         expect(deleteMusicAlbum.status).toBe(409)
     });
 
-    test("DELETE /albums - should not be able to remove music from album with not exists album id", async () => {
+    test("DELETE /playlists - should not be able to remove music from playlist with not exists playlist id", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -451,9 +432,9 @@ describe("/albums", () => {
         const idMusicToAdd: IPlaylistAddOrRemoveMusicRequest = {
             id: createMusic.body.id
         }
-        const addMusicAlbum = await request(app).post(`/albums/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const deleteMusicAlbum = await request(app).delete(`/albums/remove/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
-        const musicAlbum = await request(app).get(`/albums/${createAlbum.body.id}`).send()
+        const addMusicAlbum = await request(app).post(`/playlists/add/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const deleteMusicAlbum = await request(app).delete(`/playlists/remove/${"notUUID"}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(idMusicToAdd)
+        const musicAlbum = await request(app).get(`/playlists/${createAlbum.body.id}`).send()
 
 
 
@@ -462,14 +443,14 @@ describe("/albums", () => {
         expect(deleteMusicAlbum.status).toBe(409)
     });
 
-    test("DELETE /albums - should not be able to remove Music without been the Owner", async () => {
+    test("DELETE /playlists - should not be able to remove Music without been the Owner", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
         await request(app).post("/users").send(mockedPerformerRegisterFake)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
         const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
@@ -489,66 +470,66 @@ describe("/albums", () => {
             id: createMusic.body.id
         }
 
-        const removeMusicAlbum = await request(app).delete(`/albums/remove/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(idMusicToAdd)
+        const removeMusicAlbum = await request(app).delete(`/playlists/remove/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(idMusicToAdd)
 
 
         expect(removeMusicAlbum.body).toHaveProperty("message")
         expect(removeMusicAlbum.status).toBe(403)
     })
 
-    test("PATCH /albums - should be able to change the album name", async () => {
+    test("PATCH /playlists - should be able to change the playlist name", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
         const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
 
-        const changeAlbumName = await request(app).patch(`/albums/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedPatchAlbum)
+        const changeAlbumName = await request(app).patch(`/playlists/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedPatchAlbum)
 
         expect(changeAlbumName.body.name).toEqual("Sem Festas Hoje")
         expect(changeAlbumName.status).toBe(200)
 
     });
 
-    test("PATCH /albums - should not be able to change the name without the correct Owner", async () => {
+    test("PATCH /playlists - should not be able to change the name without the correct Owner", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
         await request(app).post("/users").send(mockedPerformerRegisterFake)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
         const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
         const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
 
-        const changeAlbumName = await request(app).patch(`/albums/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(mockedPatchAlbum)
+        const changeAlbumName = await request(app).patch(`/playlists/${createAlbum.body.id}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(mockedPatchAlbum)
 
 
         expect(changeAlbumName.body).toHaveProperty("message")
-        expect(changeAlbumName.status).toBe(400)
+        expect(changeAlbumName.status).toBe(403)
 
     });
 
-    test("PATCH /albums - should not be able to change album name with invalid UUID", async () => {
+    test("PATCH /playlists - should not be able to change playlist name with invalid UUID", async () => {
         await request(app).post("/users").send(mockedPerformerRegister)
         await request(app).post("/users").send(mockedPerformerRegisterFake)
 
         const userPerfomerResponse = await request(app).post("/login").send(mockedPerformerLogin)
         const userPerfomerResponseFake = await request(app).post("/login").send(mockedUserLogin)
 
-        const createAlbum = await request(app).post("/albums").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
+        const createAlbum = await request(app).post("/playlists").set("Authorization", `Bearer ${userPerfomerResponse.body.token}`).send(mockedAlbumPost)
 
         const createUserAdmim = await request(app).post("/admin").send(mockedAdminRegister)
         const userAdmLogin = await request(app).post("/login").send(mockedAdminLogin);
         const createGenre = await request(app).post("/genres").set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedGenrePost)
 
-        const changeAlbumName = await request(app).patch(`/albums/${"NotUUID"}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(mockedPatchAlbum)
+        const changeAlbumName = await request(app).patch(`/playlists/${"NotUUID"}`).set("Authorization", `Bearer ${userPerfomerResponseFake.body.token}`).send(mockedPatchAlbum)
 
 
         expect(changeAlbumName.body).toHaveProperty("message")

@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source"
 import { Playlists } from "../../entities/playlists.entities"
 
-const deletePLaylistService = async (playlistId: string): Promise<object> => {
+const deletePLaylistService = async (playlistId: string): Promise<null> => {
     const playlistRepo = AppDataSource.getRepository(Playlists)
 
     const playlist = await playlistRepo.findOne({
@@ -18,7 +18,7 @@ const deletePLaylistService = async (playlistId: string): Promise<object> => {
 
     await playlistRepo.save(playlist!)
 
-    return {}
+    return null
 }
 
 export default deletePLaylistService
